@@ -1,0 +1,122 @@
+[
+  {
+    "book_id": "58283080",
+    "position": "1",
+    "name": "Hook, Line, and Sinker (Bellinger Sisters, #2)",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1627068858i/58283080.jpg",
+    "rating": 3.95,
+    "url": "https://www.goodreads.com/book/show/58283080-hook-line-and-sinker"
+  },
+  {
+    "book_id": "58438583",
+    "position": "2",
+    "name": "One Italian Summer",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1626799802i/58438583.jpg",
+    "rating": 3.6,
+    "url": "https://www.goodreads.com/book/show/58438583-one-italian-summer"
+  },
+  {
+    "book_id": "57693416",
+    "position": "3",
+    "name": "The Golden Couple",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1633973719i/57693416.jpg",
+    "rating": 3.99,
+    "url": "https://www.goodreads.com/book/show/57693416-the-golden-couple"
+  },
+  {
+    "book_id": "60306208",
+    "position": "4",
+    "name": "A Million Kisses in Your Lifetime (Lancaster Prep, #2)",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1644500865i/60306208.jpg",
+    "rating": 3.8,
+    "url": "https://www.goodreads.com/book/show/60306208-a-million-kisses-in-your-lifetime"
+  },
+  {
+    "book_id": "57815107",
+    "position": "5",
+    "name": "The War of Two Queens (Blood and Ash, #4)",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1635174962i/57815107.jpg",
+    "rating": 4.08,
+    "url": "https://www.goodreads.com/book/show/57815107-the-war-of-two-queens"
+  },
+  {
+    "book_id": "58064046",
+    "position": "6",
+    "name": "Gallant",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1635862579i/58064046.jpg",
+    "rating": 3.73,
+    "url": "https://www.goodreads.com/book/show/58064046-gallant"
+  },
+  {
+    "book_id": "58371432",
+    "position": "7",
+    "name": "The Book of Cold Cases",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1624553583i/58371432.jpg",
+    "rating": 3.79,
+    "url": "https://www.goodreads.com/book/show/58371432-the-book-of-cold-cases"
+  },
+  {
+    "book_id": "58490567",
+    "position": "8",
+    "name": "The Diamond Eye",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1641777418i/58490567.jpg",
+    "rating": 4.29,
+    "url": "https://www.goodreads.com/book/show/58490567-the-diamond-eye"
+  },
+  {
+    "book_id": "58419108",
+    "position": "9",
+    "name": "Mr. Wrong Number (Mr. Wrong Number, #1)",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1642686516i/58419108.jpg",
+    "rating": 3.71,
+    "url": "https://www.goodreads.com/book/show/58419108-mr-wrong-number"
+  },
+  {
+    "book_id": "55004093",
+    "position": "10",
+    "name": "The Cartographers",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1634915484i/55004093.jpg",
+    "rating": 3.64,
+    "url": "https://www.goodreads.com/book/show/55004093-the-cartographers"
+  },
+  {
+    "book_id": "57693427",
+    "position": "11",
+    "name": "The Night Shift",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1639384101i/57693427.jpg",
+    "rating": 3.92,
+    "url": "https://www.goodreads.com/book/show/57693427-the-night-shift"
+  },
+  {
+    "book_id": "57007401",
+    "position": "12",
+    "name": "Dating Dr. Dil (If Shakespeare Was an Auntie, #1)",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1642405300i/57007401.jpg",
+    "rating": 3.63,
+    "url": "https://www.goodreads.com/book/show/57007401-dating-dr-dil"
+  },
+  {
+    "book_id": "60040033",
+    "position": "13",
+    "name": "Consider Me (Playing For Keeps, #1)",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1641407730i/60040033.jpg",
+    "rating": 4.01,
+    "url": "https://www.goodreads.com/book/show/60040033-consider-me"
+  },
+  {
+    "book_id": "58659343",
+    "position": "14",
+    "name": "Our Wives Under the Sea",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1633437192i/58659343.jpg",
+    "rating": 3.81,
+    "url": "https://www.goodreads.com/book/show/58659343-our-wives-under-the-sea"
+  },
+  {
+    "book_id": "58505877",
+    "position": "15",
+    "name": "Run, Rose, Run",
+    "cover": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1628699768i/58505877.jpg",
+    "rating": 3.82,
+    "url": "https://www.goodreads.com/book/show/58505877-run-rose-run"
+  }
+]

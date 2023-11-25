@@ -1,0 +1,62 @@
+[
+    {
+        "book_id": 62080187,
+        "name": "Never Lie",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1661428846l/62080187._SY475_.jpg",
+        "url": "https://www.goodreads.com/book/show/62080187-never-lie"
+    },
+    {
+        "book_id": 57795665,
+        "name": "The Locked Door",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1618859577l/57795665._SY475_.jpg",
+        "url": "https://www.goodreads.com/book/show/57795665-the-locked-door"
+    },
+    {
+        "book_id": 80830635,
+        "name": "Don't Let Her Stay",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1674147285l/80830635._SY475_.jpg",
+        "url": "https://www.goodreads.com/book/show/80830635-don-t-let-her-stay"
+    },
+    {
+        "book_id": 54197718,
+        "name": "One by One",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1592705582l/54197718._SY475_.jpg",
+        "url": "https://www.goodreads.com/book/show/54197718-one-by-one"
+    },
+    {
+        "book_id": 181478167,
+        "name": "The Lover",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1692350081l/181478167._SY475_.jpg",
+        "url": "https://www.goodreads.com/book/show/181478167-the-lover"
+    },
+    {
+        "book_id": 123193218,
+        "name": "Ward D",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1678127541l/123193218._SY475_.jpg",
+        "url": "https://www.goodreads.com/book/show/123193218-ward-d"
+    },
+    {
+        "book_id": 65916344,
+        "name": "Holly",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1674418461l/65916344.jpg",
+        "url": "https://www.goodreads.com/book/show/65916344-holly"
+    },
+    {
+        "book_id": 63910262,
+        "name": "Two Twisted Crowns",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1670090073l/63910262._SY475_.jpg",
+        "url": "https://www.goodreads.com/book/show/63910262-two-twisted-crowns"
+    },
+    {
+        "book_id": 65213595,
+        "name": "Starling House",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1682447293l/65213595.jpg",
+        "url": "https://www.goodreads.com/book/show/65213595-starling-house"
+    },
+    {
+        "book_id": 42285449,
+        "name": "Artie and the Wolf Moon",
+        "cover": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1620347033l/42285449.jpg",
+        "url": "https://www.goodreads.com/book/show/42285449-artie-and-the-wolf-moon"
+    }
+]

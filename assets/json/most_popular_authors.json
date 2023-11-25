@@ -1,0 +1,272 @@
+[
+  {
+    "author_id": 3389,
+    "name": "Stephen King",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1362814142i/3389._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/3389.Stephen_King",
+    "popular_book_title": "The Shining",
+    "popular_book_url": "https://www.goodreads.com/book/show/11588.The_Shining",
+    "number_published_books": 2567
+  },
+  {
+    "author_id": 5430144,
+    "name": "Colleen Hoover",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1464032240i/5430144._UY150_CR0,0,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/5430144.Colleen_Hoover",
+    "popular_book_title": "It Ends with Us",
+    "popular_book_url": "https://www.goodreads.com/book/show/27362503-it-ends-with-us",
+    "number_published_books": 80
+  },
+  {
+    "author_id": 3433047,
+    "name": "Sarah J. Maas",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1582137198i/3433047._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/3433047.Sarah_J_Maas",
+    "popular_book_title": "A Court of Thorns and Roses",
+    "popular_book_url": "https://www.goodreads.com/book/show/16096824-a-court-of-thorns-and-roses",
+    "number_published_books": 89
+  },
+  {
+    "author_id": 15872,
+    "name": "Rick Riordan",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1679846356i/15872._UX150_CR0,0,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/15872.Rick_Riordan",
+    "popular_book_title": "The Lightning Thief",
+    "popular_book_url": "https://www.goodreads.com/book/show/28187.The_Lightning_Thief",
+    "number_published_books": 214
+  },
+  {
+    "author_id": 150038,
+    "name": "Cassandra Clare",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1689347318i/150038._UX150_CR0,24,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/150038.Cassandra_Clare",
+    "popular_book_title": "City of Bones",
+    "popular_book_url": "https://www.goodreads.com/book/show/256683.City_of_Bones",
+    "number_published_books": 187
+  },
+  {
+    "author_id": 3780,
+    "name": "James Patterson",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1468347205i/3780._UY150_CR19,0,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/3780.James_Patterson",
+    "popular_book_title": "Along Came a Spider",
+    "popular_book_url": "https://www.goodreads.com/book/show/13145.Along_Came_a_Spider",
+    "number_published_books": 1621
+  },
+  {
+    "author_id": 1406384,
+    "name": "John Green",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1353452301i/1406384._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/1406384.John_Green",
+    "popular_book_title": "The Fault in Our Stars",
+    "popular_book_url": "https://www.goodreads.com/book/show/11870085-the-fault-in-our-stars",
+    "number_published_books": 385
+  },
+  {
+    "author_id": 1221698,
+    "name": "Neil Gaiman",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1234150163i/1221698._UX150_CR0,0,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/1221698.Neil_Gaiman",
+    "popular_book_title": "American Gods",
+    "popular_book_url": "https://www.goodreads.com/book/show/30165203-american-gods",
+    "number_published_books": 2071
+  },
+  {
+    "author_id": 6572605,
+    "name": "Taylor Jenkins Reid",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1645653842i/6572605._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/6572605.Taylor_Jenkins_Reid",
+    "popular_book_title": "The Seven Husbands of Evelyn Hugo",
+    "popular_book_url": "https://www.goodreads.com/book/show/32620332-the-seven-husbands-of-evelyn-hugo",
+    "number_published_books": 24
+  },
+  {
+    "author_id": 630,
+    "name": "Dan Brown",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1399396714i/630._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/630.Dan_Brown",
+    "popular_book_title": "Angels & Demons",
+    "popular_book_url": "https://www.goodreads.com/book/show/960.Angels_Demons",
+    "number_published_books": 440
+  },
+  {
+    "author_id": 2345,
+    "name": "Nicholas Sparks",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1652281333i/2345._UX150_CR0,34,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/2345.Nicholas_Sparks",
+    "popular_book_title": "The Notebook",
+    "popular_book_url": "https://www.goodreads.com/book/show/15931.The_Notebook",
+    "number_published_books": 390
+  },
+  {
+    "author_id": 38550,
+    "name": "Brandon Sanderson",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1394044556i/38550._UX150_CR0,23,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/38550.Brandon_Sanderson",
+    "popular_book_title": "The Final Empire",
+    "popular_book_url": "https://www.goodreads.com/book/show/68428.The_Final_Empire",
+    "number_published_books": 422
+  },
+  {
+    "author_id": 4039811,
+    "name": "Veronica Roth",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1588707274i/4039811._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/4039811.Veronica_Roth",
+    "popular_book_title": "Divergent",
+    "popular_book_url": "https://www.goodreads.com/book/show/13335037-divergent",
+    "number_published_books": 76
+  },
+  {
+    "author_id": 4575289,
+    "name": "Leigh Bardugo",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1534446099i/4575289._UX150_CR0,58,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/4575289.Leigh_Bardugo",
+    "popular_book_title": "Six of Crows",
+    "popular_book_url": "https://www.goodreads.com/book/show/23437156-six-of-crows",
+    "number_published_books": 77
+  },
+  {
+    "author_id": 721,
+    "name": "John Grisham",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1650547491i/721._UX150_CR0,2,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/721.John_Grisham",
+    "popular_book_title": "A Time to Kill",
+    "popular_book_url": "https://www.goodreads.com/book/show/32542.A_Time_to_Kill",
+    "number_published_books": 827
+  },
+  {
+    "author_id": 4476934,
+    "name": "Jennifer L. Armentrout",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1552568126i/4476934._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/4476934.Jennifer_L_Armentrout",
+    "popular_book_title": "From Blood and Ash",
+    "popular_book_url": "https://www.goodreads.com/book/show/52831200-from-blood-and-ash",
+    "number_published_books": 139
+  },
+  {
+    "author_id": 7128,
+    "name": "Jodi Picoult",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1657141143i/7128._UX150_CR0,24,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/7128.Jodi_Picoult",
+    "popular_book_title": "My Sister's Keeper",
+    "popular_book_url": "https://www.goodreads.com/book/show/10917.My_Sister_s_Keeper",
+    "number_published_books": 110
+  },
+  {
+    "author_id": 625,
+    "name": "Nora Roberts",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1505847251i/625._UX150_CR0,1,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/625.Nora_Roberts",
+    "popular_book_title": "Vision in White",
+    "popular_book_url": "https://www.goodreads.com/book/show/5598113-vision-in-white",
+    "number_published_books": 1661
+  },
+  {
+    "author_id": 2383,
+    "name": "Gillian Flynn",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1232123231i/2383._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/2383.Gillian_Flynn",
+    "popular_book_title": "Gone Girl",
+    "popular_book_url": "https://www.goodreads.com/book/show/19288043-gone-girl",
+    "number_published_books": 29
+  },
+  {
+    "author_id": 54493,
+    "name": "Kristin Hannah",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1517255843i/54493._UX150_CR0,33,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/54493.Kristin_Hannah",
+    "popular_book_title": "The Nightingale",
+    "popular_book_url": "https://www.goodreads.com/book/show/21853621-the-nightingale",
+    "number_published_books": 125
+  },
+  {
+    "author_id": 25422,
+    "name": "Holly Black",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1692906898i/25422._UY150_CR30,0,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/25422.Holly_Black",
+    "popular_book_title": "The Cruel Prince",
+    "popular_book_url": "https://www.goodreads.com/book/show/26032825-the-cruel-prince",
+    "number_published_books": 176
+  },
+  {
+    "author_id": 13905555,
+    "name": "Emily Henry",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1573928938i/13905555._UX150_CR0,0,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/13905555.Emily_Henry",
+    "popular_book_title": "People We Meet on Vacation",
+    "popular_book_url": "https://www.goodreads.com/book/show/54985743-people-we-meet-on-vacation",
+    "number_published_books": 14
+  },
+  {
+    "author_id": 569,
+    "name": "Khaled Hosseini",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1359753468i/569._UX150_CR0,23,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/569.Khaled_Hosseini",
+    "popular_book_title": "The Kite Runner",
+    "popular_book_url": "https://www.goodreads.com/book/show/77203.The_Kite_Runner",
+    "number_published_books": 40
+  },
+  {
+    "author_id": 3472,
+    "name": "Margaret Atwood",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1282859073i/3472._UX150_CR0,23,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/3472.Margaret_Atwood",
+    "popular_book_title": "The Handmaid’s Tale",
+    "popular_book_url": "https://www.goodreads.com/book/show/38447.The_Handmaid_s_Tale",
+    "number_published_books": 595
+  },
+  {
+    "author_id": 566,
+    "name": "Paulo Coelho",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1201840056i/566._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/566.Paulo_Coelho",
+    "popular_book_title": "The Alchemist",
+    "popular_book_url": "https://www.goodreads.com/book/show/865.The_Alchemist",
+    "number_published_books": 346
+  },
+  {
+    "author_id": 2987125,
+    "name": "Kiera Cass",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1318605410i/2987125._UX150_CR0,6,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/2987125.Kiera_Cass",
+    "popular_book_title": "The Selection",
+    "popular_book_url": "https://www.goodreads.com/book/show/10507293-the-selection",
+    "number_published_books": 70
+  },
+  {
+    "author_id": 4725841,
+    "name": "E.L. James",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1549477398i/4725841._UX150_CR0,25,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/4725841.E_L_James",
+    "popular_book_title": "Fifty Shades of Grey",
+    "popular_book_url": "https://www.goodreads.com/book/show/10818853-fifty-shades-of-grey",
+    "number_published_books": 56
+  },
+  {
+    "author_id": 6556689,
+    "name": "Christina Lauren",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1554664497i/6556689._UX150_CR0,0,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/6556689.Christina_Lauren",
+    "popular_book_title": "The Unhoneymooners",
+    "popular_book_url": "https://www.goodreads.com/book/show/42201431-the-unhoneymooners",
+    "number_published_books": 112
+  },
+  {
+    "author_id": 2384,
+    "name": "Janet Evanovich",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1478729372i/2384._UX150_CR0,34,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/2384.Janet_Evanovich",
+    "popular_book_title": "One for the Money",
+    "popular_book_url": "https://www.goodreads.com/book/show/6853.One_for_the_Money",
+    "number_published_books": 289
+  },
+  {
+    "author_id": 322069,
+    "name": "Liane Moriarty",
+    "image": "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1459827224i/322069._UX150_CR0,37,150,150_RO75,1,255,255,255,255,255,255,15_.jpg",
+    "url": "https://www.goodreads.com/author/show/322069.Liane_Moriarty",
+    "popular_book_title": "Big Little Lies",
+    "popular_book_url": "https://www.goodreads.com/book/show/19486412-big-little-lies",
+    "number_published_books": 38
+  }
+]
