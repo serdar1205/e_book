@@ -71,7 +71,8 @@ class HomePage extends StatelessWidget {
                 locator<ThemeServices>().switchTheme();
               },
               icon: const Icon(Icons.wb_sunny_outlined)),
-        )
+        ),
+      //  ChangeTheme(),
       ],
       centerTitle: true,
     );

@@ -124,7 +124,7 @@ void main() {
     });
 
     testWidgets(
-        'AuthorInfoCard, BookDescription, AuthorsMoreBooksCard should render when state is AuthorInfoLoaded',
+        'AuthorInfoCard, BookDescription  should render when state is AuthorInfoLoaded',
         (WidgetTester tester) async {
       when(authorInfoBloc.state)
           .thenReturn(const AuthorInfoLoaded(authorInfoEntity));

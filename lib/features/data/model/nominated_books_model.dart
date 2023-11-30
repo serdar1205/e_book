@@ -2,6 +2,7 @@ import 'package:e_book/features/domain/entity/nominated_books_entity.dart';
 
 class NominatedBooksModel extends NominatedBooksEntity {
   const NominatedBooksModel({
+    int? id,
     int? bookId,
     String? bookName,
     String? author,
@@ -9,6 +10,7 @@ class NominatedBooksModel extends NominatedBooksEntity {
     String? image,
     String? url,
   }) : super(
+          id: id,
           bookId: bookId,
           bookName: bookName,
           author: author,
@@ -30,7 +32,6 @@ class NominatedBooksModel extends NominatedBooksEntity {
       'url': url,
     };
   }
-
 
   factory NominatedBooksModel.fromMap(Map<String, dynamic> map) {
     return NominatedBooksModel(

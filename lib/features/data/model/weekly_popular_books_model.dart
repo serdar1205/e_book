@@ -2,11 +2,13 @@ import 'package:e_book/features/domain/entity/weekly_popular_books_entity.dart';
 
 class WeeklyPopularBooksModel extends WeeklyPopularBooksEntity {
   const WeeklyPopularBooksModel({
+    int? id,
     int? bookId,
     String? name,
     String? image,
     String? url,
   }) : super(
+    id: id,
           bookId: bookId,
           name: name,
           image: image,

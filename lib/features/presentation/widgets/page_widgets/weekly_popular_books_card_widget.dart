@@ -1,3 +1,4 @@
+import 'package:e_book/core/routers/app_router.dart';
 import 'package:e_book/core/routers/app_routes.dart';
 import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart';
 import 'package:e_book/features/presentation/screens/screens.dart';
@@ -8,7 +9,8 @@ import '../../../../core/sizes/app_text.dart';
 import '../../../domain/entity/weekly_popular_books_entity.dart';
 
 class WeeklyPopularBooksCardWidget extends StatelessWidget {
-  const WeeklyPopularBooksCardWidget({super.key, required this.weeklyPopularBooksEntity});
+  const WeeklyPopularBooksCardWidget(
+      {super.key, required this.weeklyPopularBooksEntity});
 
   final WeeklyPopularBooksEntity weeklyPopularBooksEntity;
 
@@ -17,13 +19,13 @@ class WeeklyPopularBooksCardWidget extends StatelessWidget {
     return Material(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: InkWell(
-        onTap:(){
+        onTap: () {
+          appRouter
+              .push(BookDetailsRoute(bookId: weeklyPopularBooksEntity.bookId!));
 
-         // Navigator.of(context).pushNamed(AppRoutesConstant.mostPopularBooksRoute);
-        Navigator.of(context).push( MaterialPageRoute(builder: (_) =>
-            BookDetailsPage(bookId: weeklyPopularBooksEntity.bookId!)));
-
-        context.read<BookDetailsBloc>().add(GetBookDetails(weeklyPopularBooksEntity.bookId!));
+          context
+              .read<BookDetailsBloc>()
+              .add(GetBookDetails(weeklyPopularBooksEntity.bookId!));
         },
         child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),

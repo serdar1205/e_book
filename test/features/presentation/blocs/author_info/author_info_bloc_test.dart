@@ -78,24 +78,19 @@ void main() {
           verify(useCase.execute(authorId));
         });
 
-     blocTest('should emit [AuthorInfoLoading, AuthorInfoError] when data is unsuccessful',
-         build: (){
-       when(useCase.execute(any))
-           .thenThrow('Something went wrong');
-           return authorInfoBloc;
-         },
-        act: (bloc)=>bloc.add(GetAuthorInfo(authorId!)),
-       expect: ()=>[
-         const AuthorInfoLoading(),
-         const AuthorInfoError('Something went wrong'),
-       ] ,
-       verify: (bloc){
-       verify(useCase.execute(authorId));
-       }
-
-     );
-
-
-
+    blocTest(
+        'should emit [AuthorInfoLoading, AuthorInfoError] when data is unsuccessful',
+        build: () {
+          when(useCase.execute(any)).thenThrow('Something went wrong');
+          return authorInfoBloc;
+        },
+        act: (bloc) => bloc.add(GetAuthorInfo(authorId!)),
+        expect: () => [
+              const AuthorInfoLoading(),
+              const AuthorInfoError('Something went wrong'),
+            ],
+        verify: (bloc) {
+          verify(useCase.execute(authorId));
+        });
   });
 }

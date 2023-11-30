@@ -18,10 +18,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initLocator();
   await GetStorage.init();
-  // await Hive.initFlutter();
-  // await Hive.openBox('most_popular_authors_box');
-  //  final localCache = MostPopularAuthorsCache();
-  // await localCache.initHive();
   runApp(const MyApp());
 }
 

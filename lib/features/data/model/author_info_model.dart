@@ -2,6 +2,7 @@ import 'package:e_book/features/domain/entity/author_info_entity.dart';
 
 class AuthorInfoModel extends AuthorInfoEntity {
   const AuthorInfoModel({
+    int? id,
     int? authorId,
     String? name,
     String? image,
@@ -12,6 +13,7 @@ class AuthorInfoModel extends AuthorInfoEntity {
     //  String? died,
     List<AuthorBooks>? authorBooks,
   }) : super(
+          id: id,
           authorId: authorId,
           name: name,
           image: image,
@@ -55,6 +57,7 @@ class AuthorInfoModel extends AuthorInfoEntity {
 
   @override
   List<Object?> get props => [
+        id,
         authorId,
         name,
         image,

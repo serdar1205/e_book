@@ -1,8 +1,15 @@
 import 'package:e_book/core/themes/app_theme.dart';
+import 'package:e_book/features/data/datasource/local/authors_cache.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'core/networks/network_info.dart';
+import 'features/data/datasource/local/author_info_cache.dart';
+import 'features/data/datasource/local/awarded_books_cache.dart';
+import 'features/data/datasource/local/book_detail_cache.dart';
+import 'features/data/datasource/local/most_popular_books_cache.dart';
+import 'features/data/datasource/local/nominated_books_cache.dart';
+import 'features/data/datasource/local/weekly_popular_books_cache.dart';
 import 'features/data/datasource/remote/remote_datasources.dart';
 import 'features/data/repository/repositories_impl.dart';
 import 'features/domain/repositories/repositories.dart';
@@ -20,6 +27,7 @@ final locator = GetIt.instance;
 Future<void> initLocator() async {
   ///network
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator()));
+
   ///theme
   locator.registerLazySingleton<ThemeServices>(() => ThemeServices());
 
@@ -50,36 +58,85 @@ Future<void> initLocator() async {
       () => BookDetailsRemoteDataSourceImpl(client: locator()));
 
   /// local cache
-  //locator.registerSingleton<MostPopularAuthorsCache>(MostPopularAuthorsCache());
+  final database =
+      await $FloorAuthorsCache.databaseBuilder('authors.db').build();
+  locator.registerSingleton<AuthorsCache>(database);
+
+  //awarded
+  final awardedBooksCache =
+      await $FloorAwardedBooksCache.databaseBuilder('awarded_books.db').build();
+  locator.registerSingleton<AwardedBooksCache>(awardedBooksCache);
+  //p b
+  final mostPopularBooksCache = await $FloorMostPopularBooksCache
+      .databaseBuilder('most_popular_books.db')
+      .build();
+  locator.registerSingleton<MostPopularBooksCache>(mostPopularBooksCache);
+  //n b
+  final nominatedBooksCache = await $FloorNominatedBooksCache
+      .databaseBuilder('nominated_books.db')
+      .build();
+  locator.registerSingleton<NominatedBooksCache>(nominatedBooksCache);
+  //w b
+  final weeklyPopularBooksCache = await $FloorWeeklyPopularBooksCache
+      .databaseBuilder('weekly_popular_books.db')
+      .build();
+  locator.registerSingleton<WeeklyPopularBooksCache>(weeklyPopularBooksCache);
+  // a info
+  final authorInfoCache =
+      await $FloorAuthorInfoCache.databaseBuilder('author_info.db').build();
+  locator.registerSingleton<AuthorInfoCache>(authorInfoCache);
+
+  // book detail
+  final BookDetailCache bookDetailCache =
+      await $FloorBookDetailCache.databaseBuilder('book_detail').build();
+  locator.registerSingleton<BookDetailCache>(bookDetailCache);
 
   /// repositories
   locator.registerLazySingleton<MostPopularAuthorsRepository>(
     () => MostPopularAuthorsRepositoryImpl(
-        networkInfo: locator(),
-        mostPopularAuthorsRemoteDataSource: locator(),
-    //    localDataSource: locator(),
+      networkInfo: locator(),
+      mostPopularAuthorsRemoteDataSource: locator(),
+      authorsCache: locator(),
+      //    localDataSource: locator(),
     ),
   );
-  locator.registerLazySingleton<NominatedBooksRepository>(() =>
-      NominatedBooksRepositoryImpl(
-          networkInfo: locator(), nominatedBooksDataSource: locator()));
-  locator.registerLazySingleton<AwardedBooksRepository>(() =>
-      AwardedBooksRepositoryImpl(
-          networkInfo: locator(), remoteDataSource: locator()));
-  locator.registerLazySingleton<WeeklyPopularBooksRepository>(() =>
-      WeeklyPopularBooksRepositoryImpl(
-          networkInfo: locator(),
-          weeklyPopularBooksRemoteDataSource: locator()));
+  locator.registerLazySingleton<NominatedBooksRepository>(
+      () => NominatedBooksRepositoryImpl(
+            networkInfo: locator(),
+            nominatedBooksRemoteDataSource: locator(),
+            nominatedBooksCache: locator(),
+          ));
+  locator.registerLazySingleton<AwardedBooksRepository>(
+      () => AwardedBooksRepositoryImpl(
+            networkInfo: locator(),
+            remoteDataSource: locator(),
+            awardedBooksCache: locator(),
+          ));
+  locator.registerLazySingleton<WeeklyPopularBooksRepository>(
+      () => WeeklyPopularBooksRepositoryImpl(
+            networkInfo: locator(),
+            weeklyPopularBooksRemoteDataSource: locator(),
+            weeklyPopularBooksCache: locator(),
+          ));
 
-  locator.registerLazySingleton<MostPopularBooksRepository>(() =>
-      MostPopularBooksRepositoryImpl(
-          networkInfo: locator(), mostPopularBooksRemoteDataSource: locator()));
-  locator.registerLazySingleton<AuthorInfoRepository>(() =>
-      AuthorInfoRepositoryImpl(
-          networkInfo: locator(), authorRemoteDataSource: locator()));
-  locator.registerLazySingleton<BookDetailRepository>(() =>
-      BookDetailRepositoryImpl(
-          networkInfo: locator(), bookDetailsRemoteDataSource: locator()));
+  locator.registerLazySingleton<MostPopularBooksRepository>(
+      () => MostPopularBooksRepositoryImpl(
+            networkInfo: locator(),
+            mostPopularBooksRemoteDataSource: locator(),
+            mostPopularBooksCache: locator(),
+          ));
+  locator.registerLazySingleton<AuthorInfoRepository>(
+      () => AuthorInfoRepositoryImpl(
+            networkInfo: locator(),
+            authorRemoteDataSource: locator(),
+            authorInfoCache: locator(),
+          ));
+  locator.registerLazySingleton<BookDetailRepository>(
+      () => BookDetailRepositoryImpl(
+            networkInfo: locator(),
+            bookDetailsRemoteDataSource: locator(),
+            bookDetailCache: locator(),
+          ));
 
   /// usecase
   locator.registerLazySingleton(() => GetMostPopularAuthorsUseCase(locator()));

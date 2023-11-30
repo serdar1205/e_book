@@ -2,6 +2,7 @@ import 'package:e_book/features/domain/entity/book_detail_entity.dart';
 
 class BookDetailModel extends BookDetailEntity {
   const BookDetailModel({
+    int? id,
     int? bookId,
     String? name,
     String? image,
@@ -12,6 +13,7 @@ class BookDetailModel extends BookDetailEntity {
     String? publishedDate,
     String? synopsis,
   }) : super(
+          id: id,
           bookId: bookId,
           name: name,
           image: image,
@@ -25,6 +27,7 @@ class BookDetailModel extends BookDetailEntity {
 
   @override
   List<Object?> get props => [
+        id,
         bookId,
         name,
         image,

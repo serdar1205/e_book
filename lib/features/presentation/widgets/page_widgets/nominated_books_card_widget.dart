@@ -1,3 +1,4 @@
+import 'package:e_book/core/routers/app_router.dart';
 import 'package:e_book/core/routers/app_routes.dart';
 import 'package:e_book/core/sizes/app_text.dart';
 import 'package:e_book/features/domain/entity/nominated_books_entity.dart';
@@ -19,10 +20,9 @@ class NominatedBooksCardWidget extends StatelessWidget {
       color: Theme.of(context).scaffoldBackgroundColor,
       child: InkWell(
         onTap:(){
-         // Navigator.of(context).pushNamed(AppRoutesConstant.mostPopularBooksRoute);
 
-          Navigator.of(context).push( MaterialPageRoute(builder: (_) =>
-              BookDetailsPage(bookId: nominatedBooksEntity.bookId!)));
+
+          appRouter.push(BookDetailsRoute(bookId: nominatedBooksEntity.bookId!));
 
           context.read<BookDetailsBloc>().add(GetBookDetails(nominatedBooksEntity.bookId!));
         },

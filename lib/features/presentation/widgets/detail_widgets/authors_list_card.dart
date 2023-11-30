@@ -1,3 +1,4 @@
+import 'package:e_book/core/routers/app_router.dart';
 import 'package:e_book/core/routers/app_routes.dart';
 import 'package:e_book/core/sizes/app_text.dart';
 import 'package:e_book/features/domain/entity/most_popular_authors_entity.dart';
@@ -16,13 +17,11 @@ class AuthorsListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: InkWell(
         onTap: () {
-         // Navigator.of(context).pushNamed(AppRoutesConstant.authorInfoRoute);
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => AuthorsInfoPage(
-                    authorId: authorsEntity.authorId!,
-                  )));
+
+          appRouter.push(AuthorsInfoRoute(authorId: authorsEntity.authorId!));
 
           context
               .read<AuthorInfoBloc>()

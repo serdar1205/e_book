@@ -116,10 +116,6 @@ abstract class AppTheme {
 
 /// theme mode controller
 
-
-
-
-
 class ThemeServices {
   final _box = GetStorage();
   final _key = "isDarkMode";

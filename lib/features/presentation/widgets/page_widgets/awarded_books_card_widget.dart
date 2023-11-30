@@ -1,3 +1,4 @@
+import 'package:e_book/core/routers/app_router.dart';
 import 'package:e_book/core/routers/app_routes.dart';
 import 'package:e_book/core/sizes/app_text.dart';
 import 'package:e_book/features/domain/entity/awarded_books_entity.dart';
@@ -13,19 +14,18 @@ class AwardedBooksCardWidget extends StatelessWidget {
 
   final AwardedBooksEntity awardedBooksEntity;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: InkWell(
-        onTap: (){
-         // Navigator.of(context).pushNamed(AppRoutesConstant.bookDetailsRoute);
-          Navigator.of(context).push( MaterialPageRoute(builder: (_) =>
-              BookDetailsPage(bookId: awardedBooksEntity.bookId!)));
+        onTap: () {
 
-          context.read<BookDetailsBloc>().add(GetBookDetails(awardedBooksEntity.bookId!));
+          appRouter.push(BookDetailsRoute(bookId: awardedBooksEntity.bookId!));
+
+          context
+              .read<BookDetailsBloc>()
+              .add(GetBookDetails(awardedBooksEntity.bookId!));
         },
         child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),

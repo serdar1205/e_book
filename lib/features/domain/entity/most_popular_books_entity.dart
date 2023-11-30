@@ -1,8 +1,11 @@
-// Annotate a Dart class to create a box
 import 'package:equatable/equatable.dart';
+import 'package:floor/floor.dart';
 
+
+@Entity(tableName: 'most_popular_books', primaryKeys: ['id'])
 class MostPopularBooksEntity extends Equatable {
   const MostPopularBooksEntity({
+    this.id,
     this.bookId,
     this.name,
     this.image,
@@ -10,6 +13,7 @@ class MostPopularBooksEntity extends Equatable {
     this.rating,
   });
 
+  final int? id;
   final int? bookId;
   final String? name;
   final String? image;

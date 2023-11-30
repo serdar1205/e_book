@@ -2,12 +2,14 @@ import 'package:e_book/features/domain/entity/most_popular_books_entity.dart';
 
 class MostPopularBooksModel extends MostPopularBooksEntity {
   const MostPopularBooksModel({
+    int? id,
     int? bookId,
     String? name,
     String? image,
     double? rating,
     String? url,
   }) : super(
+          id: id,
           bookId: bookId,
           name: name,
           image: image,
@@ -28,10 +30,10 @@ class MostPopularBooksModel extends MostPopularBooksEntity {
   factory MostPopularBooksModel.fromMap(Map<String, dynamic> map) {
     return MostPopularBooksModel(
       bookId: int.parse(map['book_id']),
-      name: map['name'] ,
+      name: map['name'],
       image: map['cover'],
       rating: map['rating'],
-      url: map['url'] ,
+      url: map['url'],
     );
   }
 

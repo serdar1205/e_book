@@ -3,74 +3,103 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i26;
-import 'dart:convert' as _i27;
-import 'dart:typed_data' as _i29;
+import 'dart:async' as _i4;
+import 'dart:convert' as _i35;
+import 'dart:typed_data' as _i37;
 
-import 'package:bloc/bloc.dart' as _i39;
-import 'package:dartz/dartz.dart' as _i4;
-import 'package:e_book/core/errors/errors.dart' as _i38;
-import 'package:e_book/core/networks/network_info.dart' as _i30;
-import 'package:e_book/features/data/datasource/remote/author_info_remote_api.dart'
-    as _i31;
-import 'package:e_book/features/data/datasource/remote/awarded_books_remote_api.dart'
-    as _i32;
-import 'package:e_book/features/data/datasource/remote/book_detail_remote_api.dart'
-    as _i33;
-import 'package:e_book/features/data/datasource/remote/most_popular_author_remote_api.dart'
-    as _i34;
-import 'package:e_book/features/data/datasource/remote/most_popular_books_remote_api.dart'
-    as _i35;
-import 'package:e_book/features/data/datasource/remote/nominated_books_remote_api.dart'
-    as _i36;
-import 'package:e_book/features/data/datasource/remote/weekly_popular_books_remote_api.dart'
-    as _i37;
-import 'package:e_book/features/domain/entity/entity.dart' as _i3;
-import 'package:e_book/features/domain/repositories/author_info_repository.dart'
-    as _i5;
-import 'package:e_book/features/domain/repositories/awarded_books_repository.dart'
+import 'package:bloc/bloc.dart' as _i54;
+import 'package:dartz/dartz.dart' as _i13;
+import 'package:e_book/core/errors/errors.dart' as _i53;
+import 'package:e_book/core/networks/network_info.dart' as _i38;
+import 'package:e_book/features/data/datasource/local/author_info_cache.dart'
+    as _i39;
+import 'package:e_book/features/data/datasource/local/authors_cache.dart'
+    as _i40;
+import 'package:e_book/features/data/datasource/local/awarded_books_cache.dart'
+    as _i41;
+import 'package:e_book/features/data/datasource/local/book_detail_cache.dart'
+    as _i42;
+import 'package:e_book/features/data/datasource/local/dao/author_info_dao.dart'
+    as _i3;
+import 'package:e_book/features/data/datasource/local/dao/authors_dao.dart'
     as _i6;
-import 'package:e_book/features/domain/repositories/book_detail_repository.dart'
+import 'package:e_book/features/data/datasource/local/dao/awarded_books_dao.dart'
     as _i7;
-import 'package:e_book/features/domain/repositories/most_popular_authors_repository.dart'
+import 'package:e_book/features/data/datasource/local/dao/book_detail_dao.dart'
     as _i8;
-import 'package:e_book/features/domain/repositories/most_popular_books_repository.dart'
+import 'package:e_book/features/data/datasource/local/dao/most_popular_books_dao.dart'
     as _i9;
-import 'package:e_book/features/domain/repositories/nominated_books_repository.dart'
+import 'package:e_book/features/data/datasource/local/dao/nominated_books_dao.dart'
     as _i10;
-import 'package:e_book/features/domain/repositories/weekly_popular_books_repository.dart'
+import 'package:e_book/features/data/datasource/local/dao/weekly_popular_books_dao.dart'
     as _i11;
-import 'package:e_book/features/domain/usecases/get_author_info_usecasae.dart'
-    as _i12;
-import 'package:e_book/features/domain/usecases/get_awarded_books_usecase.dart'
+import 'package:e_book/features/data/datasource/local/most_popular_books_cache.dart'
+    as _i43;
+import 'package:e_book/features/data/datasource/local/nominated_books_cache.dart'
+    as _i44;
+import 'package:e_book/features/data/datasource/local/weekly_popular_books_cache.dart'
+    as _i45;
+import 'package:e_book/features/data/datasource/remote/author_info_remote_api.dart'
+    as _i46;
+import 'package:e_book/features/data/datasource/remote/awarded_books_remote_api.dart'
+    as _i47;
+import 'package:e_book/features/data/datasource/remote/book_detail_remote_api.dart'
+    as _i48;
+import 'package:e_book/features/data/datasource/remote/most_popular_author_remote_api.dart'
+    as _i49;
+import 'package:e_book/features/data/datasource/remote/most_popular_books_remote_api.dart'
+    as _i50;
+import 'package:e_book/features/data/datasource/remote/nominated_books_remote_api.dart'
+    as _i51;
+import 'package:e_book/features/data/datasource/remote/weekly_popular_books_remote_api.dart'
+    as _i52;
+import 'package:e_book/features/domain/entity/entity.dart' as _i12;
+import 'package:e_book/features/domain/repositories/author_info_repository.dart'
     as _i14;
-import 'package:e_book/features/domain/usecases/get_book_detail_usecase.dart'
-    as _i16;
-import 'package:e_book/features/domain/usecases/get_most_popular_authors_usecase.dart'
-    as _i18;
-import 'package:e_book/features/domain/usecases/get_most_popular_books_usecase.dart'
-    as _i20;
-import 'package:e_book/features/domain/usecases/get_nominated_books_usecase.dart'
-    as _i22;
-import 'package:e_book/features/domain/usecases/get_weekly_popular_books_usecase.dart'
-    as _i24;
-import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart'
-    as _i13;
-import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart'
+import 'package:e_book/features/domain/repositories/awarded_books_repository.dart'
     as _i15;
-import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart'
+import 'package:e_book/features/domain/repositories/book_detail_repository.dart'
+    as _i16;
+import 'package:e_book/features/domain/repositories/most_popular_authors_repository.dart'
     as _i17;
-import 'package:e_book/features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart'
+import 'package:e_book/features/domain/repositories/most_popular_books_repository.dart'
+    as _i18;
+import 'package:e_book/features/domain/repositories/nominated_books_repository.dart'
     as _i19;
-import 'package:e_book/features/presentation/blocs/most_popular_books/most_popular_books_bloc.dart'
+import 'package:e_book/features/domain/repositories/weekly_popular_books_repository.dart'
+    as _i20;
+import 'package:e_book/features/domain/usecases/get_author_info_usecasae.dart'
     as _i21;
-import 'package:e_book/features/presentation/blocs/nominated_books/nominated_books_list_bloc.dart'
+import 'package:e_book/features/domain/usecases/get_awarded_books_usecase.dart'
     as _i23;
-import 'package:e_book/features/presentation/blocs/weekly_popular_books/weekly_popular_books_bloc.dart'
+import 'package:e_book/features/domain/usecases/get_book_detail_usecase.dart'
     as _i25;
+import 'package:e_book/features/domain/usecases/get_most_popular_authors_usecase.dart'
+    as _i27;
+import 'package:e_book/features/domain/usecases/get_most_popular_books_usecase.dart'
+    as _i29;
+import 'package:e_book/features/domain/usecases/get_nominated_books_usecase.dart'
+    as _i31;
+import 'package:e_book/features/domain/usecases/get_weekly_popular_books_usecase.dart'
+    as _i33;
+import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart'
+    as _i22;
+import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart'
+    as _i24;
+import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart'
+    as _i26;
+import 'package:e_book/features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart'
+    as _i28;
+import 'package:e_book/features/presentation/blocs/most_popular_books/most_popular_books_bloc.dart'
+    as _i30;
+import 'package:e_book/features/presentation/blocs/nominated_books/nominated_books_list_bloc.dart'
+    as _i32;
+import 'package:e_book/features/presentation/blocs/weekly_popular_books/weekly_popular_books_bloc.dart'
+    as _i34;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i28;
+import 'package:mockito/src/dummies.dart' as _i36;
+import 'package:sqflite/sqflite.dart' as _i5;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -106,9 +135,8 @@ class _FakeStreamedResponse_1 extends _i1.SmartFake
         );
 }
 
-class _FakeAuthorInfoEntity_2 extends _i1.SmartFake
-    implements _i3.AuthorInfoEntity {
-  _FakeAuthorInfoEntity_2(
+class _FakeAuthorInfoDao_2 extends _i1.SmartFake implements _i3.AuthorInfoDao {
+  _FakeAuthorInfoDao_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -117,9 +145,9 @@ class _FakeAuthorInfoEntity_2 extends _i1.SmartFake
         );
 }
 
-class _FakeBookDetailEntity_3 extends _i1.SmartFake
-    implements _i3.BookDetailEntity {
-  _FakeBookDetailEntity_3(
+class _FakeStreamController_3<T> extends _i1.SmartFake
+    implements _i4.StreamController<T> {
+  _FakeStreamController_3(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -128,8 +156,9 @@ class _FakeBookDetailEntity_3 extends _i1.SmartFake
         );
 }
 
-class _FakeEither_4<L, R> extends _i1.SmartFake implements _i4.Either<L, R> {
-  _FakeEither_4(
+class _FakeDatabaseExecutor_4 extends _i1.SmartFake
+    implements _i5.DatabaseExecutor {
+  _FakeDatabaseExecutor_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -138,9 +167,8 @@ class _FakeEither_4<L, R> extends _i1.SmartFake implements _i4.Either<L, R> {
         );
 }
 
-class _FakeAuthorInfoRepository_5 extends _i1.SmartFake
-    implements _i5.AuthorInfoRepository {
-  _FakeAuthorInfoRepository_5(
+class _FakeAuthorsDao_5 extends _i1.SmartFake implements _i6.AuthorsDao {
+  _FakeAuthorsDao_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -149,9 +177,9 @@ class _FakeAuthorInfoRepository_5 extends _i1.SmartFake
         );
 }
 
-class _FakeAwardedBooksRepository_6 extends _i1.SmartFake
-    implements _i6.AwardedBooksRepository {
-  _FakeAwardedBooksRepository_6(
+class _FakeAwardedBooksDao_6 extends _i1.SmartFake
+    implements _i7.AwardedBooksDao {
+  _FakeAwardedBooksDao_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -160,9 +188,8 @@ class _FakeAwardedBooksRepository_6 extends _i1.SmartFake
         );
 }
 
-class _FakeBookDetailRepository_7 extends _i1.SmartFake
-    implements _i7.BookDetailRepository {
-  _FakeBookDetailRepository_7(
+class _FakeBookDetailDao_7 extends _i1.SmartFake implements _i8.BookDetailDao {
+  _FakeBookDetailDao_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -171,9 +198,9 @@ class _FakeBookDetailRepository_7 extends _i1.SmartFake
         );
 }
 
-class _FakeMostPopularAuthorsRepository_8 extends _i1.SmartFake
-    implements _i8.MostPopularAuthorsRepository {
-  _FakeMostPopularAuthorsRepository_8(
+class _FakeMostPopularBooksDao_8 extends _i1.SmartFake
+    implements _i9.MostPopularBooksDao {
+  _FakeMostPopularBooksDao_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -182,9 +209,9 @@ class _FakeMostPopularAuthorsRepository_8 extends _i1.SmartFake
         );
 }
 
-class _FakeMostPopularBooksRepository_9 extends _i1.SmartFake
-    implements _i9.MostPopularBooksRepository {
-  _FakeMostPopularBooksRepository_9(
+class _FakeNominatedBooksDao_9 extends _i1.SmartFake
+    implements _i10.NominatedBooksDao {
+  _FakeNominatedBooksDao_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -193,9 +220,9 @@ class _FakeMostPopularBooksRepository_9 extends _i1.SmartFake
         );
 }
 
-class _FakeNominatedBooksRepository_10 extends _i1.SmartFake
-    implements _i10.NominatedBooksRepository {
-  _FakeNominatedBooksRepository_10(
+class _FakeWeeklyPopularBooksDao_10 extends _i1.SmartFake
+    implements _i11.WeeklyPopularBooksDao {
+  _FakeWeeklyPopularBooksDao_10(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -204,9 +231,9 @@ class _FakeNominatedBooksRepository_10 extends _i1.SmartFake
         );
 }
 
-class _FakeWeeklyPopularBooksRepository_11 extends _i1.SmartFake
-    implements _i11.WeeklyPopularBooksRepository {
-  _FakeWeeklyPopularBooksRepository_11(
+class _FakeAuthorInfoEntity_11 extends _i1.SmartFake
+    implements _i12.AuthorInfoEntity {
+  _FakeAuthorInfoEntity_11(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -215,9 +242,9 @@ class _FakeWeeklyPopularBooksRepository_11 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAuthorInfoUseCase_12 extends _i1.SmartFake
-    implements _i12.GetAuthorInfoUseCase {
-  _FakeGetAuthorInfoUseCase_12(
+class _FakeBookDetailEntity_12 extends _i1.SmartFake
+    implements _i12.BookDetailEntity {
+  _FakeBookDetailEntity_12(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -226,9 +253,8 @@ class _FakeGetAuthorInfoUseCase_12 extends _i1.SmartFake
         );
 }
 
-class _FakeAuthorInfoState_13 extends _i1.SmartFake
-    implements _i13.AuthorInfoState {
-  _FakeAuthorInfoState_13(
+class _FakeEither_13<L, R> extends _i1.SmartFake implements _i13.Either<L, R> {
+  _FakeEither_13(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -237,9 +263,9 @@ class _FakeAuthorInfoState_13 extends _i1.SmartFake
         );
 }
 
-class _FakeGetAwardedBooksUseCase_14 extends _i1.SmartFake
-    implements _i14.GetAwardedBooksUseCase {
-  _FakeGetAwardedBooksUseCase_14(
+class _FakeAuthorInfoRepository_14 extends _i1.SmartFake
+    implements _i14.AuthorInfoRepository {
+  _FakeAuthorInfoRepository_14(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -248,9 +274,9 @@ class _FakeGetAwardedBooksUseCase_14 extends _i1.SmartFake
         );
 }
 
-class _FakeAwardedBooksState_15 extends _i1.SmartFake
-    implements _i15.AwardedBooksState {
-  _FakeAwardedBooksState_15(
+class _FakeAwardedBooksRepository_15 extends _i1.SmartFake
+    implements _i15.AwardedBooksRepository {
+  _FakeAwardedBooksRepository_15(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -259,9 +285,9 @@ class _FakeAwardedBooksState_15 extends _i1.SmartFake
         );
 }
 
-class _FakeGetBookDetailsUseCase_16 extends _i1.SmartFake
-    implements _i16.GetBookDetailsUseCase {
-  _FakeGetBookDetailsUseCase_16(
+class _FakeBookDetailRepository_16 extends _i1.SmartFake
+    implements _i16.BookDetailRepository {
+  _FakeBookDetailRepository_16(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -270,9 +296,9 @@ class _FakeGetBookDetailsUseCase_16 extends _i1.SmartFake
         );
 }
 
-class _FakeBookDetailsState_17 extends _i1.SmartFake
-    implements _i17.BookDetailsState {
-  _FakeBookDetailsState_17(
+class _FakeMostPopularAuthorsRepository_17 extends _i1.SmartFake
+    implements _i17.MostPopularAuthorsRepository {
+  _FakeMostPopularAuthorsRepository_17(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -281,9 +307,9 @@ class _FakeBookDetailsState_17 extends _i1.SmartFake
         );
 }
 
-class _FakeGetMostPopularAuthorsUseCase_18 extends _i1.SmartFake
-    implements _i18.GetMostPopularAuthorsUseCase {
-  _FakeGetMostPopularAuthorsUseCase_18(
+class _FakeMostPopularBooksRepository_18 extends _i1.SmartFake
+    implements _i18.MostPopularBooksRepository {
+  _FakeMostPopularBooksRepository_18(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -292,9 +318,9 @@ class _FakeGetMostPopularAuthorsUseCase_18 extends _i1.SmartFake
         );
 }
 
-class _FakeMostPopularAuthorsListState_19 extends _i1.SmartFake
-    implements _i19.MostPopularAuthorsListState {
-  _FakeMostPopularAuthorsListState_19(
+class _FakeNominatedBooksRepository_19 extends _i1.SmartFake
+    implements _i19.NominatedBooksRepository {
+  _FakeNominatedBooksRepository_19(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -303,9 +329,9 @@ class _FakeMostPopularAuthorsListState_19 extends _i1.SmartFake
         );
 }
 
-class _FakeGetMostPopularBooksUseCase_20 extends _i1.SmartFake
-    implements _i20.GetMostPopularBooksUseCase {
-  _FakeGetMostPopularBooksUseCase_20(
+class _FakeWeeklyPopularBooksRepository_20 extends _i1.SmartFake
+    implements _i20.WeeklyPopularBooksRepository {
+  _FakeWeeklyPopularBooksRepository_20(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -314,9 +340,9 @@ class _FakeGetMostPopularBooksUseCase_20 extends _i1.SmartFake
         );
 }
 
-class _FakeMostPopularBooksState_21 extends _i1.SmartFake
-    implements _i21.MostPopularBooksState {
-  _FakeMostPopularBooksState_21(
+class _FakeGetAuthorInfoUseCase_21 extends _i1.SmartFake
+    implements _i21.GetAuthorInfoUseCase {
+  _FakeGetAuthorInfoUseCase_21(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -325,9 +351,9 @@ class _FakeMostPopularBooksState_21 extends _i1.SmartFake
         );
 }
 
-class _FakeGetNominatedBooksUseCase_22 extends _i1.SmartFake
-    implements _i22.GetNominatedBooksUseCase {
-  _FakeGetNominatedBooksUseCase_22(
+class _FakeAuthorInfoState_22 extends _i1.SmartFake
+    implements _i22.AuthorInfoState {
+  _FakeAuthorInfoState_22(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -336,9 +362,9 @@ class _FakeGetNominatedBooksUseCase_22 extends _i1.SmartFake
         );
 }
 
-class _FakeNominatedBooksListState_23 extends _i1.SmartFake
-    implements _i23.NominatedBooksListState {
-  _FakeNominatedBooksListState_23(
+class _FakeGetAwardedBooksUseCase_23 extends _i1.SmartFake
+    implements _i23.GetAwardedBooksUseCase {
+  _FakeGetAwardedBooksUseCase_23(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -347,9 +373,9 @@ class _FakeNominatedBooksListState_23 extends _i1.SmartFake
         );
 }
 
-class _FakeGetWeeklyPopularBooksUseCase_24 extends _i1.SmartFake
-    implements _i24.GetWeeklyPopularBooksUseCase {
-  _FakeGetWeeklyPopularBooksUseCase_24(
+class _FakeAwardedBooksState_24 extends _i1.SmartFake
+    implements _i24.AwardedBooksState {
+  _FakeAwardedBooksState_24(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -358,9 +384,108 @@ class _FakeGetWeeklyPopularBooksUseCase_24 extends _i1.SmartFake
         );
 }
 
-class _FakeWeeklyPopularBooksState_25 extends _i1.SmartFake
-    implements _i25.WeeklyPopularBooksState {
-  _FakeWeeklyPopularBooksState_25(
+class _FakeGetBookDetailsUseCase_25 extends _i1.SmartFake
+    implements _i25.GetBookDetailsUseCase {
+  _FakeGetBookDetailsUseCase_25(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeBookDetailsState_26 extends _i1.SmartFake
+    implements _i26.BookDetailsState {
+  _FakeBookDetailsState_26(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetMostPopularAuthorsUseCase_27 extends _i1.SmartFake
+    implements _i27.GetMostPopularAuthorsUseCase {
+  _FakeGetMostPopularAuthorsUseCase_27(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeMostPopularAuthorsListState_28 extends _i1.SmartFake
+    implements _i28.MostPopularAuthorsListState {
+  _FakeMostPopularAuthorsListState_28(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetMostPopularBooksUseCase_29 extends _i1.SmartFake
+    implements _i29.GetMostPopularBooksUseCase {
+  _FakeGetMostPopularBooksUseCase_29(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeMostPopularBooksState_30 extends _i1.SmartFake
+    implements _i30.MostPopularBooksState {
+  _FakeMostPopularBooksState_30(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetNominatedBooksUseCase_31 extends _i1.SmartFake
+    implements _i31.GetNominatedBooksUseCase {
+  _FakeGetNominatedBooksUseCase_31(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeNominatedBooksListState_32 extends _i1.SmartFake
+    implements _i32.NominatedBooksListState {
+  _FakeNominatedBooksListState_32(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeGetWeeklyPopularBooksUseCase_33 extends _i1.SmartFake
+    implements _i33.GetWeeklyPopularBooksUseCase {
+  _FakeGetWeeklyPopularBooksUseCase_33(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+class _FakeWeeklyPopularBooksState_34 extends _i1.SmartFake
+    implements _i34.WeeklyPopularBooksState {
+  _FakeWeeklyPopularBooksState_34(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -374,7 +499,7 @@ class _FakeWeeklyPopularBooksState_25 extends _i1.SmartFake
 /// See the documentation for Mockito's code generation for more information.
 class MockHttpClient extends _i1.Mock implements _i2.Client {
   @override
-  _i26.Future<_i2.Response> head(
+  _i4.Future<_i2.Response> head(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -384,7 +509,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i26.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #head,
@@ -393,7 +518,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i2.Response>.value(_FakeResponse_0(
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #head,
@@ -401,10 +526,10 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             {#headers: headers},
           ),
         )),
-      ) as _i26.Future<_i2.Response>);
+      ) as _i4.Future<_i2.Response>);
 
   @override
-  _i26.Future<_i2.Response> get(
+  _i4.Future<_i2.Response> get(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -414,7 +539,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i26.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #get,
@@ -423,7 +548,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i2.Response>.value(_FakeResponse_0(
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #get,
@@ -431,14 +556,14 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             {#headers: headers},
           ),
         )),
-      ) as _i26.Future<_i2.Response>);
+      ) as _i4.Future<_i2.Response>);
 
   @override
-  _i26.Future<_i2.Response> post(
+  _i4.Future<_i2.Response> post(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i27.Encoding? encoding,
+    _i35.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -450,7 +575,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             #encoding: encoding,
           },
         ),
-        returnValue: _i26.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #post,
@@ -463,7 +588,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i2.Response>.value(_FakeResponse_0(
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #post,
@@ -475,14 +600,14 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             },
           ),
         )),
-      ) as _i26.Future<_i2.Response>);
+      ) as _i4.Future<_i2.Response>);
 
   @override
-  _i26.Future<_i2.Response> put(
+  _i4.Future<_i2.Response> put(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i27.Encoding? encoding,
+    _i35.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -494,7 +619,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             #encoding: encoding,
           },
         ),
-        returnValue: _i26.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #put,
@@ -507,7 +632,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i2.Response>.value(_FakeResponse_0(
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #put,
@@ -519,14 +644,14 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             },
           ),
         )),
-      ) as _i26.Future<_i2.Response>);
+      ) as _i4.Future<_i2.Response>);
 
   @override
-  _i26.Future<_i2.Response> patch(
+  _i4.Future<_i2.Response> patch(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i27.Encoding? encoding,
+    _i35.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -538,7 +663,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             #encoding: encoding,
           },
         ),
-        returnValue: _i26.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #patch,
@@ -551,7 +676,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i2.Response>.value(_FakeResponse_0(
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #patch,
@@ -563,14 +688,14 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             },
           ),
         )),
-      ) as _i26.Future<_i2.Response>);
+      ) as _i4.Future<_i2.Response>);
 
   @override
-  _i26.Future<_i2.Response> delete(
+  _i4.Future<_i2.Response> delete(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
-    _i27.Encoding? encoding,
+    _i35.Encoding? encoding,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -582,7 +707,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             #encoding: encoding,
           },
         ),
-        returnValue: _i26.Future<_i2.Response>.value(_FakeResponse_0(
+        returnValue: _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #delete,
@@ -595,7 +720,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i2.Response>.value(_FakeResponse_0(
+            _i4.Future<_i2.Response>.value(_FakeResponse_0(
           this,
           Invocation.method(
             #delete,
@@ -607,10 +732,10 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             },
           ),
         )),
-      ) as _i26.Future<_i2.Response>);
+      ) as _i4.Future<_i2.Response>);
 
   @override
-  _i26.Future<String> read(
+  _i4.Future<String> read(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -620,7 +745,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i26.Future<String>.value(_i28.dummyValue<String>(
+        returnValue: _i4.Future<String>.value(_i36.dummyValue<String>(
           this,
           Invocation.method(
             #read,
@@ -629,7 +754,7 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<String>.value(_i28.dummyValue<String>(
+            _i4.Future<String>.value(_i36.dummyValue<String>(
           this,
           Invocation.method(
             #read,
@@ -637,10 +762,10 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
             {#headers: headers},
           ),
         )),
-      ) as _i26.Future<String>);
+      ) as _i4.Future<String>);
 
   @override
-  _i26.Future<_i29.Uint8List> readBytes(
+  _i4.Future<_i37.Uint8List> readBytes(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -650,20 +775,20 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i26.Future<_i29.Uint8List>.value(_i29.Uint8List(0)),
+        returnValue: _i4.Future<_i37.Uint8List>.value(_i37.Uint8List(0)),
         returnValueForMissingStub:
-            _i26.Future<_i29.Uint8List>.value(_i29.Uint8List(0)),
-      ) as _i26.Future<_i29.Uint8List>);
+            _i4.Future<_i37.Uint8List>.value(_i37.Uint8List(0)),
+      ) as _i4.Future<_i37.Uint8List>);
 
   @override
-  _i26.Future<_i2.StreamedResponse> send(_i2.BaseRequest? request) =>
+  _i4.Future<_i2.StreamedResponse> send(_i2.BaseRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #send,
           [request],
         ),
         returnValue:
-            _i26.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_1(
+            _i4.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_1(
           this,
           Invocation.method(
             #send,
@@ -671,14 +796,14 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_1(
+            _i4.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_1(
           this,
           Invocation.method(
             #send,
             [request],
           ),
         )),
-      ) as _i26.Future<_i2.StreamedResponse>);
+      ) as _i4.Future<_i2.StreamedResponse>);
 
   @override
   void close() => super.noSuchMethod(
@@ -693,29 +818,947 @@ class MockHttpClient extends _i1.Mock implements _i2.Client {
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i30.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i38.NetworkInfo {
   @override
-  _i26.Future<bool> get isConnected => (super.noSuchMethod(
+  _i4.Future<bool> get isConnected => (super.noSuchMethod(
         Invocation.getter(#isConnected),
-        returnValue: _i26.Future<bool>.value(false),
-        returnValueForMissingStub: _i26.Future<bool>.value(false),
-      ) as _i26.Future<bool>);
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+}
+
+/// A class which mocks [AuthorInfoDao].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthorInfoDao extends _i1.Mock implements _i3.AuthorInfoDao {
+  @override
+  _i4.Future<void> insertAuthorInfo(_i12.AuthorInfoEntity? authorInfoEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertAuthorInfo,
+          [authorInfoEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<_i12.AuthorInfoEntity?> getAuthorInfoById(int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAuthorInfoById,
+          [id],
+        ),
+        returnValue: _i4.Future<_i12.AuthorInfoEntity?>.value(),
+        returnValueForMissingStub: _i4.Future<_i12.AuthorInfoEntity?>.value(),
+      ) as _i4.Future<_i12.AuthorInfoEntity?>);
+
+  @override
+  _i4.Future<void> updateAuthorInfoById(
+          _i12.AuthorInfoEntity? authorInfoEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateAuthorInfoById,
+          [authorInfoEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [AuthorsDao].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthorsDao extends _i1.Mock implements _i6.AuthorsDao {
+  @override
+  _i4.Future<void> insertAuthors(
+          List<_i12.MostPopularAuthorsEntity>? authorsEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertAuthors,
+          [authorsEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteAuthors(
+          List<_i12.MostPopularAuthorsEntity>? authorsEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteAuthors,
+          [authorsEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> updateAuthors(
+          List<_i12.MostPopularAuthorsEntity>? authorsEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateAuthors,
+          [authorsEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<List<_i12.MostPopularAuthorsEntity>> getAuthors() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAuthors,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i12.MostPopularAuthorsEntity>>.value(
+            <_i12.MostPopularAuthorsEntity>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i12.MostPopularAuthorsEntity>>.value(
+                <_i12.MostPopularAuthorsEntity>[]),
+      ) as _i4.Future<List<_i12.MostPopularAuthorsEntity>>);
+
+  @override
+  _i4.Future<int?> getAuthorsCount() => (super.noSuchMethod(
+        Invocation.method(
+          #getAuthorsCount,
+          [],
+        ),
+        returnValue: _i4.Future<int?>.value(),
+        returnValueForMissingStub: _i4.Future<int?>.value(),
+      ) as _i4.Future<int?>);
+}
+
+/// A class which mocks [AwardedBooksDao].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAwardedBooksDao extends _i1.Mock implements _i7.AwardedBooksDao {
+  @override
+  _i4.Future<void> insertAwardedBooks(
+          List<_i12.AwardedBooksEntity>? awardedBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertAwardedBooks,
+          [awardedBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteAwardedBooks(
+          List<_i12.AwardedBooksEntity>? awardedBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteAwardedBooks,
+          [awardedBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> updateAwardedBooks(
+          List<_i12.AwardedBooksEntity>? awardedBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateAwardedBooks,
+          [awardedBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<List<_i12.AwardedBooksEntity>> getAwardedBooks() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAwardedBooks,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i12.AwardedBooksEntity>>.value(
+            <_i12.AwardedBooksEntity>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i12.AwardedBooksEntity>>.value(
+                <_i12.AwardedBooksEntity>[]),
+      ) as _i4.Future<List<_i12.AwardedBooksEntity>>);
+
+  @override
+  _i4.Future<int?> getAwardedBooksCount() => (super.noSuchMethod(
+        Invocation.method(
+          #getAwardedBooksCount,
+          [],
+        ),
+        returnValue: _i4.Future<int?>.value(),
+        returnValueForMissingStub: _i4.Future<int?>.value(),
+      ) as _i4.Future<int?>);
+}
+
+/// A class which mocks [BookDetailDao].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBookDetailDao extends _i1.Mock implements _i8.BookDetailDao {
+  @override
+  _i4.Future<void> insertBookDetail(_i12.BookDetailEntity? bookDetailEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertBookDetail,
+          [bookDetailEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<_i12.BookDetailEntity?> getBookDetailById(int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getBookDetailById,
+          [id],
+        ),
+        returnValue: _i4.Future<_i12.BookDetailEntity?>.value(),
+        returnValueForMissingStub: _i4.Future<_i12.BookDetailEntity?>.value(),
+      ) as _i4.Future<_i12.BookDetailEntity?>);
+
+  @override
+  _i4.Future<void> updateBookDetail(_i12.BookDetailEntity? bookDetailEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateBookDetail,
+          [bookDetailEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [MostPopularBooksDao].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMostPopularBooksDao extends _i1.Mock
+    implements _i9.MostPopularBooksDao {
+  @override
+  _i4.Future<void> insertMostPopularBooks(
+          List<_i12.MostPopularBooksEntity>? mostPopularBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertMostPopularBooks,
+          [mostPopularBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteMostPopularBooks(
+          List<_i12.MostPopularBooksEntity>? mostPopularBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteMostPopularBooks,
+          [mostPopularBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> updateMostPopularBooks(
+          List<_i12.MostPopularBooksEntity>? mostPopularBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateMostPopularBooks,
+          [mostPopularBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<List<_i12.MostPopularBooksEntity>> getMostPopularBooks() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMostPopularBooks,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i12.MostPopularBooksEntity>>.value(
+            <_i12.MostPopularBooksEntity>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i12.MostPopularBooksEntity>>.value(
+                <_i12.MostPopularBooksEntity>[]),
+      ) as _i4.Future<List<_i12.MostPopularBooksEntity>>);
+
+  @override
+  _i4.Future<int?> getMostPopularBooksCount() => (super.noSuchMethod(
+        Invocation.method(
+          #getMostPopularBooksCount,
+          [],
+        ),
+        returnValue: _i4.Future<int?>.value(),
+        returnValueForMissingStub: _i4.Future<int?>.value(),
+      ) as _i4.Future<int?>);
+}
+
+/// A class which mocks [NominatedBooksDao].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNominatedBooksDao extends _i1.Mock implements _i10.NominatedBooksDao {
+  @override
+  _i4.Future<void> insertNominatedBooks(
+          List<_i12.NominatedBooksEntity>? nominatedBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertNominatedBooks,
+          [nominatedBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteNominatedBooks(
+          List<_i12.NominatedBooksEntity>? nominatedBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteNominatedBooks,
+          [nominatedBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> updateNominatedBooks(
+          List<_i12.NominatedBooksEntity>? nominatedBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateNominatedBooks,
+          [nominatedBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<List<_i12.NominatedBooksEntity>> getNominatedBooks() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getNominatedBooks,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i12.NominatedBooksEntity>>.value(
+            <_i12.NominatedBooksEntity>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i12.NominatedBooksEntity>>.value(
+                <_i12.NominatedBooksEntity>[]),
+      ) as _i4.Future<List<_i12.NominatedBooksEntity>>);
+
+  @override
+  _i4.Future<int?> getNominatedBooksCount() => (super.noSuchMethod(
+        Invocation.method(
+          #getNominatedBooksCount,
+          [],
+        ),
+        returnValue: _i4.Future<int?>.value(),
+        returnValueForMissingStub: _i4.Future<int?>.value(),
+      ) as _i4.Future<int?>);
+}
+
+/// A class which mocks [WeeklyPopularBooksDao].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockWeeklyPopularBooksDao extends _i1.Mock
+    implements _i11.WeeklyPopularBooksDao {
+  @override
+  _i4.Future<void> insertWeeklyPopularBooks(
+          List<_i12.WeeklyPopularBooksEntity>? weeklyPopularBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertWeeklyPopularBooks,
+          [weeklyPopularBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteWeeklyPopularBooks(
+          List<_i12.WeeklyPopularBooksEntity>? weeklyPopularBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteWeeklyPopularBooks,
+          [weeklyPopularBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> updateWeeklyPopularBooks(
+          List<_i12.WeeklyPopularBooksEntity>? weeklyPopularBooksEntity) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateWeeklyPopularBooks,
+          [weeklyPopularBooksEntity],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<List<_i12.WeeklyPopularBooksEntity>> getWeeklyPopularBooks() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getWeeklyPopularBooks,
+          [],
+        ),
+        returnValue: _i4.Future<List<_i12.WeeklyPopularBooksEntity>>.value(
+            <_i12.WeeklyPopularBooksEntity>[]),
+        returnValueForMissingStub:
+            _i4.Future<List<_i12.WeeklyPopularBooksEntity>>.value(
+                <_i12.WeeklyPopularBooksEntity>[]),
+      ) as _i4.Future<List<_i12.WeeklyPopularBooksEntity>>);
+
+  @override
+  _i4.Future<int?> getWeeklyPopularBooksCount() => (super.noSuchMethod(
+        Invocation.method(
+          #getWeeklyPopularBooksCount,
+          [],
+        ),
+        returnValue: _i4.Future<int?>.value(),
+        returnValueForMissingStub: _i4.Future<int?>.value(),
+      ) as _i4.Future<int?>);
+}
+
+/// A class which mocks [AuthorInfoCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthorInfoCache extends _i1.Mock implements _i39.AuthorInfoCache {
+  @override
+  _i3.AuthorInfoDao get authorInfoDao => (super.noSuchMethod(
+        Invocation.getter(#authorInfoDao),
+        returnValue: _FakeAuthorInfoDao_2(
+          this,
+          Invocation.getter(#authorInfoDao),
+        ),
+        returnValueForMissingStub: _FakeAuthorInfoDao_2(
+          this,
+          Invocation.getter(#authorInfoDao),
+        ),
+      ) as _i3.AuthorInfoDao);
+
+  @override
+  _i4.StreamController<String> get changeListener => (super.noSuchMethod(
+        Invocation.getter(#changeListener),
+        returnValue: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+        returnValueForMissingStub: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+      ) as _i4.StreamController<String>);
+
+  @override
+  set changeListener(_i4.StreamController<String>? _changeListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #changeListener,
+          _changeListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.DatabaseExecutor get database => (super.noSuchMethod(
+        Invocation.getter(#database),
+        returnValue: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+        returnValueForMissingStub: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+      ) as _i5.DatabaseExecutor);
+
+  @override
+  set database(_i5.DatabaseExecutor? _database) => super.noSuchMethod(
+        Invocation.setter(
+          #database,
+          _database,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [AuthorsCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthorsCache extends _i1.Mock implements _i40.AuthorsCache {
+  @override
+  _i6.AuthorsDao get authorsDao => (super.noSuchMethod(
+        Invocation.getter(#authorsDao),
+        returnValue: _FakeAuthorsDao_5(
+          this,
+          Invocation.getter(#authorsDao),
+        ),
+        returnValueForMissingStub: _FakeAuthorsDao_5(
+          this,
+          Invocation.getter(#authorsDao),
+        ),
+      ) as _i6.AuthorsDao);
+
+  @override
+  _i4.StreamController<String> get changeListener => (super.noSuchMethod(
+        Invocation.getter(#changeListener),
+        returnValue: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+        returnValueForMissingStub: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+      ) as _i4.StreamController<String>);
+
+  @override
+  set changeListener(_i4.StreamController<String>? _changeListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #changeListener,
+          _changeListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.DatabaseExecutor get database => (super.noSuchMethod(
+        Invocation.getter(#database),
+        returnValue: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+        returnValueForMissingStub: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+      ) as _i5.DatabaseExecutor);
+
+  @override
+  set database(_i5.DatabaseExecutor? _database) => super.noSuchMethod(
+        Invocation.setter(
+          #database,
+          _database,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [AwardedBooksCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAwardedBooksCache extends _i1.Mock implements _i41.AwardedBooksCache {
+  @override
+  _i7.AwardedBooksDao get awardedBooksDao => (super.noSuchMethod(
+        Invocation.getter(#awardedBooksDao),
+        returnValue: _FakeAwardedBooksDao_6(
+          this,
+          Invocation.getter(#awardedBooksDao),
+        ),
+        returnValueForMissingStub: _FakeAwardedBooksDao_6(
+          this,
+          Invocation.getter(#awardedBooksDao),
+        ),
+      ) as _i7.AwardedBooksDao);
+
+  @override
+  _i4.StreamController<String> get changeListener => (super.noSuchMethod(
+        Invocation.getter(#changeListener),
+        returnValue: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+        returnValueForMissingStub: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+      ) as _i4.StreamController<String>);
+
+  @override
+  set changeListener(_i4.StreamController<String>? _changeListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #changeListener,
+          _changeListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.DatabaseExecutor get database => (super.noSuchMethod(
+        Invocation.getter(#database),
+        returnValue: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+        returnValueForMissingStub: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+      ) as _i5.DatabaseExecutor);
+
+  @override
+  set database(_i5.DatabaseExecutor? _database) => super.noSuchMethod(
+        Invocation.setter(
+          #database,
+          _database,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [BookDetailCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockBookDetailCache extends _i1.Mock implements _i42.BookDetailCache {
+  @override
+  _i8.BookDetailDao get bookDetailDao => (super.noSuchMethod(
+        Invocation.getter(#bookDetailDao),
+        returnValue: _FakeBookDetailDao_7(
+          this,
+          Invocation.getter(#bookDetailDao),
+        ),
+        returnValueForMissingStub: _FakeBookDetailDao_7(
+          this,
+          Invocation.getter(#bookDetailDao),
+        ),
+      ) as _i8.BookDetailDao);
+
+  @override
+  _i4.StreamController<String> get changeListener => (super.noSuchMethod(
+        Invocation.getter(#changeListener),
+        returnValue: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+        returnValueForMissingStub: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+      ) as _i4.StreamController<String>);
+
+  @override
+  set changeListener(_i4.StreamController<String>? _changeListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #changeListener,
+          _changeListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.DatabaseExecutor get database => (super.noSuchMethod(
+        Invocation.getter(#database),
+        returnValue: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+        returnValueForMissingStub: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+      ) as _i5.DatabaseExecutor);
+
+  @override
+  set database(_i5.DatabaseExecutor? _database) => super.noSuchMethod(
+        Invocation.setter(
+          #database,
+          _database,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [MostPopularBooksCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMostPopularBooksCache extends _i1.Mock
+    implements _i43.MostPopularBooksCache {
+  @override
+  _i9.MostPopularBooksDao get mostPopularBooksDao => (super.noSuchMethod(
+        Invocation.getter(#mostPopularBooksDao),
+        returnValue: _FakeMostPopularBooksDao_8(
+          this,
+          Invocation.getter(#mostPopularBooksDao),
+        ),
+        returnValueForMissingStub: _FakeMostPopularBooksDao_8(
+          this,
+          Invocation.getter(#mostPopularBooksDao),
+        ),
+      ) as _i9.MostPopularBooksDao);
+
+  @override
+  _i4.StreamController<String> get changeListener => (super.noSuchMethod(
+        Invocation.getter(#changeListener),
+        returnValue: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+        returnValueForMissingStub: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+      ) as _i4.StreamController<String>);
+
+  @override
+  set changeListener(_i4.StreamController<String>? _changeListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #changeListener,
+          _changeListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.DatabaseExecutor get database => (super.noSuchMethod(
+        Invocation.getter(#database),
+        returnValue: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+        returnValueForMissingStub: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+      ) as _i5.DatabaseExecutor);
+
+  @override
+  set database(_i5.DatabaseExecutor? _database) => super.noSuchMethod(
+        Invocation.setter(
+          #database,
+          _database,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [NominatedBooksCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNominatedBooksCache extends _i1.Mock
+    implements _i44.NominatedBooksCache {
+  @override
+  _i10.NominatedBooksDao get nominatedBooksDao => (super.noSuchMethod(
+        Invocation.getter(#nominatedBooksDao),
+        returnValue: _FakeNominatedBooksDao_9(
+          this,
+          Invocation.getter(#nominatedBooksDao),
+        ),
+        returnValueForMissingStub: _FakeNominatedBooksDao_9(
+          this,
+          Invocation.getter(#nominatedBooksDao),
+        ),
+      ) as _i10.NominatedBooksDao);
+
+  @override
+  _i4.StreamController<String> get changeListener => (super.noSuchMethod(
+        Invocation.getter(#changeListener),
+        returnValue: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+        returnValueForMissingStub: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+      ) as _i4.StreamController<String>);
+
+  @override
+  set changeListener(_i4.StreamController<String>? _changeListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #changeListener,
+          _changeListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.DatabaseExecutor get database => (super.noSuchMethod(
+        Invocation.getter(#database),
+        returnValue: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+        returnValueForMissingStub: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+      ) as _i5.DatabaseExecutor);
+
+  @override
+  set database(_i5.DatabaseExecutor? _database) => super.noSuchMethod(
+        Invocation.setter(
+          #database,
+          _database,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [WeeklyPopularBooksCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockWeeklyPopularBooksCache extends _i1.Mock
+    implements _i45.WeeklyPopularBooksCache {
+  @override
+  _i11.WeeklyPopularBooksDao get weeklyPopularBooksDao => (super.noSuchMethod(
+        Invocation.getter(#weeklyPopularBooksDao),
+        returnValue: _FakeWeeklyPopularBooksDao_10(
+          this,
+          Invocation.getter(#weeklyPopularBooksDao),
+        ),
+        returnValueForMissingStub: _FakeWeeklyPopularBooksDao_10(
+          this,
+          Invocation.getter(#weeklyPopularBooksDao),
+        ),
+      ) as _i11.WeeklyPopularBooksDao);
+
+  @override
+  _i4.StreamController<String> get changeListener => (super.noSuchMethod(
+        Invocation.getter(#changeListener),
+        returnValue: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+        returnValueForMissingStub: _FakeStreamController_3<String>(
+          this,
+          Invocation.getter(#changeListener),
+        ),
+      ) as _i4.StreamController<String>);
+
+  @override
+  set changeListener(_i4.StreamController<String>? _changeListener) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #changeListener,
+          _changeListener,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i5.DatabaseExecutor get database => (super.noSuchMethod(
+        Invocation.getter(#database),
+        returnValue: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+        returnValueForMissingStub: _FakeDatabaseExecutor_4(
+          this,
+          Invocation.getter(#database),
+        ),
+      ) as _i5.DatabaseExecutor);
+
+  @override
+  set database(_i5.DatabaseExecutor? _database) => super.noSuchMethod(
+        Invocation.setter(
+          #database,
+          _database,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i4.Future<void> close() => (super.noSuchMethod(
+        Invocation.method(
+          #close,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [AuthorInfoRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthorInfoRemoteDataSource extends _i1.Mock
-    implements _i31.AuthorInfoRemoteDataSource {
+    implements _i46.AuthorInfoRemoteDataSource {
   @override
-  _i26.Future<_i3.AuthorInfoEntity> getAuthorInfo(int? authorId) =>
+  _i4.Future<_i12.AuthorInfoEntity> getAuthorInfo(int? authorId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAuthorInfo,
           [authorId],
         ),
         returnValue:
-            _i26.Future<_i3.AuthorInfoEntity>.value(_FakeAuthorInfoEntity_2(
+            _i4.Future<_i12.AuthorInfoEntity>.value(_FakeAuthorInfoEntity_11(
           this,
           Invocation.method(
             #getAuthorInfo,
@@ -723,50 +1766,50 @@ class MockAuthorInfoRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i3.AuthorInfoEntity>.value(_FakeAuthorInfoEntity_2(
+            _i4.Future<_i12.AuthorInfoEntity>.value(_FakeAuthorInfoEntity_11(
           this,
           Invocation.method(
             #getAuthorInfo,
             [authorId],
           ),
         )),
-      ) as _i26.Future<_i3.AuthorInfoEntity>);
+      ) as _i4.Future<_i12.AuthorInfoEntity>);
 }
 
 /// A class which mocks [AwardedBooksRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAwardedBooksRemoteDataSource extends _i1.Mock
-    implements _i32.AwardedBooksRemoteDataSource {
+    implements _i47.AwardedBooksRemoteDataSource {
   @override
-  _i26.Future<List<_i3.AwardedBooksEntity>> getAwardedBooks() =>
+  _i4.Future<List<_i12.AwardedBooksEntity>> getAwardedBooks() =>
       (super.noSuchMethod(
         Invocation.method(
           #getAwardedBooks,
           [],
         ),
-        returnValue: _i26.Future<List<_i3.AwardedBooksEntity>>.value(
-            <_i3.AwardedBooksEntity>[]),
+        returnValue: _i4.Future<List<_i12.AwardedBooksEntity>>.value(
+            <_i12.AwardedBooksEntity>[]),
         returnValueForMissingStub:
-            _i26.Future<List<_i3.AwardedBooksEntity>>.value(
-                <_i3.AwardedBooksEntity>[]),
-      ) as _i26.Future<List<_i3.AwardedBooksEntity>>);
+            _i4.Future<List<_i12.AwardedBooksEntity>>.value(
+                <_i12.AwardedBooksEntity>[]),
+      ) as _i4.Future<List<_i12.AwardedBooksEntity>>);
 }
 
 /// A class which mocks [BookDetailsRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockBookDetailsRemoteDataSource extends _i1.Mock
-    implements _i33.BookDetailsRemoteDataSource {
+    implements _i48.BookDetailsRemoteDataSource {
   @override
-  _i26.Future<_i3.BookDetailEntity> getBookDetails(int? bookId) =>
+  _i4.Future<_i12.BookDetailEntity> getBookDetails(int? bookId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getBookDetails,
           [bookId],
         ),
         returnValue:
-            _i26.Future<_i3.BookDetailEntity>.value(_FakeBookDetailEntity_3(
+            _i4.Future<_i12.BookDetailEntity>.value(_FakeBookDetailEntity_12(
           this,
           Invocation.method(
             #getBookDetails,
@@ -774,103 +1817,103 @@ class MockBookDetailsRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i3.BookDetailEntity>.value(_FakeBookDetailEntity_3(
+            _i4.Future<_i12.BookDetailEntity>.value(_FakeBookDetailEntity_12(
           this,
           Invocation.method(
             #getBookDetails,
             [bookId],
           ),
         )),
-      ) as _i26.Future<_i3.BookDetailEntity>);
+      ) as _i4.Future<_i12.BookDetailEntity>);
 }
 
 /// A class which mocks [MostPopularAuthorsRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMostPopularAuthorsRemoteDataSource extends _i1.Mock
-    implements _i34.MostPopularAuthorsRemoteDataSource {
+    implements _i49.MostPopularAuthorsRemoteDataSource {
   @override
-  _i26.Future<List<_i3.MostPopularAuthorsEntity>> getPopularAuthors() =>
+  _i4.Future<List<_i12.MostPopularAuthorsEntity>> getPopularAuthors() =>
       (super.noSuchMethod(
         Invocation.method(
           #getPopularAuthors,
           [],
         ),
-        returnValue: _i26.Future<List<_i3.MostPopularAuthorsEntity>>.value(
-            <_i3.MostPopularAuthorsEntity>[]),
+        returnValue: _i4.Future<List<_i12.MostPopularAuthorsEntity>>.value(
+            <_i12.MostPopularAuthorsEntity>[]),
         returnValueForMissingStub:
-            _i26.Future<List<_i3.MostPopularAuthorsEntity>>.value(
-                <_i3.MostPopularAuthorsEntity>[]),
-      ) as _i26.Future<List<_i3.MostPopularAuthorsEntity>>);
+            _i4.Future<List<_i12.MostPopularAuthorsEntity>>.value(
+                <_i12.MostPopularAuthorsEntity>[]),
+      ) as _i4.Future<List<_i12.MostPopularAuthorsEntity>>);
 }
 
 /// A class which mocks [MostPopularBooksRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMostPopularBooksRemoteDataSource extends _i1.Mock
-    implements _i35.MostPopularBooksRemoteDataSource {
+    implements _i50.MostPopularBooksRemoteDataSource {
   @override
-  _i26.Future<List<_i3.MostPopularBooksEntity>> getPopularBooks() =>
+  _i4.Future<List<_i12.MostPopularBooksEntity>> getPopularBooks() =>
       (super.noSuchMethod(
         Invocation.method(
           #getPopularBooks,
           [],
         ),
-        returnValue: _i26.Future<List<_i3.MostPopularBooksEntity>>.value(
-            <_i3.MostPopularBooksEntity>[]),
+        returnValue: _i4.Future<List<_i12.MostPopularBooksEntity>>.value(
+            <_i12.MostPopularBooksEntity>[]),
         returnValueForMissingStub:
-            _i26.Future<List<_i3.MostPopularBooksEntity>>.value(
-                <_i3.MostPopularBooksEntity>[]),
-      ) as _i26.Future<List<_i3.MostPopularBooksEntity>>);
+            _i4.Future<List<_i12.MostPopularBooksEntity>>.value(
+                <_i12.MostPopularBooksEntity>[]),
+      ) as _i4.Future<List<_i12.MostPopularBooksEntity>>);
 }
 
 /// A class which mocks [NominatedBooksRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNominatedBooksRemoteDataSource extends _i1.Mock
-    implements _i36.NominatedBooksRemoteDataSource {
+    implements _i51.NominatedBooksRemoteDataSource {
   @override
-  _i26.Future<List<_i3.NominatedBooksEntity>> getNominatedBooks() =>
+  _i4.Future<List<_i12.NominatedBooksEntity>> getNominatedBooks() =>
       (super.noSuchMethod(
         Invocation.method(
           #getNominatedBooks,
           [],
         ),
-        returnValue: _i26.Future<List<_i3.NominatedBooksEntity>>.value(
-            <_i3.NominatedBooksEntity>[]),
+        returnValue: _i4.Future<List<_i12.NominatedBooksEntity>>.value(
+            <_i12.NominatedBooksEntity>[]),
         returnValueForMissingStub:
-            _i26.Future<List<_i3.NominatedBooksEntity>>.value(
-                <_i3.NominatedBooksEntity>[]),
-      ) as _i26.Future<List<_i3.NominatedBooksEntity>>);
+            _i4.Future<List<_i12.NominatedBooksEntity>>.value(
+                <_i12.NominatedBooksEntity>[]),
+      ) as _i4.Future<List<_i12.NominatedBooksEntity>>);
 }
 
 /// A class which mocks [WeeklyPopularBooksRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockWeeklyPopularBooksRemoteDataSource extends _i1.Mock
-    implements _i37.WeeklyPopularBooksRemoteDataSource {
+    implements _i52.WeeklyPopularBooksRemoteDataSource {
   @override
-  _i26.Future<List<_i3.WeeklyPopularBooksEntity>> getWeeklyPopularBooks() =>
+  _i4.Future<List<_i12.WeeklyPopularBooksEntity>> getWeeklyPopularBooks() =>
       (super.noSuchMethod(
         Invocation.method(
           #getWeeklyPopularBooks,
           [],
         ),
-        returnValue: _i26.Future<List<_i3.WeeklyPopularBooksEntity>>.value(
-            <_i3.WeeklyPopularBooksEntity>[]),
+        returnValue: _i4.Future<List<_i12.WeeklyPopularBooksEntity>>.value(
+            <_i12.WeeklyPopularBooksEntity>[]),
         returnValueForMissingStub:
-            _i26.Future<List<_i3.WeeklyPopularBooksEntity>>.value(
-                <_i3.WeeklyPopularBooksEntity>[]),
-      ) as _i26.Future<List<_i3.WeeklyPopularBooksEntity>>);
+            _i4.Future<List<_i12.WeeklyPopularBooksEntity>>.value(
+                <_i12.WeeklyPopularBooksEntity>[]),
+      ) as _i4.Future<List<_i12.WeeklyPopularBooksEntity>>);
 }
 
 /// A class which mocks [AuthorInfoRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthorInfoRepository extends _i1.Mock
-    implements _i5.AuthorInfoRepository {
+    implements _i14.AuthorInfoRepository {
   @override
-  _i26.Future<_i4.Either<_i38.Failure, _i3.AuthorInfoEntity>> getAuthorInfo(
+  _i4.Future<_i13.Either<_i53.Failure, _i12.AuthorInfoEntity>> getAuthorInfo(
           int? authorId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -878,8 +1921,8 @@ class MockAuthorInfoRepository extends _i1.Mock
           [authorId],
         ),
         returnValue:
-            _i26.Future<_i4.Either<_i38.Failure, _i3.AuthorInfoEntity>>.value(
-                _FakeEither_4<_i38.Failure, _i3.AuthorInfoEntity>(
+            _i4.Future<_i13.Either<_i53.Failure, _i12.AuthorInfoEntity>>.value(
+                _FakeEither_13<_i53.Failure, _i12.AuthorInfoEntity>(
           this,
           Invocation.method(
             #getAuthorInfo,
@@ -887,60 +1930,60 @@ class MockAuthorInfoRepository extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i4.Either<_i38.Failure, _i3.AuthorInfoEntity>>.value(
-                _FakeEither_4<_i38.Failure, _i3.AuthorInfoEntity>(
+            _i4.Future<_i13.Either<_i53.Failure, _i12.AuthorInfoEntity>>.value(
+                _FakeEither_13<_i53.Failure, _i12.AuthorInfoEntity>(
           this,
           Invocation.method(
             #getAuthorInfo,
             [authorId],
           ),
         )),
-      ) as _i26.Future<_i4.Either<_i38.Failure, _i3.AuthorInfoEntity>>);
+      ) as _i4.Future<_i13.Either<_i53.Failure, _i12.AuthorInfoEntity>>);
 }
 
 /// A class which mocks [AwardedBooksRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAwardedBooksRepository extends _i1.Mock
-    implements _i6.AwardedBooksRepository {
+    implements _i15.AwardedBooksRepository {
   @override
-  _i26.Future<_i4.Either<_i38.Failure, List<_i3.AwardedBooksEntity>>>
+  _i4.Future<_i13.Either<_i53.Failure, List<_i12.AwardedBooksEntity>>>
       getAwardedBooks() => (super.noSuchMethod(
             Invocation.method(
               #getAwardedBooks,
               [],
             ),
-            returnValue: _i26.Future<
-                    _i4
-                    .Either<_i38.Failure, List<_i3.AwardedBooksEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.AwardedBooksEntity>>(
+            returnValue: _i4.Future<
+                    _i13
+                    .Either<_i53.Failure, List<_i12.AwardedBooksEntity>>>.value(
+                _FakeEither_13<_i53.Failure, List<_i12.AwardedBooksEntity>>(
               this,
               Invocation.method(
                 #getAwardedBooks,
                 [],
               ),
             )),
-            returnValueForMissingStub: _i26.Future<
-                    _i4
-                    .Either<_i38.Failure, List<_i3.AwardedBooksEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.AwardedBooksEntity>>(
+            returnValueForMissingStub: _i4.Future<
+                    _i13
+                    .Either<_i53.Failure, List<_i12.AwardedBooksEntity>>>.value(
+                _FakeEither_13<_i53.Failure, List<_i12.AwardedBooksEntity>>(
               this,
               Invocation.method(
                 #getAwardedBooks,
                 [],
               ),
             )),
-          ) as _i26
-              .Future<_i4.Either<_i38.Failure, List<_i3.AwardedBooksEntity>>>);
+          ) as _i4.Future<
+              _i13.Either<_i53.Failure, List<_i12.AwardedBooksEntity>>>);
 }
 
 /// A class which mocks [BookDetailRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockBookDetailRepository extends _i1.Mock
-    implements _i7.BookDetailRepository {
+    implements _i16.BookDetailRepository {
   @override
-  _i26.Future<_i4.Either<_i38.Failure, _i3.BookDetailEntity>> getBookDetails(
+  _i4.Future<_i13.Either<_i53.Failure, _i12.BookDetailEntity>> getBookDetails(
           int? bookId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -948,8 +1991,8 @@ class MockBookDetailRepository extends _i1.Mock
           [bookId],
         ),
         returnValue:
-            _i26.Future<_i4.Either<_i38.Failure, _i3.BookDetailEntity>>.value(
-                _FakeEither_4<_i38.Failure, _i3.BookDetailEntity>(
+            _i4.Future<_i13.Either<_i53.Failure, _i12.BookDetailEntity>>.value(
+                _FakeEither_13<_i53.Failure, _i12.BookDetailEntity>(
           this,
           Invocation.method(
             #getBookDetails,
@@ -957,183 +2000,187 @@ class MockBookDetailRepository extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i4.Either<_i38.Failure, _i3.BookDetailEntity>>.value(
-                _FakeEither_4<_i38.Failure, _i3.BookDetailEntity>(
+            _i4.Future<_i13.Either<_i53.Failure, _i12.BookDetailEntity>>.value(
+                _FakeEither_13<_i53.Failure, _i12.BookDetailEntity>(
           this,
           Invocation.method(
             #getBookDetails,
             [bookId],
           ),
         )),
-      ) as _i26.Future<_i4.Either<_i38.Failure, _i3.BookDetailEntity>>);
+      ) as _i4.Future<_i13.Either<_i53.Failure, _i12.BookDetailEntity>>);
 }
 
 /// A class which mocks [MostPopularAuthorsRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMostPopularAuthorsRepository extends _i1.Mock
-    implements _i8.MostPopularAuthorsRepository {
+    implements _i17.MostPopularAuthorsRepository {
   @override
-  _i26.Future<_i4.Either<_i38.Failure, List<_i3.MostPopularAuthorsEntity>>>
-      getMostPopularAuthors() => (super.noSuchMethod(
-            Invocation.method(
-              #getMostPopularAuthors,
-              [],
-            ),
-            returnValue: _i26.Future<
-                    _i4.Either<_i38.Failure,
-                        List<_i3.MostPopularAuthorsEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.MostPopularAuthorsEntity>>(
-              this,
-              Invocation.method(
-                #getMostPopularAuthors,
-                [],
-              ),
-            )),
-            returnValueForMissingStub: _i26.Future<
-                    _i4.Either<_i38.Failure,
-                        List<_i3.MostPopularAuthorsEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.MostPopularAuthorsEntity>>(
-              this,
-              Invocation.method(
-                #getMostPopularAuthors,
-                [],
-              ),
-            )),
-          ) as _i26.Future<
-              _i4.Either<_i38.Failure, List<_i3.MostPopularAuthorsEntity>>>);
+  _i4.Future<
+      _i13.Either<_i53.Failure,
+          List<_i12.MostPopularAuthorsEntity>>> getMostPopularAuthors() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMostPopularAuthors,
+          [],
+        ),
+        returnValue: _i4.Future<
+                _i13.Either<_i53.Failure,
+                    List<_i12.MostPopularAuthorsEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.MostPopularAuthorsEntity>>(
+          this,
+          Invocation.method(
+            #getMostPopularAuthors,
+            [],
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<
+                _i13.Either<_i53.Failure,
+                    List<_i12.MostPopularAuthorsEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.MostPopularAuthorsEntity>>(
+          this,
+          Invocation.method(
+            #getMostPopularAuthors,
+            [],
+          ),
+        )),
+      ) as _i4.Future<
+          _i13.Either<_i53.Failure, List<_i12.MostPopularAuthorsEntity>>>);
 }
 
 /// A class which mocks [MostPopularBooksRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMostPopularBooksRepository extends _i1.Mock
-    implements _i9.MostPopularBooksRepository {
+    implements _i18.MostPopularBooksRepository {
   @override
-  _i26.Future<
-      _i4.Either<_i38.Failure,
-          List<_i3.MostPopularBooksEntity>>> getMostPopularBooks() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getMostPopularBooks,
-          [],
-        ),
-        returnValue: _i26.Future<
-                _i4
-                .Either<_i38.Failure, List<_i3.MostPopularBooksEntity>>>.value(
-            _FakeEither_4<_i38.Failure, List<_i3.MostPopularBooksEntity>>(
-          this,
-          Invocation.method(
-            #getMostPopularBooks,
-            [],
-          ),
-        )),
-        returnValueForMissingStub: _i26.Future<
-                _i4
-                .Either<_i38.Failure, List<_i3.MostPopularBooksEntity>>>.value(
-            _FakeEither_4<_i38.Failure, List<_i3.MostPopularBooksEntity>>(
-          this,
-          Invocation.method(
-            #getMostPopularBooks,
-            [],
-          ),
-        )),
-      ) as _i26
-          .Future<_i4.Either<_i38.Failure, List<_i3.MostPopularBooksEntity>>>);
+  _i4.Future<_i13.Either<_i53.Failure, List<_i12.MostPopularBooksEntity>>>
+      getMostPopularBooks() => (super.noSuchMethod(
+            Invocation.method(
+              #getMostPopularBooks,
+              [],
+            ),
+            returnValue: _i4.Future<
+                    _i13.Either<_i53.Failure,
+                        List<_i12.MostPopularBooksEntity>>>.value(
+                _FakeEither_13<_i53.Failure, List<_i12.MostPopularBooksEntity>>(
+              this,
+              Invocation.method(
+                #getMostPopularBooks,
+                [],
+              ),
+            )),
+            returnValueForMissingStub: _i4.Future<
+                    _i13.Either<_i53.Failure,
+                        List<_i12.MostPopularBooksEntity>>>.value(
+                _FakeEither_13<_i53.Failure, List<_i12.MostPopularBooksEntity>>(
+              this,
+              Invocation.method(
+                #getMostPopularBooks,
+                [],
+              ),
+            )),
+          ) as _i4.Future<
+              _i13.Either<_i53.Failure, List<_i12.MostPopularBooksEntity>>>);
 }
 
 /// A class which mocks [NominatedBooksRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNominatedBooksRepository extends _i1.Mock
-    implements _i10.NominatedBooksRepository {
+    implements _i19.NominatedBooksRepository {
   @override
-  _i26.Future<
-      _i4.Either<_i38.Failure,
-          List<_i3.NominatedBooksEntity>>> getNominatedBooks() =>
+  _i4.Future<
+      _i13.Either<_i53.Failure,
+          List<_i12.NominatedBooksEntity>>> getNominatedBooks() =>
       (super.noSuchMethod(
         Invocation.method(
           #getNominatedBooks,
           [],
         ),
-        returnValue: _i26.Future<
-                _i4.Either<_i38.Failure, List<_i3.NominatedBooksEntity>>>.value(
-            _FakeEither_4<_i38.Failure, List<_i3.NominatedBooksEntity>>(
+        returnValue: _i4.Future<
+                _i13
+                .Either<_i53.Failure, List<_i12.NominatedBooksEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.NominatedBooksEntity>>(
           this,
           Invocation.method(
             #getNominatedBooks,
             [],
           ),
         )),
-        returnValueForMissingStub: _i26.Future<
-                _i4.Either<_i38.Failure, List<_i3.NominatedBooksEntity>>>.value(
-            _FakeEither_4<_i38.Failure, List<_i3.NominatedBooksEntity>>(
+        returnValueForMissingStub: _i4.Future<
+                _i13
+                .Either<_i53.Failure, List<_i12.NominatedBooksEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.NominatedBooksEntity>>(
           this,
           Invocation.method(
             #getNominatedBooks,
             [],
           ),
         )),
-      ) as _i26
-          .Future<_i4.Either<_i38.Failure, List<_i3.NominatedBooksEntity>>>);
+      ) as _i4
+          .Future<_i13.Either<_i53.Failure, List<_i12.NominatedBooksEntity>>>);
 }
 
 /// A class which mocks [WeeklyPopularBooksRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockWeeklyPopularBooksRepository extends _i1.Mock
-    implements _i11.WeeklyPopularBooksRepository {
+    implements _i20.WeeklyPopularBooksRepository {
   @override
-  _i26.Future<_i4.Either<_i38.Failure, List<_i3.WeeklyPopularBooksEntity>>>
-      getWeeklyPopularBooks() => (super.noSuchMethod(
-            Invocation.method(
-              #getWeeklyPopularBooks,
-              [],
-            ),
-            returnValue: _i26.Future<
-                    _i4.Either<_i38.Failure,
-                        List<_i3.WeeklyPopularBooksEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.WeeklyPopularBooksEntity>>(
-              this,
-              Invocation.method(
-                #getWeeklyPopularBooks,
-                [],
-              ),
-            )),
-            returnValueForMissingStub: _i26.Future<
-                    _i4.Either<_i38.Failure,
-                        List<_i3.WeeklyPopularBooksEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.WeeklyPopularBooksEntity>>(
-              this,
-              Invocation.method(
-                #getWeeklyPopularBooks,
-                [],
-              ),
-            )),
-          ) as _i26.Future<
-              _i4.Either<_i38.Failure, List<_i3.WeeklyPopularBooksEntity>>>);
+  _i4.Future<
+      _i13.Either<_i53.Failure,
+          List<_i12.WeeklyPopularBooksEntity>>> getWeeklyPopularBooks() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getWeeklyPopularBooks,
+          [],
+        ),
+        returnValue: _i4.Future<
+                _i13.Either<_i53.Failure,
+                    List<_i12.WeeklyPopularBooksEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.WeeklyPopularBooksEntity>>(
+          this,
+          Invocation.method(
+            #getWeeklyPopularBooks,
+            [],
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<
+                _i13.Either<_i53.Failure,
+                    List<_i12.WeeklyPopularBooksEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.WeeklyPopularBooksEntity>>(
+          this,
+          Invocation.method(
+            #getWeeklyPopularBooks,
+            [],
+          ),
+        )),
+      ) as _i4.Future<
+          _i13.Either<_i53.Failure, List<_i12.WeeklyPopularBooksEntity>>>);
 }
 
 /// A class which mocks [GetAuthorInfoUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetAuthorInfoUseCase extends _i1.Mock
-    implements _i12.GetAuthorInfoUseCase {
+    implements _i21.GetAuthorInfoUseCase {
   @override
-  _i5.AuthorInfoRepository get repository => (super.noSuchMethod(
+  _i14.AuthorInfoRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
-        returnValue: _FakeAuthorInfoRepository_5(
+        returnValue: _FakeAuthorInfoRepository_14(
           this,
           Invocation.getter(#repository),
         ),
-        returnValueForMissingStub: _FakeAuthorInfoRepository_5(
+        returnValueForMissingStub: _FakeAuthorInfoRepository_14(
           this,
           Invocation.getter(#repository),
         ),
-      ) as _i5.AuthorInfoRepository);
+      ) as _i14.AuthorInfoRepository);
 
   @override
-  _i26.Future<_i4.Either<_i38.Failure, _i3.AuthorInfoEntity>> execute(
+  _i4.Future<_i13.Either<_i53.Failure, _i12.AuthorInfoEntity>> execute(
           int? authorId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1141,8 +2188,8 @@ class MockGetAuthorInfoUseCase extends _i1.Mock
           [authorId],
         ),
         returnValue:
-            _i26.Future<_i4.Either<_i38.Failure, _i3.AuthorInfoEntity>>.value(
-                _FakeEither_4<_i38.Failure, _i3.AuthorInfoEntity>(
+            _i4.Future<_i13.Either<_i53.Failure, _i12.AuthorInfoEntity>>.value(
+                _FakeEither_13<_i53.Failure, _i12.AuthorInfoEntity>(
           this,
           Invocation.method(
             #execute,
@@ -1150,86 +2197,86 @@ class MockGetAuthorInfoUseCase extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i4.Either<_i38.Failure, _i3.AuthorInfoEntity>>.value(
-                _FakeEither_4<_i38.Failure, _i3.AuthorInfoEntity>(
+            _i4.Future<_i13.Either<_i53.Failure, _i12.AuthorInfoEntity>>.value(
+                _FakeEither_13<_i53.Failure, _i12.AuthorInfoEntity>(
           this,
           Invocation.method(
             #execute,
             [authorId],
           ),
         )),
-      ) as _i26.Future<_i4.Either<_i38.Failure, _i3.AuthorInfoEntity>>);
+      ) as _i4.Future<_i13.Either<_i53.Failure, _i12.AuthorInfoEntity>>);
 }
 
 /// A class which mocks [GetAwardedBooksUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetAwardedBooksUseCase extends _i1.Mock
-    implements _i14.GetAwardedBooksUseCase {
+    implements _i23.GetAwardedBooksUseCase {
   @override
-  _i6.AwardedBooksRepository get repository => (super.noSuchMethod(
+  _i15.AwardedBooksRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
-        returnValue: _FakeAwardedBooksRepository_6(
+        returnValue: _FakeAwardedBooksRepository_15(
           this,
           Invocation.getter(#repository),
         ),
-        returnValueForMissingStub: _FakeAwardedBooksRepository_6(
+        returnValueForMissingStub: _FakeAwardedBooksRepository_15(
           this,
           Invocation.getter(#repository),
         ),
-      ) as _i6.AwardedBooksRepository);
+      ) as _i15.AwardedBooksRepository);
 
   @override
-  _i26.Future<_i4.Either<_i38.Failure, List<_i3.AwardedBooksEntity>>>
+  _i4.Future<_i13.Either<_i53.Failure, List<_i12.AwardedBooksEntity>>>
       execute() => (super.noSuchMethod(
             Invocation.method(
               #execute,
               [],
             ),
-            returnValue: _i26.Future<
-                    _i4
-                    .Either<_i38.Failure, List<_i3.AwardedBooksEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.AwardedBooksEntity>>(
+            returnValue: _i4.Future<
+                    _i13
+                    .Either<_i53.Failure, List<_i12.AwardedBooksEntity>>>.value(
+                _FakeEither_13<_i53.Failure, List<_i12.AwardedBooksEntity>>(
               this,
               Invocation.method(
                 #execute,
                 [],
               ),
             )),
-            returnValueForMissingStub: _i26.Future<
-                    _i4
-                    .Either<_i38.Failure, List<_i3.AwardedBooksEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.AwardedBooksEntity>>(
+            returnValueForMissingStub: _i4.Future<
+                    _i13
+                    .Either<_i53.Failure, List<_i12.AwardedBooksEntity>>>.value(
+                _FakeEither_13<_i53.Failure, List<_i12.AwardedBooksEntity>>(
               this,
               Invocation.method(
                 #execute,
                 [],
               ),
             )),
-          ) as _i26
-              .Future<_i4.Either<_i38.Failure, List<_i3.AwardedBooksEntity>>>);
+          ) as _i4.Future<
+              _i13.Either<_i53.Failure, List<_i12.AwardedBooksEntity>>>);
 }
 
 /// A class which mocks [GetBookDetailsUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetBookDetailsUseCase extends _i1.Mock
-    implements _i16.GetBookDetailsUseCase {
+    implements _i25.GetBookDetailsUseCase {
   @override
-  _i7.BookDetailRepository get repository => (super.noSuchMethod(
+  _i16.BookDetailRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
-        returnValue: _FakeBookDetailRepository_7(
+        returnValue: _FakeBookDetailRepository_16(
           this,
           Invocation.getter(#repository),
         ),
-        returnValueForMissingStub: _FakeBookDetailRepository_7(
+        returnValueForMissingStub: _FakeBookDetailRepository_16(
           this,
           Invocation.getter(#repository),
         ),
-      ) as _i7.BookDetailRepository);
+      ) as _i16.BookDetailRepository);
 
   @override
-  _i26.Future<_i4.Either<_i38.Failure, _i3.BookDetailEntity>> execute(
+  _i4.Future<_i13.Either<_i53.Failure, _i12.BookDetailEntity>> execute(
           int? bookId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1237,8 +2284,8 @@ class MockGetBookDetailsUseCase extends _i1.Mock
           [bookId],
         ),
         returnValue:
-            _i26.Future<_i4.Either<_i38.Failure, _i3.BookDetailEntity>>.value(
-                _FakeEither_4<_i38.Failure, _i3.BookDetailEntity>(
+            _i4.Future<_i13.Either<_i53.Failure, _i12.BookDetailEntity>>.value(
+                _FakeEither_13<_i53.Failure, _i12.BookDetailEntity>(
           this,
           Invocation.method(
             #execute,
@@ -1246,233 +2293,237 @@ class MockGetBookDetailsUseCase extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i26.Future<_i4.Either<_i38.Failure, _i3.BookDetailEntity>>.value(
-                _FakeEither_4<_i38.Failure, _i3.BookDetailEntity>(
+            _i4.Future<_i13.Either<_i53.Failure, _i12.BookDetailEntity>>.value(
+                _FakeEither_13<_i53.Failure, _i12.BookDetailEntity>(
           this,
           Invocation.method(
             #execute,
             [bookId],
           ),
         )),
-      ) as _i26.Future<_i4.Either<_i38.Failure, _i3.BookDetailEntity>>);
+      ) as _i4.Future<_i13.Either<_i53.Failure, _i12.BookDetailEntity>>);
 }
 
 /// A class which mocks [GetMostPopularAuthorsUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetMostPopularAuthorsUseCase extends _i1.Mock
-    implements _i18.GetMostPopularAuthorsUseCase {
+    implements _i27.GetMostPopularAuthorsUseCase {
   @override
-  _i8.MostPopularAuthorsRepository get repository => (super.noSuchMethod(
+  _i17.MostPopularAuthorsRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
-        returnValue: _FakeMostPopularAuthorsRepository_8(
+        returnValue: _FakeMostPopularAuthorsRepository_17(
           this,
           Invocation.getter(#repository),
         ),
-        returnValueForMissingStub: _FakeMostPopularAuthorsRepository_8(
+        returnValueForMissingStub: _FakeMostPopularAuthorsRepository_17(
           this,
           Invocation.getter(#repository),
         ),
-      ) as _i8.MostPopularAuthorsRepository);
+      ) as _i17.MostPopularAuthorsRepository);
 
   @override
-  _i26.Future<_i4.Either<_i38.Failure, List<_i3.MostPopularAuthorsEntity>>>
-      execute() => (super.noSuchMethod(
-            Invocation.method(
-              #execute,
-              [],
-            ),
-            returnValue: _i26.Future<
-                    _i4.Either<_i38.Failure,
-                        List<_i3.MostPopularAuthorsEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.MostPopularAuthorsEntity>>(
-              this,
-              Invocation.method(
-                #execute,
-                [],
-              ),
-            )),
-            returnValueForMissingStub: _i26.Future<
-                    _i4.Either<_i38.Failure,
-                        List<_i3.MostPopularAuthorsEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.MostPopularAuthorsEntity>>(
-              this,
-              Invocation.method(
-                #execute,
-                [],
-              ),
-            )),
-          ) as _i26.Future<
-              _i4.Either<_i38.Failure, List<_i3.MostPopularAuthorsEntity>>>);
+  _i4.Future<
+      _i13.Either<_i53.Failure,
+          List<_i12.MostPopularAuthorsEntity>>> execute() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+        ),
+        returnValue: _i4.Future<
+                _i13.Either<_i53.Failure,
+                    List<_i12.MostPopularAuthorsEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.MostPopularAuthorsEntity>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<
+                _i13.Either<_i53.Failure,
+                    List<_i12.MostPopularAuthorsEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.MostPopularAuthorsEntity>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+      ) as _i4.Future<
+          _i13.Either<_i53.Failure, List<_i12.MostPopularAuthorsEntity>>>);
 }
 
 /// A class which mocks [GetMostPopularBooksUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetMostPopularBooksUseCase extends _i1.Mock
-    implements _i20.GetMostPopularBooksUseCase {
+    implements _i29.GetMostPopularBooksUseCase {
   @override
-  _i9.MostPopularBooksRepository get repository => (super.noSuchMethod(
+  _i18.MostPopularBooksRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
-        returnValue: _FakeMostPopularBooksRepository_9(
+        returnValue: _FakeMostPopularBooksRepository_18(
           this,
           Invocation.getter(#repository),
         ),
-        returnValueForMissingStub: _FakeMostPopularBooksRepository_9(
+        returnValueForMissingStub: _FakeMostPopularBooksRepository_18(
           this,
           Invocation.getter(#repository),
         ),
-      ) as _i9.MostPopularBooksRepository);
+      ) as _i18.MostPopularBooksRepository);
 
   @override
-  _i26.Future<
-      _i4.Either<_i38.Failure,
-          List<_i3.MostPopularBooksEntity>>> execute() => (super.noSuchMethod(
-        Invocation.method(
-          #execute,
-          [],
-        ),
-        returnValue: _i26.Future<
-                _i4
-                .Either<_i38.Failure, List<_i3.MostPopularBooksEntity>>>.value(
-            _FakeEither_4<_i38.Failure, List<_i3.MostPopularBooksEntity>>(
-          this,
-          Invocation.method(
-            #execute,
-            [],
-          ),
-        )),
-        returnValueForMissingStub: _i26.Future<
-                _i4
-                .Either<_i38.Failure, List<_i3.MostPopularBooksEntity>>>.value(
-            _FakeEither_4<_i38.Failure, List<_i3.MostPopularBooksEntity>>(
-          this,
-          Invocation.method(
-            #execute,
-            [],
-          ),
-        )),
-      ) as _i26
-          .Future<_i4.Either<_i38.Failure, List<_i3.MostPopularBooksEntity>>>);
+  _i4.Future<_i13.Either<_i53.Failure, List<_i12.MostPopularBooksEntity>>>
+      execute() => (super.noSuchMethod(
+            Invocation.method(
+              #execute,
+              [],
+            ),
+            returnValue: _i4.Future<
+                    _i13.Either<_i53.Failure,
+                        List<_i12.MostPopularBooksEntity>>>.value(
+                _FakeEither_13<_i53.Failure, List<_i12.MostPopularBooksEntity>>(
+              this,
+              Invocation.method(
+                #execute,
+                [],
+              ),
+            )),
+            returnValueForMissingStub: _i4.Future<
+                    _i13.Either<_i53.Failure,
+                        List<_i12.MostPopularBooksEntity>>>.value(
+                _FakeEither_13<_i53.Failure, List<_i12.MostPopularBooksEntity>>(
+              this,
+              Invocation.method(
+                #execute,
+                [],
+              ),
+            )),
+          ) as _i4.Future<
+              _i13.Either<_i53.Failure, List<_i12.MostPopularBooksEntity>>>);
 }
 
 /// A class which mocks [GetNominatedBooksUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetNominatedBooksUseCase extends _i1.Mock
-    implements _i22.GetNominatedBooksUseCase {
+    implements _i31.GetNominatedBooksUseCase {
   @override
-  _i10.NominatedBooksRepository get repository => (super.noSuchMethod(
+  _i19.NominatedBooksRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
-        returnValue: _FakeNominatedBooksRepository_10(
+        returnValue: _FakeNominatedBooksRepository_19(
           this,
           Invocation.getter(#repository),
         ),
-        returnValueForMissingStub: _FakeNominatedBooksRepository_10(
+        returnValueForMissingStub: _FakeNominatedBooksRepository_19(
           this,
           Invocation.getter(#repository),
         ),
-      ) as _i10.NominatedBooksRepository);
+      ) as _i19.NominatedBooksRepository);
 
   @override
-  _i26.Future<
-      _i4
-      .Either<_i38.Failure, List<_i3.NominatedBooksEntity>>> execute() => (super
-              .noSuchMethod(
+  _i4.Future<
+      _i13.Either<_i53.Failure,
+          List<_i12.NominatedBooksEntity>>> execute() => (super.noSuchMethod(
         Invocation.method(
           #execute,
           [],
         ),
-        returnValue: _i26.Future<
-                _i4.Either<_i38.Failure, List<_i3.NominatedBooksEntity>>>.value(
-            _FakeEither_4<_i38.Failure, List<_i3.NominatedBooksEntity>>(
+        returnValue: _i4.Future<
+                _i13
+                .Either<_i53.Failure, List<_i12.NominatedBooksEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.NominatedBooksEntity>>(
           this,
           Invocation.method(
             #execute,
             [],
           ),
         )),
-        returnValueForMissingStub: _i26.Future<
-                _i4.Either<_i38.Failure, List<_i3.NominatedBooksEntity>>>.value(
-            _FakeEither_4<_i38.Failure, List<_i3.NominatedBooksEntity>>(
+        returnValueForMissingStub: _i4.Future<
+                _i13
+                .Either<_i53.Failure, List<_i12.NominatedBooksEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.NominatedBooksEntity>>(
           this,
           Invocation.method(
             #execute,
             [],
           ),
         )),
-      ) as _i26
-          .Future<_i4.Either<_i38.Failure, List<_i3.NominatedBooksEntity>>>);
+      ) as _i4
+          .Future<_i13.Either<_i53.Failure, List<_i12.NominatedBooksEntity>>>);
 }
 
 /// A class which mocks [GetWeeklyPopularBooksUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetWeeklyPopularBooksUseCase extends _i1.Mock
-    implements _i24.GetWeeklyPopularBooksUseCase {
+    implements _i33.GetWeeklyPopularBooksUseCase {
   @override
-  _i11.WeeklyPopularBooksRepository get repository => (super.noSuchMethod(
+  _i20.WeeklyPopularBooksRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
-        returnValue: _FakeWeeklyPopularBooksRepository_11(
+        returnValue: _FakeWeeklyPopularBooksRepository_20(
           this,
           Invocation.getter(#repository),
         ),
-        returnValueForMissingStub: _FakeWeeklyPopularBooksRepository_11(
+        returnValueForMissingStub: _FakeWeeklyPopularBooksRepository_20(
           this,
           Invocation.getter(#repository),
         ),
-      ) as _i11.WeeklyPopularBooksRepository);
+      ) as _i20.WeeklyPopularBooksRepository);
 
   @override
-  _i26.Future<_i4.Either<_i38.Failure, List<_i3.WeeklyPopularBooksEntity>>>
-      execute() => (super.noSuchMethod(
-            Invocation.method(
-              #execute,
-              [],
-            ),
-            returnValue: _i26.Future<
-                    _i4.Either<_i38.Failure,
-                        List<_i3.WeeklyPopularBooksEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.WeeklyPopularBooksEntity>>(
-              this,
-              Invocation.method(
-                #execute,
-                [],
-              ),
-            )),
-            returnValueForMissingStub: _i26.Future<
-                    _i4.Either<_i38.Failure,
-                        List<_i3.WeeklyPopularBooksEntity>>>.value(
-                _FakeEither_4<_i38.Failure, List<_i3.WeeklyPopularBooksEntity>>(
-              this,
-              Invocation.method(
-                #execute,
-                [],
-              ),
-            )),
-          ) as _i26.Future<
-              _i4.Either<_i38.Failure, List<_i3.WeeklyPopularBooksEntity>>>);
+  _i4.Future<
+      _i13.Either<_i53.Failure,
+          List<_i12.WeeklyPopularBooksEntity>>> execute() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #execute,
+          [],
+        ),
+        returnValue: _i4.Future<
+                _i13.Either<_i53.Failure,
+                    List<_i12.WeeklyPopularBooksEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.WeeklyPopularBooksEntity>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+        returnValueForMissingStub: _i4.Future<
+                _i13.Either<_i53.Failure,
+                    List<_i12.WeeklyPopularBooksEntity>>>.value(
+            _FakeEither_13<_i53.Failure, List<_i12.WeeklyPopularBooksEntity>>(
+          this,
+          Invocation.method(
+            #execute,
+            [],
+          ),
+        )),
+      ) as _i4.Future<
+          _i13.Either<_i53.Failure, List<_i12.WeeklyPopularBooksEntity>>>);
 }
 
 /// A class which mocks [AuthorInfoBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
+class MockAuthorInfoBloc extends _i1.Mock implements _i22.AuthorInfoBloc {
   @override
-  _i12.GetAuthorInfoUseCase get useCase => (super.noSuchMethod(
+  _i21.GetAuthorInfoUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
-        returnValue: _FakeGetAuthorInfoUseCase_12(
+        returnValue: _FakeGetAuthorInfoUseCase_21(
           this,
           Invocation.getter(#useCase),
         ),
-        returnValueForMissingStub: _FakeGetAuthorInfoUseCase_12(
+        returnValueForMissingStub: _FakeGetAuthorInfoUseCase_21(
           this,
           Invocation.getter(#useCase),
         ),
-      ) as _i12.GetAuthorInfoUseCase);
+      ) as _i21.GetAuthorInfoUseCase);
 
   @override
-  set useCase(_i12.GetAuthorInfoUseCase? _useCase) => super.noSuchMethod(
+  set useCase(_i21.GetAuthorInfoUseCase? _useCase) => super.noSuchMethod(
         Invocation.setter(
           #useCase,
           _useCase,
@@ -1481,24 +2532,24 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
       );
 
   @override
-  _i13.AuthorInfoState get state => (super.noSuchMethod(
+  _i22.AuthorInfoState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeAuthorInfoState_13(
+        returnValue: _FakeAuthorInfoState_22(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _FakeAuthorInfoState_13(
+        returnValueForMissingStub: _FakeAuthorInfoState_22(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i13.AuthorInfoState);
+      ) as _i22.AuthorInfoState);
 
   @override
-  _i26.Stream<_i13.AuthorInfoState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i22.AuthorInfoState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i26.Stream<_i13.AuthorInfoState>.empty(),
-        returnValueForMissingStub: _i26.Stream<_i13.AuthorInfoState>.empty(),
-      ) as _i26.Stream<_i13.AuthorInfoState>);
+        returnValue: _i4.Stream<_i22.AuthorInfoState>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i22.AuthorInfoState>.empty(),
+      ) as _i4.Stream<_i22.AuthorInfoState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -1508,9 +2559,9 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
       ) as bool);
 
   @override
-  _i26.Future<void> getAuthorInfoById(
-    _i13.GetAuthorInfo? event,
-    _i39.Emitter<_i13.AuthorInfoState>? emit,
+  _i4.Future<void> getAuthorInfoById(
+    _i22.GetAuthorInfo? event,
+    _i54.Emitter<_i22.AuthorInfoState>? emit,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1520,12 +2571,12 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
             emit,
           ],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void add(_i13.AuthorInfoEvent? event) => super.noSuchMethod(
+  void add(_i22.AuthorInfoEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -1534,7 +2585,7 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
       );
 
   @override
-  void onEvent(_i13.AuthorInfoEvent? event) => super.noSuchMethod(
+  void onEvent(_i22.AuthorInfoEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -1543,7 +2594,7 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
       );
 
   @override
-  void emit(_i13.AuthorInfoState? state) => super.noSuchMethod(
+  void emit(_i22.AuthorInfoState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -1552,9 +2603,9 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
       );
 
   @override
-  void on<E extends _i13.AuthorInfoEvent>(
-    _i39.EventHandler<E, _i13.AuthorInfoState>? handler, {
-    _i39.EventTransformer<E>? transformer,
+  void on<E extends _i22.AuthorInfoEvent>(
+    _i54.EventHandler<E, _i22.AuthorInfoState>? handler, {
+    _i54.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1567,7 +2618,7 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
 
   @override
   void onTransition(
-          _i39.Transition<_i13.AuthorInfoEvent, _i13.AuthorInfoState>?
+          _i54.Transition<_i22.AuthorInfoEvent, _i22.AuthorInfoState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1578,17 +2629,17 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
       );
 
   @override
-  _i26.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void onChange(_i39.Change<_i13.AuthorInfoState>? change) =>
+  void onChange(_i54.Change<_i22.AuthorInfoState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,
@@ -1633,22 +2684,22 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i13.AuthorInfoBloc {
 /// A class which mocks [AwardedBooksBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
+class MockAwardedBooksBloc extends _i1.Mock implements _i24.AwardedBooksBloc {
   @override
-  _i14.GetAwardedBooksUseCase get useCase => (super.noSuchMethod(
+  _i23.GetAwardedBooksUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
-        returnValue: _FakeGetAwardedBooksUseCase_14(
+        returnValue: _FakeGetAwardedBooksUseCase_23(
           this,
           Invocation.getter(#useCase),
         ),
-        returnValueForMissingStub: _FakeGetAwardedBooksUseCase_14(
+        returnValueForMissingStub: _FakeGetAwardedBooksUseCase_23(
           this,
           Invocation.getter(#useCase),
         ),
-      ) as _i14.GetAwardedBooksUseCase);
+      ) as _i23.GetAwardedBooksUseCase);
 
   @override
-  set useCase(_i14.GetAwardedBooksUseCase? _useCase) => super.noSuchMethod(
+  set useCase(_i23.GetAwardedBooksUseCase? _useCase) => super.noSuchMethod(
         Invocation.setter(
           #useCase,
           _useCase,
@@ -1657,24 +2708,24 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
       );
 
   @override
-  _i15.AwardedBooksState get state => (super.noSuchMethod(
+  _i24.AwardedBooksState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeAwardedBooksState_15(
+        returnValue: _FakeAwardedBooksState_24(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _FakeAwardedBooksState_15(
+        returnValueForMissingStub: _FakeAwardedBooksState_24(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i15.AwardedBooksState);
+      ) as _i24.AwardedBooksState);
 
   @override
-  _i26.Stream<_i15.AwardedBooksState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i24.AwardedBooksState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i26.Stream<_i15.AwardedBooksState>.empty(),
-        returnValueForMissingStub: _i26.Stream<_i15.AwardedBooksState>.empty(),
-      ) as _i26.Stream<_i15.AwardedBooksState>);
+        returnValue: _i4.Stream<_i24.AwardedBooksState>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i24.AwardedBooksState>.empty(),
+      ) as _i4.Stream<_i24.AwardedBooksState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -1684,9 +2735,9 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
       ) as bool);
 
   @override
-  _i26.Future<void> getAwardedBooks(
-    _i15.AwardedBooksEvent? event,
-    _i39.Emitter<_i15.AwardedBooksState>? emit,
+  _i4.Future<void> getAwardedBooks(
+    _i24.AwardedBooksEvent? event,
+    _i54.Emitter<_i24.AwardedBooksState>? emit,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1696,12 +2747,12 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
             emit,
           ],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void add(_i15.AwardedBooksEvent? event) => super.noSuchMethod(
+  void add(_i24.AwardedBooksEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -1710,7 +2761,7 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
       );
 
   @override
-  void onEvent(_i15.AwardedBooksEvent? event) => super.noSuchMethod(
+  void onEvent(_i24.AwardedBooksEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -1719,7 +2770,7 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
       );
 
   @override
-  void emit(_i15.AwardedBooksState? state) => super.noSuchMethod(
+  void emit(_i24.AwardedBooksState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -1728,9 +2779,9 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
       );
 
   @override
-  void on<E extends _i15.AwardedBooksEvent>(
-    _i39.EventHandler<E, _i15.AwardedBooksState>? handler, {
-    _i39.EventTransformer<E>? transformer,
+  void on<E extends _i24.AwardedBooksEvent>(
+    _i54.EventHandler<E, _i24.AwardedBooksState>? handler, {
+    _i54.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1743,7 +2794,7 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
 
   @override
   void onTransition(
-          _i39.Transition<_i15.AwardedBooksEvent, _i15.AwardedBooksState>?
+          _i54.Transition<_i24.AwardedBooksEvent, _i24.AwardedBooksState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1754,17 +2805,17 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
       );
 
   @override
-  _i26.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void onChange(_i39.Change<_i15.AwardedBooksState>? change) =>
+  void onChange(_i54.Change<_i24.AwardedBooksState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,
@@ -1809,22 +2860,22 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i15.AwardedBooksBloc {
 /// A class which mocks [BookDetailsBloc].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
+class MockBookDetailsBloc extends _i1.Mock implements _i26.BookDetailsBloc {
   @override
-  _i16.GetBookDetailsUseCase get useCase => (super.noSuchMethod(
+  _i25.GetBookDetailsUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
-        returnValue: _FakeGetBookDetailsUseCase_16(
+        returnValue: _FakeGetBookDetailsUseCase_25(
           this,
           Invocation.getter(#useCase),
         ),
-        returnValueForMissingStub: _FakeGetBookDetailsUseCase_16(
+        returnValueForMissingStub: _FakeGetBookDetailsUseCase_25(
           this,
           Invocation.getter(#useCase),
         ),
-      ) as _i16.GetBookDetailsUseCase);
+      ) as _i25.GetBookDetailsUseCase);
 
   @override
-  set useCase(_i16.GetBookDetailsUseCase? _useCase) => super.noSuchMethod(
+  set useCase(_i25.GetBookDetailsUseCase? _useCase) => super.noSuchMethod(
         Invocation.setter(
           #useCase,
           _useCase,
@@ -1833,24 +2884,24 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
       );
 
   @override
-  _i17.BookDetailsState get state => (super.noSuchMethod(
+  _i26.BookDetailsState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeBookDetailsState_17(
+        returnValue: _FakeBookDetailsState_26(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _FakeBookDetailsState_17(
+        returnValueForMissingStub: _FakeBookDetailsState_26(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i17.BookDetailsState);
+      ) as _i26.BookDetailsState);
 
   @override
-  _i26.Stream<_i17.BookDetailsState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i26.BookDetailsState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i26.Stream<_i17.BookDetailsState>.empty(),
-        returnValueForMissingStub: _i26.Stream<_i17.BookDetailsState>.empty(),
-      ) as _i26.Stream<_i17.BookDetailsState>);
+        returnValue: _i4.Stream<_i26.BookDetailsState>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i26.BookDetailsState>.empty(),
+      ) as _i4.Stream<_i26.BookDetailsState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -1860,9 +2911,9 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
       ) as bool);
 
   @override
-  _i26.Future<void> getBookDetailsById(
-    _i17.GetBookDetails? event,
-    _i39.Emitter<_i17.BookDetailsState>? emit,
+  _i4.Future<void> getBookDetailsById(
+    _i26.GetBookDetails? event,
+    _i54.Emitter<_i26.BookDetailsState>? emit,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1872,12 +2923,12 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
             emit,
           ],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void add(_i17.BookDetailsEvent? event) => super.noSuchMethod(
+  void add(_i26.BookDetailsEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -1886,7 +2937,7 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
       );
 
   @override
-  void onEvent(_i17.BookDetailsEvent? event) => super.noSuchMethod(
+  void onEvent(_i26.BookDetailsEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -1895,7 +2946,7 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
       );
 
   @override
-  void emit(_i17.BookDetailsState? state) => super.noSuchMethod(
+  void emit(_i26.BookDetailsState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -1904,9 +2955,9 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
       );
 
   @override
-  void on<E extends _i17.BookDetailsEvent>(
-    _i39.EventHandler<E, _i17.BookDetailsState>? handler, {
-    _i39.EventTransformer<E>? transformer,
+  void on<E extends _i26.BookDetailsEvent>(
+    _i54.EventHandler<E, _i26.BookDetailsState>? handler, {
+    _i54.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1919,7 +2970,7 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
 
   @override
   void onTransition(
-          _i39.Transition<_i17.BookDetailsEvent, _i17.BookDetailsState>?
+          _i54.Transition<_i26.BookDetailsEvent, _i26.BookDetailsState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -1930,17 +2981,17 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
       );
 
   @override
-  _i26.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void onChange(_i39.Change<_i17.BookDetailsState>? change) =>
+  void onChange(_i54.Change<_i26.BookDetailsState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,
@@ -1986,24 +3037,24 @@ class MockBookDetailsBloc extends _i1.Mock implements _i17.BookDetailsBloc {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMostPopularAuthorsListBloc extends _i1.Mock
-    implements _i19.MostPopularAuthorsListBloc {
+    implements _i28.MostPopularAuthorsListBloc {
   @override
-  _i18.GetMostPopularAuthorsUseCase get allAuthorsUsecase =>
+  _i27.GetMostPopularAuthorsUseCase get allAuthorsUsecase =>
       (super.noSuchMethod(
         Invocation.getter(#allAuthorsUsecase),
-        returnValue: _FakeGetMostPopularAuthorsUseCase_18(
+        returnValue: _FakeGetMostPopularAuthorsUseCase_27(
           this,
           Invocation.getter(#allAuthorsUsecase),
         ),
-        returnValueForMissingStub: _FakeGetMostPopularAuthorsUseCase_18(
+        returnValueForMissingStub: _FakeGetMostPopularAuthorsUseCase_27(
           this,
           Invocation.getter(#allAuthorsUsecase),
         ),
-      ) as _i18.GetMostPopularAuthorsUseCase);
+      ) as _i27.GetMostPopularAuthorsUseCase);
 
   @override
   set allAuthorsUsecase(
-          _i18.GetMostPopularAuthorsUseCase? _allAuthorsUsecase) =>
+          _i27.GetMostPopularAuthorsUseCase? _allAuthorsUsecase) =>
       super.noSuchMethod(
         Invocation.setter(
           #allAuthorsUsecase,
@@ -2013,26 +3064,26 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
       );
 
   @override
-  _i19.MostPopularAuthorsListState get state => (super.noSuchMethod(
+  _i28.MostPopularAuthorsListState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeMostPopularAuthorsListState_19(
+        returnValue: _FakeMostPopularAuthorsListState_28(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _FakeMostPopularAuthorsListState_19(
+        returnValueForMissingStub: _FakeMostPopularAuthorsListState_28(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i19.MostPopularAuthorsListState);
+      ) as _i28.MostPopularAuthorsListState);
 
   @override
-  _i26.Stream<_i19.MostPopularAuthorsListState> get stream =>
+  _i4.Stream<_i28.MostPopularAuthorsListState> get stream =>
       (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i26.Stream<_i19.MostPopularAuthorsListState>.empty(),
+        returnValue: _i4.Stream<_i28.MostPopularAuthorsListState>.empty(),
         returnValueForMissingStub:
-            _i26.Stream<_i19.MostPopularAuthorsListState>.empty(),
-      ) as _i26.Stream<_i19.MostPopularAuthorsListState>);
+            _i4.Stream<_i28.MostPopularAuthorsListState>.empty(),
+      ) as _i4.Stream<_i28.MostPopularAuthorsListState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -2042,9 +3093,9 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
       ) as bool);
 
   @override
-  _i26.Future<void> getAllAuthorsEvent(
-    _i19.GetMostPopularAuthorsEvent? event,
-    _i39.Emitter<_i19.MostPopularAuthorsListState>? emit,
+  _i4.Future<void> getAllAuthorsEvent(
+    _i28.GetMostPopularAuthorsEvent? event,
+    _i54.Emitter<_i28.MostPopularAuthorsListState>? emit,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -2054,12 +3105,12 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
             emit,
           ],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void add(_i19.MostPopularAuthorsListEvent? event) => super.noSuchMethod(
+  void add(_i28.MostPopularAuthorsListEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -2068,7 +3119,7 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
       );
 
   @override
-  void onEvent(_i19.MostPopularAuthorsListEvent? event) => super.noSuchMethod(
+  void onEvent(_i28.MostPopularAuthorsListEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -2077,7 +3128,7 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
       );
 
   @override
-  void emit(_i19.MostPopularAuthorsListState? state) => super.noSuchMethod(
+  void emit(_i28.MostPopularAuthorsListState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -2086,9 +3137,9 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
       );
 
   @override
-  void on<E extends _i19.MostPopularAuthorsListEvent>(
-    _i39.EventHandler<E, _i19.MostPopularAuthorsListState>? handler, {
-    _i39.EventTransformer<E>? transformer,
+  void on<E extends _i28.MostPopularAuthorsListEvent>(
+    _i54.EventHandler<E, _i28.MostPopularAuthorsListState>? handler, {
+    _i54.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2101,8 +3152,8 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
 
   @override
   void onTransition(
-          _i39.Transition<_i19.MostPopularAuthorsListEvent,
-                  _i19.MostPopularAuthorsListState>?
+          _i54.Transition<_i28.MostPopularAuthorsListEvent,
+                  _i28.MostPopularAuthorsListState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2113,17 +3164,17 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
       );
 
   @override
-  _i26.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void onChange(_i39.Change<_i19.MostPopularAuthorsListState>? change) =>
+  void onChange(_i54.Change<_i28.MostPopularAuthorsListState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,
@@ -2169,22 +3220,22 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockMostPopularBooksBloc extends _i1.Mock
-    implements _i21.MostPopularBooksBloc {
+    implements _i30.MostPopularBooksBloc {
   @override
-  _i20.GetMostPopularBooksUseCase get useCase => (super.noSuchMethod(
+  _i29.GetMostPopularBooksUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
-        returnValue: _FakeGetMostPopularBooksUseCase_20(
+        returnValue: _FakeGetMostPopularBooksUseCase_29(
           this,
           Invocation.getter(#useCase),
         ),
-        returnValueForMissingStub: _FakeGetMostPopularBooksUseCase_20(
+        returnValueForMissingStub: _FakeGetMostPopularBooksUseCase_29(
           this,
           Invocation.getter(#useCase),
         ),
-      ) as _i20.GetMostPopularBooksUseCase);
+      ) as _i29.GetMostPopularBooksUseCase);
 
   @override
-  set useCase(_i20.GetMostPopularBooksUseCase? _useCase) => super.noSuchMethod(
+  set useCase(_i29.GetMostPopularBooksUseCase? _useCase) => super.noSuchMethod(
         Invocation.setter(
           #useCase,
           _useCase,
@@ -2193,25 +3244,25 @@ class MockMostPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  _i21.MostPopularBooksState get state => (super.noSuchMethod(
+  _i30.MostPopularBooksState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeMostPopularBooksState_21(
+        returnValue: _FakeMostPopularBooksState_30(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _FakeMostPopularBooksState_21(
+        returnValueForMissingStub: _FakeMostPopularBooksState_30(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i21.MostPopularBooksState);
+      ) as _i30.MostPopularBooksState);
 
   @override
-  _i26.Stream<_i21.MostPopularBooksState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i30.MostPopularBooksState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i26.Stream<_i21.MostPopularBooksState>.empty(),
+        returnValue: _i4.Stream<_i30.MostPopularBooksState>.empty(),
         returnValueForMissingStub:
-            _i26.Stream<_i21.MostPopularBooksState>.empty(),
-      ) as _i26.Stream<_i21.MostPopularBooksState>);
+            _i4.Stream<_i30.MostPopularBooksState>.empty(),
+      ) as _i4.Stream<_i30.MostPopularBooksState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -2221,9 +3272,9 @@ class MockMostPopularBooksBloc extends _i1.Mock
       ) as bool);
 
   @override
-  _i26.Future<void> getMostPopularBooks(
-    _i21.GetMostPopularBooks? event,
-    _i39.Emitter<_i21.MostPopularBooksState>? emit,
+  _i4.Future<void> getMostPopularBooks(
+    _i30.GetMostPopularBooks? event,
+    _i54.Emitter<_i30.MostPopularBooksState>? emit,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -2233,12 +3284,12 @@ class MockMostPopularBooksBloc extends _i1.Mock
             emit,
           ],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void add(_i21.MostPopularBooksEvent? event) => super.noSuchMethod(
+  void add(_i30.MostPopularBooksEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -2247,7 +3298,7 @@ class MockMostPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  void onEvent(_i21.MostPopularBooksEvent? event) => super.noSuchMethod(
+  void onEvent(_i30.MostPopularBooksEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -2256,7 +3307,7 @@ class MockMostPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  void emit(_i21.MostPopularBooksState? state) => super.noSuchMethod(
+  void emit(_i30.MostPopularBooksState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -2265,9 +3316,9 @@ class MockMostPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  void on<E extends _i21.MostPopularBooksEvent>(
-    _i39.EventHandler<E, _i21.MostPopularBooksState>? handler, {
-    _i39.EventTransformer<E>? transformer,
+  void on<E extends _i30.MostPopularBooksEvent>(
+    _i54.EventHandler<E, _i30.MostPopularBooksState>? handler, {
+    _i54.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2280,8 +3331,8 @@ class MockMostPopularBooksBloc extends _i1.Mock
 
   @override
   void onTransition(
-          _i39.Transition<_i21.MostPopularBooksEvent,
-                  _i21.MostPopularBooksState>?
+          _i54.Transition<_i30.MostPopularBooksEvent,
+                  _i30.MostPopularBooksState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2292,17 +3343,17 @@ class MockMostPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  _i26.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void onChange(_i39.Change<_i21.MostPopularBooksState>? change) =>
+  void onChange(_i54.Change<_i30.MostPopularBooksState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,
@@ -2348,22 +3399,22 @@ class MockMostPopularBooksBloc extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockNominatedBooksListBloc extends _i1.Mock
-    implements _i23.NominatedBooksListBloc {
+    implements _i32.NominatedBooksListBloc {
   @override
-  _i22.GetNominatedBooksUseCase get useCase => (super.noSuchMethod(
+  _i31.GetNominatedBooksUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
-        returnValue: _FakeGetNominatedBooksUseCase_22(
+        returnValue: _FakeGetNominatedBooksUseCase_31(
           this,
           Invocation.getter(#useCase),
         ),
-        returnValueForMissingStub: _FakeGetNominatedBooksUseCase_22(
+        returnValueForMissingStub: _FakeGetNominatedBooksUseCase_31(
           this,
           Invocation.getter(#useCase),
         ),
-      ) as _i22.GetNominatedBooksUseCase);
+      ) as _i31.GetNominatedBooksUseCase);
 
   @override
-  set useCase(_i22.GetNominatedBooksUseCase? _useCase) => super.noSuchMethod(
+  set useCase(_i31.GetNominatedBooksUseCase? _useCase) => super.noSuchMethod(
         Invocation.setter(
           #useCase,
           _useCase,
@@ -2372,25 +3423,25 @@ class MockNominatedBooksListBloc extends _i1.Mock
       );
 
   @override
-  _i23.NominatedBooksListState get state => (super.noSuchMethod(
+  _i32.NominatedBooksListState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeNominatedBooksListState_23(
+        returnValue: _FakeNominatedBooksListState_32(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _FakeNominatedBooksListState_23(
+        returnValueForMissingStub: _FakeNominatedBooksListState_32(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i23.NominatedBooksListState);
+      ) as _i32.NominatedBooksListState);
 
   @override
-  _i26.Stream<_i23.NominatedBooksListState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i32.NominatedBooksListState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i26.Stream<_i23.NominatedBooksListState>.empty(),
+        returnValue: _i4.Stream<_i32.NominatedBooksListState>.empty(),
         returnValueForMissingStub:
-            _i26.Stream<_i23.NominatedBooksListState>.empty(),
-      ) as _i26.Stream<_i23.NominatedBooksListState>);
+            _i4.Stream<_i32.NominatedBooksListState>.empty(),
+      ) as _i4.Stream<_i32.NominatedBooksListState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -2400,9 +3451,9 @@ class MockNominatedBooksListBloc extends _i1.Mock
       ) as bool);
 
   @override
-  _i26.Future<void> getNominatedBooksListEvent(
-    _i23.GetNominatedBooksListEvent? event,
-    _i39.Emitter<_i23.NominatedBooksListState>? emit,
+  _i4.Future<void> getNominatedBooksListEvent(
+    _i32.GetNominatedBooksListEvent? event,
+    _i54.Emitter<_i32.NominatedBooksListState>? emit,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -2412,12 +3463,12 @@ class MockNominatedBooksListBloc extends _i1.Mock
             emit,
           ],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void add(_i23.NominatedBooksListEvent? event) => super.noSuchMethod(
+  void add(_i32.NominatedBooksListEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -2426,7 +3477,7 @@ class MockNominatedBooksListBloc extends _i1.Mock
       );
 
   @override
-  void onEvent(_i23.NominatedBooksListEvent? event) => super.noSuchMethod(
+  void onEvent(_i32.NominatedBooksListEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -2435,7 +3486,7 @@ class MockNominatedBooksListBloc extends _i1.Mock
       );
 
   @override
-  void emit(_i23.NominatedBooksListState? state) => super.noSuchMethod(
+  void emit(_i32.NominatedBooksListState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -2444,9 +3495,9 @@ class MockNominatedBooksListBloc extends _i1.Mock
       );
 
   @override
-  void on<E extends _i23.NominatedBooksListEvent>(
-    _i39.EventHandler<E, _i23.NominatedBooksListState>? handler, {
-    _i39.EventTransformer<E>? transformer,
+  void on<E extends _i32.NominatedBooksListEvent>(
+    _i54.EventHandler<E, _i32.NominatedBooksListState>? handler, {
+    _i54.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2459,8 +3510,8 @@ class MockNominatedBooksListBloc extends _i1.Mock
 
   @override
   void onTransition(
-          _i39.Transition<_i23.NominatedBooksListEvent,
-                  _i23.NominatedBooksListState>?
+          _i54.Transition<_i32.NominatedBooksListEvent,
+                  _i32.NominatedBooksListState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2471,17 +3522,17 @@ class MockNominatedBooksListBloc extends _i1.Mock
       );
 
   @override
-  _i26.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void onChange(_i39.Change<_i23.NominatedBooksListState>? change) =>
+  void onChange(_i54.Change<_i32.NominatedBooksListState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,
@@ -2527,22 +3578,22 @@ class MockNominatedBooksListBloc extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockWeeklyPopularBooksBloc extends _i1.Mock
-    implements _i25.WeeklyPopularBooksBloc {
+    implements _i34.WeeklyPopularBooksBloc {
   @override
-  _i24.GetWeeklyPopularBooksUseCase get useCase => (super.noSuchMethod(
+  _i33.GetWeeklyPopularBooksUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
-        returnValue: _FakeGetWeeklyPopularBooksUseCase_24(
+        returnValue: _FakeGetWeeklyPopularBooksUseCase_33(
           this,
           Invocation.getter(#useCase),
         ),
-        returnValueForMissingStub: _FakeGetWeeklyPopularBooksUseCase_24(
+        returnValueForMissingStub: _FakeGetWeeklyPopularBooksUseCase_33(
           this,
           Invocation.getter(#useCase),
         ),
-      ) as _i24.GetWeeklyPopularBooksUseCase);
+      ) as _i33.GetWeeklyPopularBooksUseCase);
 
   @override
-  set useCase(_i24.GetWeeklyPopularBooksUseCase? _useCase) =>
+  set useCase(_i33.GetWeeklyPopularBooksUseCase? _useCase) =>
       super.noSuchMethod(
         Invocation.setter(
           #useCase,
@@ -2552,25 +3603,25 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  _i25.WeeklyPopularBooksState get state => (super.noSuchMethod(
+  _i34.WeeklyPopularBooksState get state => (super.noSuchMethod(
         Invocation.getter(#state),
-        returnValue: _FakeWeeklyPopularBooksState_25(
+        returnValue: _FakeWeeklyPopularBooksState_34(
           this,
           Invocation.getter(#state),
         ),
-        returnValueForMissingStub: _FakeWeeklyPopularBooksState_25(
+        returnValueForMissingStub: _FakeWeeklyPopularBooksState_34(
           this,
           Invocation.getter(#state),
         ),
-      ) as _i25.WeeklyPopularBooksState);
+      ) as _i34.WeeklyPopularBooksState);
 
   @override
-  _i26.Stream<_i25.WeeklyPopularBooksState> get stream => (super.noSuchMethod(
+  _i4.Stream<_i34.WeeklyPopularBooksState> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i26.Stream<_i25.WeeklyPopularBooksState>.empty(),
+        returnValue: _i4.Stream<_i34.WeeklyPopularBooksState>.empty(),
         returnValueForMissingStub:
-            _i26.Stream<_i25.WeeklyPopularBooksState>.empty(),
-      ) as _i26.Stream<_i25.WeeklyPopularBooksState>);
+            _i4.Stream<_i34.WeeklyPopularBooksState>.empty(),
+      ) as _i4.Stream<_i34.WeeklyPopularBooksState>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -2580,9 +3631,9 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
       ) as bool);
 
   @override
-  _i26.Future<void> getWeeklyPopularBooks(
-    _i25.GetWeeklyPopularBooksEvent? event,
-    _i39.Emitter<_i25.WeeklyPopularBooksState>? emit,
+  _i4.Future<void> getWeeklyPopularBooks(
+    _i34.GetWeeklyPopularBooksEvent? event,
+    _i54.Emitter<_i34.WeeklyPopularBooksState>? emit,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -2592,12 +3643,12 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
             emit,
           ],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void add(_i25.WeeklyPopularBooksEvent? event) => super.noSuchMethod(
+  void add(_i34.WeeklyPopularBooksEvent? event) => super.noSuchMethod(
         Invocation.method(
           #add,
           [event],
@@ -2606,7 +3657,7 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  void onEvent(_i25.WeeklyPopularBooksEvent? event) => super.noSuchMethod(
+  void onEvent(_i34.WeeklyPopularBooksEvent? event) => super.noSuchMethod(
         Invocation.method(
           #onEvent,
           [event],
@@ -2615,7 +3666,7 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  void emit(_i25.WeeklyPopularBooksState? state) => super.noSuchMethod(
+  void emit(_i34.WeeklyPopularBooksState? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -2624,9 +3675,9 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  void on<E extends _i25.WeeklyPopularBooksEvent>(
-    _i39.EventHandler<E, _i25.WeeklyPopularBooksState>? handler, {
-    _i39.EventTransformer<E>? transformer,
+  void on<E extends _i34.WeeklyPopularBooksEvent>(
+    _i54.EventHandler<E, _i34.WeeklyPopularBooksState>? handler, {
+    _i54.EventTransformer<E>? transformer,
   }) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2639,8 +3690,8 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
 
   @override
   void onTransition(
-          _i39.Transition<_i25.WeeklyPopularBooksEvent,
-                  _i25.WeeklyPopularBooksState>?
+          _i54.Transition<_i34.WeeklyPopularBooksEvent,
+                  _i34.WeeklyPopularBooksState>?
               transition) =>
       super.noSuchMethod(
         Invocation.method(
@@ -2651,17 +3702,17 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
       );
 
   @override
-  _i26.Future<void> close() => (super.noSuchMethod(
+  _i4.Future<void> close() => (super.noSuchMethod(
         Invocation.method(
           #close,
           [],
         ),
-        returnValue: _i26.Future<void>.value(),
-        returnValueForMissingStub: _i26.Future<void>.value(),
-      ) as _i26.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  void onChange(_i39.Change<_i25.WeeklyPopularBooksState>? change) =>
+  void onChange(_i54.Change<_i34.WeeklyPopularBooksState>? change) =>
       super.noSuchMethod(
         Invocation.method(
           #onChange,

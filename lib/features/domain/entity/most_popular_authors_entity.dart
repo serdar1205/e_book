@@ -1,10 +1,12 @@
 import 'package:equatable/equatable.dart';
-import 'package:hive_flutter/adapters.dart';
-part 'most_popular_authors_entity.g.dart';
+import 'package:floor/floor.dart';
 
-@HiveType(typeId: 1)
+
+
+@Entity(tableName: 'authors', primaryKeys: ['id'])
 class MostPopularAuthorsEntity extends Equatable {
   const MostPopularAuthorsEntity({
+    this.id,
     this.authorId,
     this.name,
     this.url,
@@ -14,19 +16,18 @@ class MostPopularAuthorsEntity extends Equatable {
     this.numberPublishedBooks,
   });
 
-  @HiveField(0)
+  final int? id;
   final int? authorId;
-  @HiveField(1)
   final String? name;
-  @HiveField(2)
+
   final String? image;
-  @HiveField(3)
+
   final String? url;
-  @HiveField(4)
+
   final String? popularBookTitle;
-  @HiveField(5)
+
   final String? popularBookUrl;
-  @HiveField(6)
+
   final int? numberPublishedBooks;
 
   @override

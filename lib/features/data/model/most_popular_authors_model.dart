@@ -2,6 +2,7 @@ import 'package:e_book/features/domain/entity/most_popular_authors_entity.dart';
 
 class MostPopularAuthorModel extends MostPopularAuthorsEntity {
   const MostPopularAuthorModel({
+    int? id,
     required int authorId,
     required String name,
     required String url,
@@ -10,6 +11,7 @@ class MostPopularAuthorModel extends MostPopularAuthorsEntity {
     required String popularBookUrl,
     required int numberPublishedBooks,
   }) : super(
+          id: id,
           authorId: authorId,
           name: name,
           url: url,
@@ -42,6 +44,30 @@ class MostPopularAuthorModel extends MostPopularAuthorsEntity {
       numberPublishedBooks: map["number_published_books"],
     );
   }
+
+  factory MostPopularAuthorModel.fromEntity(MostPopularAuthorsEntity entity) {
+    return MostPopularAuthorModel(
+      authorId: entity.authorId!,
+      name: entity.name!,
+      image: entity.image!,
+      url: entity.url!,
+      popularBookTitle: entity.popularBookTitle!,
+      popularBookUrl: entity.popularBookUrl!,
+      numberPublishedBooks: entity.numberPublishedBooks!,
+    );
+  }
+
+  // MostPopularAuthorsEntity toEntity() {
+  //   return MostPopularAuthorsEntity(
+  //     authorId: authorId,
+  //     name: name,
+  //     image: image,
+  //     url: url,
+  //     popularBookTitle: popularBookTitle,
+  //     popularBookUrl: popularBookUrl,
+  //     numberPublishedBooks: numberPublishedBooks,
+  //   );
+  // }
 
   @override
   List<Object?> get props => [
