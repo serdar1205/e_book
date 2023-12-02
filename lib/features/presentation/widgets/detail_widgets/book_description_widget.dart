@@ -54,6 +54,7 @@ class _BookDescriptionState extends State<BookDescription> {
             context: context,
           ),
           GestureDetector(
+            key: Key("show"),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[

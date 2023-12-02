@@ -9,7 +9,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: Theme.of(context).appBarTheme.backgroundColor,),
       body: Center(
         child:  VeryBigText(
           'Chat Page',

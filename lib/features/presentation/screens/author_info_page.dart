@@ -50,6 +50,7 @@ class AuthorsInfoPage extends StatelessWidget {
     return Builder(builder: (context) {
       return ListView(
         key: const Key('scroll'),
+        scrollDirection: Axis.vertical,
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         children: [
           AuthorInfoCard(
@@ -72,6 +73,7 @@ class AuthorsInfoPage extends StatelessWidget {
             key: const Key('list'),
             padding: const EdgeInsets.symmetric(vertical: 20),
             shrinkWrap: true,
+            scrollDirection: Axis.vertical,
             itemCount: authorInfoEntity.authorBooks!.length,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {

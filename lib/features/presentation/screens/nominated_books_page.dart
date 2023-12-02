@@ -24,6 +24,8 @@ class NominatedBooksPage extends StatelessWidget {
               );
             } else if (state is NominatedBooksListLoadedState) {
               return ListView.builder(
+                key: Key('Nominated_books_list'),
+                scrollDirection: Axis.vertical,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 shrinkWrap: true,

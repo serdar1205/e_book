@@ -24,7 +24,7 @@ class MyDrawer extends StatelessWidget {
     Icons.info_rounded,
   ];
 
-  var navigators = [
+  final navigators = [
     const LoginRoute(),
     const MyCardsRoute(),
     const ChatRoute(),
@@ -72,6 +72,7 @@ class MyDrawer extends StatelessWidget {
                 Icons.arrow_back,
                 color: Colors.white,
                 size: 20,
+                key: Key('back'),
               ),
             ),
           ),
@@ -116,8 +117,8 @@ iconAndTitle({
       ),
       child: Row(
         children: [
-          const Icon(
-            Icons.person_rounded,
+           Icon(
+            icon,
             size: 20,
           ),
 
