@@ -57,7 +57,7 @@ class BookDetailRepositoryImpl extends BookDetailRepository {
         final BookDetailEntity remoteData =
             await bookDetailsRemoteDataSource.getBookDetails(bookId);
 
-        await bookDetailCache.bookDetailDao.insertBookDetail(remoteData);
+   //     await bookDetailCache.bookDetailDao.insertBookDetail(remoteData);
         print('inserted new data');
 
         return Right(remoteData);

@@ -58,7 +58,7 @@ class AuthorInfoRepositoryImpl extends AuthorInfoRepository {
         final AuthorInfoEntity remoteData =
             await authorRemoteDataSource.getAuthorInfo(authorId);
 
-        await authorInfoCache.authorInfoDao.insertAuthorInfo(remoteData);
+      //  await authorInfoCache.authorInfoDao.insertAuthorInfo(remoteData);
         print('inserted new data');
 
         return Right(remoteData);

@@ -11,7 +11,7 @@ class ApiEndpoints {
   static const String getAuthorInfoUrl = '$baseURL/author/';
 
   static const String headerApiKey = 'X-RapidAPI-Key';
-  static const String headerApiKeyValue = 'e542a4600cmsh4efb7f4c19f5db8p13355bjsn2fab29535164';
+  static const String headerApiKeyValue = '';//'e542a4600cmsh4efb7f4c19f5db8p13355bjsn2fab29535164';
      ///3 'ae7065ca50msha796e0dbda0dd19p112bedjsn2bf6734572d4';
   /// 2'0cddae034dmsh47fc9676b9feb00p16a9fajsn4773f121eaba';
 

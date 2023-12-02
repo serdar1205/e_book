@@ -56,13 +56,13 @@ class NominatedBooksCardWidget extends StatelessWidget {
                             context: context,
                           ),
                           const SizedBox(height: 10),
-                          TextButton(
-                            onPressed: () {},
-                            child: MediumText(
-                              'Tap to read',
-                              context: context,
-                            ),
-                          ),
+                          // TextButton(
+                          //   onPressed: () {},
+                          //   child: MediumText(
+                          //     'Tap to read',
+                          //     context: context,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),

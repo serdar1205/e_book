@@ -18,7 +18,7 @@ class _LanguagePageState extends State<LanguagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: Theme.of(context).appBarTheme.backgroundColor,),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

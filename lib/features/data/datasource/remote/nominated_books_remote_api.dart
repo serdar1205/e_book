@@ -2,9 +2,11 @@
 import 'package:e_book/core/errors/errors.dart';
 import 'package:e_book/features/data/model/model.dart';
 import 'package:e_book/features/domain/entity/entity.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:e_book/core/constants/api.dart';
 import 'dart:convert';
+
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 abstract class NominatedBooksRemoteDataSource {
   Future<List<NominatedBooksEntity>> getNominatedBooks();
@@ -19,18 +21,12 @@ class NominatedBooksRemoteDataSourceImpl extends NominatedBooksRemoteDataSource 
   Future<List<NominatedBooksEntity>> getNominatedBooks() async {
     //print('authorRemoteDataSource +++++++++++++++++++');
 
-    final headers = {
-      ApiEndpoints.headerApiKey: ApiEndpoints.headerApiKeyValue,
-      ApiEndpoints.headerApiHost: ApiEndpoints.headerApiHostValue,
-    };
+    final response =
+    await rootBundle.loadString('assets/json/nominated_books.json');
+    bool result = await InternetConnectionChecker().hasConnection;
 
-    final response = await client.get(
-        Uri.parse(ApiEndpoints.getNominatedBooksUrl),
-        headers: headers);
-
-    if (response.statusCode == 200) {
-      print(response.body.toString());
-      final responseBody = json.decode(response.body) as List;
+    if (result == true) {
+      final responseBody = json.decode(response) as List;
       return responseBody.map((e) => NominatedBooksModel.fromMap(e)).toList();
     } else {
       throw ServerException();

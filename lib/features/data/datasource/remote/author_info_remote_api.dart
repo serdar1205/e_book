@@ -1,9 +1,12 @@
 import 'package:e_book/core/errors/errors.dart';
+import 'package:e_book/core/utils/reader.dart';
 import 'package:e_book/features/data/model/model.dart';
 import 'package:e_book/features/domain/entity/entity.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:e_book/core/constants/api.dart';
 import 'dart:convert';
+
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 abstract class AuthorInfoRemoteDataSource {
   Future<AuthorInfoEntity> getAuthorInfo(int authorId);
@@ -11,26 +14,30 @@ abstract class AuthorInfoRemoteDataSource {
 
 class AuthorInfoRemoteDataSourceImpl extends AuthorInfoRemoteDataSource {
   late final http.Client client;
+  late String testJson;
+  late final testAuthorInfoModel;
+  late final authorId;
 
   AuthorInfoRemoteDataSourceImpl({required this.client});
 
+  int getId() {
+    testJson = reader('author_info.json');
+    testAuthorInfoModel = AuthorInfoModel.fromMap(json.decode(testJson));
+    authorId = testAuthorInfoModel.authorId;
+    return authorId;
+  }
+
   @override
-  Future<AuthorInfoEntity> getAuthorInfo(int authorId) async {
+  Future<AuthorInfoEntity> getAuthorInfo(getId) async {
     //print('authorRemoteDataSource +++++++++++++++++++');
 
-    final headers = {
-      ApiEndpoints.headerApiKey: ApiEndpoints.headerApiKeyValue,
-      ApiEndpoints.headerApiHost: ApiEndpoints.headerApiHostValue,
-    };
-
-    final response = await client.get(
-        Uri.parse(ApiEndpoints.getAuthorInfoUrl+authorId.toString()),
-        headers: headers);
-
-    if (response.statusCode == 200) {
-     // print(response.body.toString());
-     // final responseBody = json.decode(response.body) as List;
-      return AuthorInfoModel.fromMap(json.decode(response.body));
+    final response =
+        await rootBundle.loadString('assets/json/author_info.json');
+    bool result = await InternetConnectionChecker().hasConnection;
+    if (result == true) {
+      // print(response.body.toString());
+      // final responseBody = json.decode(response.body) as List;
+      return AuthorInfoModel.fromMap(json.decode(response));
     } else {
       throw ServerException();
     }
