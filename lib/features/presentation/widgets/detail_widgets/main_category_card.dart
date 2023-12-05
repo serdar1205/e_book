@@ -1,6 +1,4 @@
 import 'package:e_book/core/routers/app_router.dart';
-import 'package:e_book/core/routers/app_routes.dart';
-import 'package:e_book/features/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
 
 //ok
@@ -13,10 +11,12 @@ class MainCategoryCard extends StatelessWidget {
     'Weekly popular books',
     'Most popular books',
   ];
+ // bool debugInvertOversizedImages = true;
 
   @override
   Widget build(BuildContext context) {
     return Material(
+
       color: Theme.of(context).scaffoldBackgroundColor,
       child: InkWell(
         onTap: () {
@@ -54,6 +54,8 @@ class MainCategoryCard extends StatelessWidget {
                         fit: BoxFit.contain,
                         height: 120,
                         width: 170,
+                        cacheHeight: 330,
+                        cacheWidth: 467,
                         errorBuilder: (context, url, error) => Image.asset(
                           'assets/images/noPhoto.png',
                           fit: BoxFit.contain,

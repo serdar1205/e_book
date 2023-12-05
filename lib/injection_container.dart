@@ -30,6 +30,8 @@ Future<void> initLocator() async {
 
   ///theme
   locator.registerLazySingleton<ThemeServices>(() => ThemeServices());
+  locator.registerLazySingleton<ThemeProvider>(() => ThemeProvider());
+
 
   locator.registerLazySingleton<InternetConnectionChecker>(
       () => InternetConnectionChecker.createInstance());

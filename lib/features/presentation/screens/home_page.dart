@@ -68,7 +68,8 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: IconButton(
               onPressed: () {
-                locator<ThemeServices>().switchTheme();
+                //locator<ThemeServices>().switchTheme();
+                locator<ThemeProvider>().toggleTheme();
               },
               icon: const Icon(Icons.wb_sunny_outlined)),
         ),
@@ -79,7 +80,7 @@ class HomePage extends StatelessWidget {
   }
 
   _mainGrid() {
-    return Container(
+    return SizedBox(
       height: 280,
       child: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
