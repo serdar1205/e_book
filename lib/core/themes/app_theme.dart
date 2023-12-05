@@ -116,6 +116,21 @@ abstract class AppTheme {
 
 /// theme mode controller
 
+class ThemeProvider extends ChangeNotifier {
+  ThemeData _theme = AppTheme.light();
+
+  ThemeData get theme => _theme;
+
+  void toggleTheme() {
+    final isDark = _theme == AppTheme.dark();
+    if (isDark) {
+      _theme = AppTheme.light();
+    } else {
+      _theme = AppTheme.dark();
+    }
+    notifyListeners();
+  }
+}
 class ThemeServices {
   final _box = GetStorage();
   final _key = "isDarkMode";

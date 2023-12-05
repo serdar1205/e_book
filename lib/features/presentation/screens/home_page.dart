@@ -6,6 +6,7 @@ import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart
 import 'package:e_book/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import '../../../core/sizes/app_text.dart';
 import '../../../core/themes/app_theme.dart';
 
@@ -54,6 +55,7 @@ class HomePage extends StatelessWidget {
       ),
       leading: Builder(
         builder: (BuildContext context) {
+
           return IconButton(
             icon: const Icon(Icons.menu),
             onPressed: () {
@@ -68,7 +70,8 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: IconButton(
               onPressed: () {
-                locator<ThemeServices>().switchTheme();
+                //locator<ThemeServices>().switchTheme();
+                locator<ThemeProvider>().toggleTheme();
               },
               icon: const Icon(Icons.wb_sunny_outlined)),
         ),

@@ -59,6 +59,8 @@ class MainCategoryCard extends StatelessWidget {
                           fit: BoxFit.contain,
                           height: 90,
                           width: 150,
+                          cacheHeight: 330,
+                          cacheWidth: 467,
                         ),
                       ),
                     ),
