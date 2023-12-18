@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 import '../../helper/test_helper.mocks.dart';
 
 void main() {
-  late MockBookDetailsBloc bookDetailBloc;
+  late MockBookDetailsProvider bookDetailProvider;
   const bookDetailEntity = BookDetailModel(
     bookId: 56597885,
     name: 'Beautiful World, Where Are You',
@@ -24,13 +25,13 @@ void main() {
     synopsis: 'Alice, a novelist, meets Felix',
   );
   setUp(() {
-    bookDetailBloc = MockBookDetailsBloc();
+    bookDetailProvider = MockBookDetailsProvider();
   });
 
   // ignore: no_leading_underscores_for_local_identifiers
   Widget _makeTestableWidget(Widget body) {
-    return BlocProvider<BookDetailsBloc>(
-      create: (context) => bookDetailBloc,
+    return ChangeNotifierProvider<BookDetailsProvider>(
+      create: (context) => bookDetailProvider,
       child: MaterialApp(
         home: body,
       ),
@@ -71,7 +72,7 @@ void main() {
   group('when state changes these widgets should render', () {
     testWidgets('LoadingWidget should render when state is BookDetailsLoading',
         (WidgetTester tester) async {
-      when(bookDetailBloc.state).thenReturn(BookDetailsLoading());
+      when(bookDetailProvider.state).thenReturn(BookDetailsLoading());
       await tester
           .pumpWidget(_makeTestableWidget(_makeTestableWidget(BookDetailsPage(
         bookId: bookDetailEntity.bookId!,
@@ -83,7 +84,7 @@ void main() {
     testWidgets(
         'BookDetailCardWidget, BookDescription,  should render when state is BookDetailsLoaded',
         (WidgetTester tester) async {
-      when(bookDetailBloc.state)
+      when(bookDetailProvider.state)
           .thenReturn(BookDetailsLoaded(bookDetailEntity));
       await tester
           .pumpWidget(_makeTestableWidget(_makeTestableWidget(BookDetailsPage(
@@ -96,7 +97,7 @@ void main() {
 
     testWidgets('Text should render when state is BookDetailsError',
         (WidgetTester tester) async {
-      when(bookDetailBloc.state)
+      when(bookDetailProvider.state)
           .thenReturn(BookDetailsError('Error occurred.'));
       await tester
           .pumpWidget(_makeTestableWidget(_makeTestableWidget(BookDetailsPage(

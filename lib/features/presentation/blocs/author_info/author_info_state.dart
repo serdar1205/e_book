@@ -1,15 +1,14 @@
 part of 'author_info_bloc.dart';
 
-@immutable
-abstract class AuthorInfoState extends Equatable {
-  const AuthorInfoState();
+abstract class AuthorInfoState extends Equatable with ChangeNotifier {
+  AuthorInfoState();
 
   @override
   List<Object> get props => [];
 }
 
 class AuthorInfoLoading extends AuthorInfoState {
-  const AuthorInfoLoading();
+  AuthorInfoLoading();
 
   @override
   List<Object> get props => [];
@@ -18,7 +17,7 @@ class AuthorInfoLoading extends AuthorInfoState {
 class AuthorInfoLoaded extends AuthorInfoState {
   final AuthorInfoEntity authorInfoEntity;
 
-  const AuthorInfoLoaded(this.authorInfoEntity);
+  AuthorInfoLoaded(this.authorInfoEntity);
 
   @override
   List<Object> get props => [authorInfoEntity];
@@ -27,14 +26,14 @@ class AuthorInfoLoaded extends AuthorInfoState {
 class AuthorInfoError extends AuthorInfoState {
   final String error;
 
-  const AuthorInfoError(this.error);
+  AuthorInfoError(this.error);
 
   @override
   List<Object> get props => [error];
 }
 
 class AuthorInfoEmpty extends AuthorInfoState {
-  const AuthorInfoEmpty();
+  AuthorInfoEmpty();
 
   @override
   List<Object> get props => [];

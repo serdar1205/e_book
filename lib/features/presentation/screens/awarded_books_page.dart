@@ -3,7 +3,7 @@ import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_b
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:e_book/features/presentation/widgets/page_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 @RoutePage()
 class AwardedBooksPage extends StatelessWidget {
@@ -17,8 +17,9 @@ class AwardedBooksPage extends StatelessWidget {
           automaticallyImplyLeading: true,
           title: const Text('Awarded books'),
         ),
-        body: BlocBuilder<AwardedBooksBloc, AwardedBooksState>(
-          builder: (context, state) {
+        body: Consumer<AwardedBooksProvider>(
+          builder: (context, provider, _) {
+            final state = provider.state;
             if (state is AwardedBooksLoading) {
               return const Center(
                 child: LoadingWidget(key: Key('loading')),
@@ -40,7 +41,7 @@ class AwardedBooksPage extends StatelessWidget {
               return const Center(child: Text('Empty Awarded books'));
             } else if (state is AwardedBooksError) {
               print(state.error);
-              return Center(child: Text(key:const Key('Error'),state.error));
+              return Center(child: Text(key: const Key('Error'), state.error));
             } else {
               return const Center(child: Text(''));
             }

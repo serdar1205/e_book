@@ -8,15 +8,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../helper/test_helper.mocks.dart';
-import 'package:bloc_test/bloc_test.dart';
 
 void main() {
-  late AwardedBooksBloc awardedBooksBloc;
+  late AwardedBooksProvider awardedBooksProvider;
   late MockGetAwardedBooksUseCase useCase;
 
   setUp(() {
     useCase = MockGetAwardedBooksUseCase();
-    awardedBooksBloc = AwardedBooksBloc(useCase);
+    awardedBooksProvider = AwardedBooksProvider(useCase);
   });
 
   final testJson = fixtureReader('awarded_books.json');
@@ -26,71 +25,75 @@ void main() {
 
   test('initial state should be BookDetailsLoading', () async {
     //assert
-    expect(awardedBooksBloc.state, AwardedBooksLoading());
+    expect(awardedBooksProvider.state, AwardedBooksLoading());
   });
 
-  group('getBookDetailsById event', () {
-    blocTest<AwardedBooksBloc, AwardedBooksState>(
-        'should emit [AwardedBooksLoading , AwardedBooksLoaded]',
-        build: () {
-          when(useCase.execute())
-              .thenAnswer((realInvocation) async => Right(testModel));
-          return awardedBooksBloc;
-        },
-        act: (bloc) => bloc.add(GetAwardedBooksEvent()),
-        expect: () => [
-              AwardedBooksLoading(),
-              AwardedBooksLoaded(testModel),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
-        });
+  group('getAwardedBooks event', () {
+    test('should emit [AwardedBooksLoading , AwardedBooksLoaded]', () async {
+      when(useCase.execute()).thenAnswer((_) async => Right(testModel));
 
-    blocTest<AwardedBooksBloc, AwardedBooksState>(
+      awardedBooksProvider.getAwardedBooks();
+
+      expect(awardedBooksProvider.state, equals(AwardedBooksLoading()));
+      expect(awardedBooksProvider.state, isA<AwardedBooksLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(awardedBooksProvider.state, isA<AwardedBooksLoaded>());
+      expect(
+          (awardedBooksProvider.state as AwardedBooksLoaded).awardedBooksEntity,
+          equals(testModel));
+    });
+
+    test(
         'should emit [AwardedBooksLoading, AwardedBooksError] when occurred ServerFailure error',
-        build: () {
-          when(useCase.execute())
-              .thenAnswer((_) async => Left(ServerFailure()));
-          return awardedBooksBloc;
-        },
-        act: (bloc) => bloc.add(GetAwardedBooksEvent()),
-        expect: () => [
-              AwardedBooksLoading(),
-              const AwardedBooksError(FailureMessageConstants.serverFailureMessage)
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
-        });
-    blocTest<AwardedBooksBloc, AwardedBooksState>(
-        'should emit [AwardedBooksLoading, AwardedBooksError] when occurred ConnectionFailure error',
-        build: () {
-          when(useCase.execute())
-              .thenAnswer((_) async => Left(ConnectionFailure()));
-          return awardedBooksBloc;
-        },
-        act: (bloc) => bloc.add(GetAwardedBooksEvent()),
-        expect: () => [
-              AwardedBooksLoading(),
-              const AwardedBooksError(
-                  FailureMessageConstants.connectionFailureMessage),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
-        });
+        () async {
+      when(useCase.execute()).thenAnswer((_) async => Left(ServerFailure()));
 
-    blocTest<AwardedBooksBloc, AwardedBooksState>(
+      awardedBooksProvider.getAwardedBooks();
+
+      expect(awardedBooksProvider.state, equals(AwardedBooksLoading()));
+      expect(awardedBooksProvider.state, isA<AwardedBooksLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(awardedBooksProvider.state, isA<AwardedBooksError>());
+      expect((awardedBooksProvider.state as AwardedBooksError).error,
+          equals(FailureMessageConstants.serverFailureMessage));
+    });
+
+    test(
+        'should emit [AwardedBooksLoading, AwardedBooksError] when occurred ConnectionFailure error',
+        () async {
+      when(useCase.execute())
+          .thenAnswer((_) async => Left(ConnectionFailure()));
+
+      awardedBooksProvider.getAwardedBooks();
+
+      expect(awardedBooksProvider.state, equals(AwardedBooksLoading()));
+      expect(awardedBooksProvider.state, isA<AwardedBooksLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(awardedBooksProvider.state, isA<AwardedBooksError>());
+      expect((awardedBooksProvider.state as AwardedBooksError).error,
+          equals(FailureMessageConstants.connectionFailureMessage));
+    });
+
+    test(
         'should emit [AwardedBooksLoading, AwardedBooksError] when data is unsuccessful',
-        build: () {
-          when(useCase.execute()).thenThrow('Something went wrong');
-          return awardedBooksBloc;
-        },
-        act: (bloc) => bloc.add(GetAwardedBooksEvent()),
-        expect: () => [
-              AwardedBooksLoading(),
-              const AwardedBooksError('Something went wrong'),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
-        });
+        () async {
+      when(useCase.execute()).thenThrow('Something went wrong');
+
+      awardedBooksProvider.getAwardedBooks();
+
+      // Assert again after the async operation
+      expect(awardedBooksProvider.state, isA<AwardedBooksError>());
+      expect((awardedBooksProvider.state as AwardedBooksError).error,
+          equals('Something went wrong'));
+    });
   });
 }

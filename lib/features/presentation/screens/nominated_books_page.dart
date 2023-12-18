@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:e_book/features/presentation/blocs/nominated_books/nominated_books_list_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import '../widgets/detail_widgets/loading_widget.dart';
 import '../widgets/page_widgets/nominated_books_card_widget.dart';
 
@@ -16,8 +16,9 @@ class NominatedBooksPage extends StatelessWidget {
           automaticallyImplyLeading: true,
           title: const Text('Nominated books'),
         ),
-        body: BlocBuilder<NominatedBooksListBloc, NominatedBooksListState>(
-          builder: (context, state) {
+        body: Consumer<NominatedBooksListProvider>(
+          builder: (context, provider, _) {
+            final state = provider.state;
             if (state is NominatedBooksListLoadingState) {
               return const Center(
                 child: LoadingWidget(key: Key('loading'),),

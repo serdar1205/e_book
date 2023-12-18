@@ -5,7 +5,7 @@ import 'package:e_book/features/presentation/blocs/book_details/book_details_blo
 import 'package:e_book/features/presentation/widgets/detail_widgets/book_detail_card_widget.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import '../../../core/colors/app_colors.dart';
 
 @RoutePage()
@@ -20,8 +20,9 @@ class BookDetailsPage extends StatelessWidget {
         automaticallyImplyLeading: true,
         title: const Text('Book Details'),
       ),
-      body: BlocBuilder<BookDetailsBloc, BookDetailsState>(
-        builder: (context, state) {
+      body: Consumer<BookDetailsProvider>(
+        builder: (context, provider, child) {
+          final state = provider.state;
           if (state is BookDetailsLoading) {
             return const Center(
               child: LoadingWidget(key: Key('loading')),

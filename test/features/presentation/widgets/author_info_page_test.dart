@@ -5,13 +5,13 @@ import 'package:e_book/features/presentation/screens/screens.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/author_info_card_widget.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 import '../../helper/test_helper.mocks.dart';
 
 void main() {
-  late MockAuthorInfoBloc authorInfoBloc;
+  late MockAuthorInfoProvider authorInfoProvider;
   const authorInfoEntity = AuthorInfoModel(
       authorId: 3389,
       name: 'Stephen King',
@@ -39,13 +39,13 @@ void main() {
             bookId: '830502'),
       ]);
   setUp(() {
-    authorInfoBloc = MockAuthorInfoBloc();
+    authorInfoProvider = MockAuthorInfoProvider();
   });
 
   // ignore: no_leading_underscores_for_local_identifiers
   Widget _makeTestableWidget(Widget body) {
-    return BlocProvider<AuthorInfoBloc>(
-      create: (context) => authorInfoBloc,
+    return ChangeNotifierProvider<AuthorInfoProvider>(
+      create: (context) => authorInfoProvider,
       child: MaterialApp(
         home: body,
       ),
@@ -104,7 +104,7 @@ void main() {
   group('when state changes these widgets should render', () {
     testWidgets('LoadingWidget should render when state is AuthorInfoLoading',
         (WidgetTester tester) async {
-      when(authorInfoBloc.state).thenReturn(const AuthorInfoLoading());
+      when(authorInfoProvider.state).thenReturn( AuthorInfoLoading());
       await tester
           .pumpWidget(_makeTestableWidget(_makeTestableWidget(AuthorsInfoPage(
         authorId: authorInfoEntity.authorId!,
@@ -115,7 +115,7 @@ void main() {
 
     testWidgets('Text should render when state is AuthorInfoEmpty',
         (WidgetTester tester) async {
-      when(authorInfoBloc.state).thenReturn(const AuthorInfoEmpty());
+      when(authorInfoProvider.state).thenReturn( AuthorInfoEmpty());
       await tester
           .pumpWidget(_makeTestableWidget(_makeTestableWidget(AuthorsInfoPage(
         authorId: authorInfoEntity.authorId!,
@@ -126,8 +126,8 @@ void main() {
     testWidgets(
         'AuthorInfoCard, BookDescription  should render when state is AuthorInfoLoaded',
         (WidgetTester tester) async {
-      when(authorInfoBloc.state)
-          .thenReturn(const AuthorInfoLoaded(authorInfoEntity));
+      when(authorInfoProvider.state)
+          .thenReturn( AuthorInfoLoaded(authorInfoEntity));
       await tester
           .pumpWidget(_makeTestableWidget(_makeTestableWidget(AuthorsInfoPage(
         authorId: authorInfoEntity.authorId!,
@@ -139,8 +139,8 @@ void main() {
 
     testWidgets('Text should render when state is AuthorInfoError',
         (WidgetTester tester) async {
-      when(authorInfoBloc.state)
-          .thenReturn(const AuthorInfoError('Error occurred.'));
+      when(authorInfoProvider.state)
+          .thenReturn( AuthorInfoError('Error occurred.'));
       await tester
           .pumpWidget(_makeTestableWidget(_makeTestableWidget(AuthorsInfoPage(
         authorId: authorInfoEntity.authorId!,

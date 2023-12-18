@@ -27,12 +27,13 @@ final locator = GetIt.instance;
 Future<void> initLocator() async {
   ///network
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator()));
+  locator.registerLazySingleton<InternetConnectionChecker>(
+          () => InternetConnectionChecker.createInstance());
 
   ///theme
   locator.registerLazySingleton<ThemeServices>(() => ThemeServices());
   locator.registerLazySingleton<ThemeProvider>(() => ThemeProvider());
-  locator.registerLazySingleton<InternetConnectionChecker>(
-      () => InternetConnectionChecker.createInstance());
+
 
   /// Rest Client
   locator.registerLazySingleton(() => http.Client());
@@ -148,14 +149,14 @@ Future<void> initLocator() async {
   locator.registerLazySingleton(() => GetAuthorInfoUseCase(locator()));
   locator.registerLazySingleton(() => GetBookDetailsUseCase(locator()));
 
-  /// Bloc
+  /// provider
   locator.registerFactory(
-      () => MostPopularAuthorsListBloc(allAuthorsUsecase: locator()));
-  locator.registerFactory(() => NominatedBooksListBloc(useCase: locator()));
-  locator.registerFactory(() => AwardedBooksBloc(locator()));
-  locator.registerFactory(() => WeeklyPopularBooksBloc(useCase: locator()));
+      () => MostPopularAuthorsProvider(allAuthorsUsecase: locator()));
+  locator.registerFactory(() => NominatedBooksListProvider(useCase: locator()));
+  locator.registerFactory(() => AwardedBooksProvider(locator()));
+  locator.registerFactory(() => WeeklyPopularBooksProvider(useCase: locator()));
 
-  locator.registerFactory(() => MostPopularBooksBloc(locator()));
-  locator.registerFactory(() => AuthorInfoBloc(locator()));
-  locator.registerFactory(() => BookDetailsBloc(locator()));
+  locator.registerFactory(() => MostPopularBooksProvider(locator()));
+  locator.registerFactory(() => AuthorInfoProvider(locator()));
+  locator.registerFactory(() => BookDetailsProvider(locator()));
 }

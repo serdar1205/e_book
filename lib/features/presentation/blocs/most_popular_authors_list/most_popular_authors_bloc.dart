@@ -1,47 +1,64 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:e_book/core/constants/api.dart';
 import 'package:e_book/core/errors/failures.dart';
 import 'package:e_book/features/domain/entity/most_popular_authors_entity.dart';
 import 'package:e_book/features/domain/usecases/get_most_popular_authors_usecase.dart';
 import 'package:equatable/equatable.dart';
-part 'most_popular_authors_event.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'most_popular_authors_state.dart';
 
-class MostPopularAuthorsListBloc extends Bloc<MostPopularAuthorsListEvent, MostPopularAuthorsListState> {
+class MostPopularAuthorsProvider extends ChangeNotifier {
   GetMostPopularAuthorsUseCase allAuthorsUsecase;
 
-  MostPopularAuthorsListBloc({required this.allAuthorsUsecase}) : super(
-      MostPopularAuthorsListLoading()) {
-    on<GetMostPopularAuthorsEvent>(getAllAuthorsEvent);
-  }
+  MostPopularAuthorsListState _state = MostPopularAuthorsListLoading();
 
-  Future<void> getAllAuthorsEvent(GetMostPopularAuthorsEvent event, Emitter<MostPopularAuthorsListState>  emit)async {
-    emit(MostPopularAuthorsListLoading());
+  MostPopularAuthorsListState get state => _state;
+
+  MostPopularAuthorsProvider({required this.allAuthorsUsecase});
+
+  Future<void> getAllAuthorsEvent() async {
     try {
-
+      _setLoading();
       final result = await allAuthorsUsecase.execute();
 
       result.fold((failure) {
         if (failure is ServerFailure) {
-          emit(const MostPopularAuthorsListError(FailureMessageConstants.serverFailureMessage));
+          _setError(FailureMessageConstants.serverFailureMessage);
         } else if (failure is ConnectionFailure) {
-          emit(const MostPopularAuthorsListError(
-              FailureMessageConstants.connectionFailureMessage));
-        }
-        else{
-          emit(MostPopularAuthorsListError(failure.toString()));
+          _setError(FailureMessageConstants.connectionFailureMessage);
+        } else {
+          _setError(failure.toString());
         }
       }, (data) {
-        emit(MostPopularAuthorsListLoaded(data));
-        if (data.isEmpty) {
-          emit(MostPopularAuthorsListEmpty());
+        if (data.isNotEmpty) {
+          _setLoaded(data);
+        } else {
+          _setEmpty();
         }
       });
     } catch (e) {
-      emit(MostPopularAuthorsListError(e.toString()));
+      _setError(e.toString());
     }
   }
-}
 
+  void _setLoading() {
+    _state = MostPopularAuthorsListLoading();
+    notifyListeners();
+  }
+
+  void _setLoaded(List<MostPopularAuthorsEntity> data) {
+    _state = MostPopularAuthorsListLoaded(data);
+    notifyListeners();
+  }
+
+  void _setError(String errorMessage) {
+    _state = MostPopularAuthorsListError(errorMessage);
+    notifyListeners();
+  }
+
+  void _setEmpty() {
+    _state = MostPopularAuthorsListEmpty();
+    notifyListeners();
+  }
+}

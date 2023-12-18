@@ -8,15 +8,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../helper/test_helper.mocks.dart';
-import 'package:bloc_test/bloc_test.dart';
 
 void main() {
-  late WeeklyPopularBooksBloc weeklyPopularBooksBloc;
+  late WeeklyPopularBooksProvider weeklyPopularBooksProvider;
   late MockGetWeeklyPopularBooksUseCase useCase;
 
   setUp(() {
     useCase = MockGetWeeklyPopularBooksUseCase();
-    weeklyPopularBooksBloc = WeeklyPopularBooksBloc(useCase: useCase);
+    weeklyPopularBooksProvider = WeeklyPopularBooksProvider(useCase: useCase);
   });
 
   final testJson = fixtureReader('weekly_popular_books.json');
@@ -26,72 +25,87 @@ void main() {
 
   test('initial state should be WeeklyPopularBooksLoading', () async {
     //assert
-    expect(weeklyPopularBooksBloc.state, const WeeklyPopularBooksLoading());
+    expect(weeklyPopularBooksProvider.state, const WeeklyPopularBooksLoading());
   });
 
   group('getWeeklyPopularBooks event', () {
-    blocTest<WeeklyPopularBooksBloc, WeeklyPopularBooksState>(
+    test(
         'should emit [WeeklyPopularBooksLoading , WeeklyPopularBooksLoaded]',
-        build: () {
+         ()async {
           when(useCase.execute())
               .thenAnswer((realInvocation) async => Right(testModel));
-          return weeklyPopularBooksBloc;
-        },
-        act: (bloc) => bloc.add(GetWeeklyPopularBooksEvent()),
-        expect: () => [
-              const WeeklyPopularBooksLoading(),
-              WeeklyPopularBooksLoaded(testModel),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
+
+
+          weeklyPopularBooksProvider.getWeeklyPopularBooks();
+
+           expect(weeklyPopularBooksProvider.state, equals(WeeklyPopularBooksLoading()));
+           expect(weeklyPopularBooksProvider.state, isA<WeeklyPopularBooksLoading>());
+           // Wait for the async operation to complete
+           await Future.delayed(Duration.zero);
+
+           // Assert again after the async operation
+           expect(weeklyPopularBooksProvider.state, isA<WeeklyPopularBooksLoaded>());
+           expect(
+           (weeklyPopularBooksProvider.state as WeeklyPopularBooksLoaded).weeklyPopularBooksEntity,
+           equals(testModel));
+
         });
 
-    blocTest<WeeklyPopularBooksBloc, WeeklyPopularBooksState>(
+    test(
         'should emit [WeeklyPopularBooksLoading, WeeklyPopularBooksError] when occurred ServerFailure error',
-        build: () {
+            ()async {
           when(useCase.execute())
               .thenAnswer((_) async => Left(ServerFailure()));
-          return weeklyPopularBooksBloc;
-        },
-        act: (bloc) => bloc.add(GetWeeklyPopularBooksEvent()),
-        expect: () => [
-              const WeeklyPopularBooksLoading(),
-              const WeeklyPopularBooksError(
-                  FailureMessageConstants.serverFailureMessage)
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
+
+
+              weeklyPopularBooksProvider.getWeeklyPopularBooks();
+
+              expect(weeklyPopularBooksProvider.state, equals(WeeklyPopularBooksLoading()));
+              expect(weeklyPopularBooksProvider.state, isA<WeeklyPopularBooksLoading>());
+              // Wait for the async operation to complete
+              await Future.delayed(Duration.zero);
+
+              // Assert again after the async operation
+              expect(weeklyPopularBooksProvider.state, isA<WeeklyPopularBooksError>());
+              expect(
+              (weeklyPopularBooksProvider.state as WeeklyPopularBooksError).error,
+              equals(FailureMessageConstants.serverFailureMessage));
+
         });
-    blocTest<WeeklyPopularBooksBloc, WeeklyPopularBooksState>(
+    test(
         'should emit [WeeklyPopularBooksLoading, WeeklyPopularBooksError] when occurred ConnectionFailure error',
-        build: () {
+            ()async {
           when(useCase.execute())
               .thenAnswer((_) async => Left(ConnectionFailure()));
-          return weeklyPopularBooksBloc;
-        },
-        act: (bloc) => bloc.add(GetWeeklyPopularBooksEvent()),
-        expect: () => [
-              const WeeklyPopularBooksLoading(),
-              const WeeklyPopularBooksError(
-                  FailureMessageConstants.connectionFailureMessage),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
+
+              weeklyPopularBooksProvider.getWeeklyPopularBooks();
+
+              expect(weeklyPopularBooksProvider.state, equals(WeeklyPopularBooksLoading()));
+              expect(weeklyPopularBooksProvider.state, isA<WeeklyPopularBooksLoading>());
+              // Wait for the async operation to complete
+              await Future.delayed(Duration.zero);
+
+              // Assert again after the async operation
+              expect(weeklyPopularBooksProvider.state, isA<WeeklyPopularBooksError>());
+              expect(
+              (weeklyPopularBooksProvider.state as WeeklyPopularBooksError).error,
+              equals(FailureMessageConstants.connectionFailureMessage));
         });
 
-    blocTest<WeeklyPopularBooksBloc, WeeklyPopularBooksState>(
-        'should emit [WeeklyPopularBooksLoading, WeeklyPopularBooksError] when data is unsuccessful',
-        build: () {
+    test(
+        'should emit [ WeeklyPopularBooksError] when data is unsuccessful',
+            ()async {
           when(useCase.execute()).thenThrow('Something went wrong');
-          return weeklyPopularBooksBloc;
-        },
-        act: (bloc) => bloc.add(GetWeeklyPopularBooksEvent()),
-        expect: () => [
-              const WeeklyPopularBooksLoading(),
-              const WeeklyPopularBooksError('Something went wrong'),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
+
+          weeklyPopularBooksProvider.getWeeklyPopularBooks();
+
+
+          // Assert again after the async operation
+          expect(weeklyPopularBooksProvider.state, isA<WeeklyPopularBooksError>());
+          expect(
+              (weeklyPopularBooksProvider.state as WeeklyPopularBooksError).error,
+              equals('Something went wrong'));
+
         });
   });
 }

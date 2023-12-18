@@ -11,12 +11,13 @@ import '../../../helper/test_helper.mocks.dart';
 import 'package:bloc_test/bloc_test.dart';
 
 void main() {
-  late MostPopularAuthorsListBloc authorsListBloc;
+  late MostPopularAuthorsProvider authorsListProvider;
   late MockGetMostPopularAuthorsUseCase useCase;
 
   setUp(() {
     useCase = MockGetMostPopularAuthorsUseCase();
-    authorsListBloc = MostPopularAuthorsListBloc(allAuthorsUsecase: useCase);
+    authorsListProvider =
+        MostPopularAuthorsProvider(allAuthorsUsecase: useCase);
   });
 
   final testJson = fixtureReader('most_popular_authors.json');
@@ -26,72 +27,83 @@ void main() {
 
   test('initial state should be MostPopularAuthorsListLoading', () async {
     //assert
-    expect(authorsListBloc.state, MostPopularAuthorsListEmpty());
+    expect(authorsListProvider.state, MostPopularAuthorsListLoading());
   });
 
-  group('getAllAuthorsEvent', () {
-    blocTest<MostPopularAuthorsListBloc, MostPopularAuthorsListState>(
+  group('getAllAuthors', () {
+    test(
         'should emit [MostPopularAuthorsListLoading , MostPopularAuthorsListLoaded]',
-        build: () {
-          when(useCase.execute())
-              .thenAnswer((realInvocation) async => Right(testModel));
-          return authorsListBloc;
-        },
-        act: (bloc) => bloc.add(GetMostPopularAuthorsEvent()),
-        expect: () => [
-              MostPopularAuthorsListLoading(),
-              MostPopularAuthorsListLoaded(testModel),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
-        });
+        () async {
+      when(useCase.execute())
+          .thenAnswer((realInvocation) async => Right(testModel));
 
-    blocTest<MostPopularAuthorsListBloc, MostPopularAuthorsListState>(
+      authorsListProvider.getAllAuthorsEvent();
+
+      expect(
+          authorsListProvider.state, equals(MostPopularAuthorsListLoading()));
+      expect(authorsListProvider.state, isA<MostPopularAuthorsListLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(authorsListProvider.state, isA<MostPopularAuthorsListLoaded>());
+      expect(
+          (authorsListProvider.state as MostPopularAuthorsListLoaded).authors,
+          equals(testModel));
+    });
+
+    test(
         'should emit [MostPopularAuthorsListLoading, MostPopularAuthorsListError] when occurred ServerFailure error',
-        build: () {
-          when(useCase.execute())
-              .thenAnswer((_) async => Left(ServerFailure()));
-          return authorsListBloc;
-        },
-        act: (bloc) => bloc.add(GetMostPopularAuthorsEvent()),
-        expect: () => [
-              MostPopularAuthorsListLoading(),
-              const MostPopularAuthorsListError(
-                  FailureMessageConstants.serverFailureMessage)
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
-        });
-    blocTest<MostPopularAuthorsListBloc, MostPopularAuthorsListState>(
-        'should emit [MostPopularAuthorsListLoading, MostPopularAuthorsListError] when occurred ConnectionFailure error',
-        build: () {
-          when(useCase.execute())
-              .thenAnswer((_) async => Left(ConnectionFailure()));
-          return authorsListBloc;
-        },
-        act: (bloc) => bloc.add(GetMostPopularAuthorsEvent()),
-        expect: () => [
-              MostPopularAuthorsListLoading(),
-              const MostPopularAuthorsListError(
-                  FailureMessageConstants.connectionFailureMessage),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
-        });
+        () async {
+      when(useCase.execute()).thenAnswer((_) async => Left(ServerFailure()));
 
-    blocTest<MostPopularAuthorsListBloc, MostPopularAuthorsListState>(
+      authorsListProvider.getAllAuthorsEvent();
+
+      expect(
+          authorsListProvider.state, equals(MostPopularAuthorsListLoading()));
+      expect(authorsListProvider.state, isA<MostPopularAuthorsListLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(authorsListProvider.state, isA<MostPopularAuthorsListError>());
+      expect((authorsListProvider.state as MostPopularAuthorsListError).message,
+          equals(FailureMessageConstants.serverFailureMessage));
+    });
+
+    test(
+        'should emit [MostPopularAuthorsListLoading, MostPopularAuthorsListError] when occurred ConnectionFailure error',
+        () async {
+      when(useCase.execute())
+          .thenAnswer((_) async => Left(ConnectionFailure()));
+
+      authorsListProvider.getAllAuthorsEvent();
+
+      expect(
+          authorsListProvider.state, equals(MostPopularAuthorsListLoading()));
+      expect(authorsListProvider.state, isA<MostPopularAuthorsListLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(authorsListProvider.state, isA<MostPopularAuthorsListError>());
+      expect((authorsListProvider.state as MostPopularAuthorsListError).message,
+          equals(FailureMessageConstants.connectionFailureMessage));
+    });
+
+    test(
         'should emit [MostPopularAuthorsListLoading, MostPopularAuthorsListError] when data is unsuccessful',
-        build: () {
-          when(useCase.execute()).thenThrow('Something went wrong');
-          return authorsListBloc;
-        },
-        act: (bloc) => bloc.add(GetMostPopularAuthorsEvent()),
-        expect: () => [
-              MostPopularAuthorsListLoading(),
-              const MostPopularAuthorsListError('Something went wrong'),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute());
-        });
+        () async {
+      when(useCase.execute()).thenThrow('Something went wrong');
+
+      authorsListProvider.getAllAuthorsEvent();
+
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(authorsListProvider.state, isA<MostPopularAuthorsListError>());
+      expect((authorsListProvider.state as MostPopularAuthorsListError).message,
+          equals('Something went wrong'));
+    });
   });
 }

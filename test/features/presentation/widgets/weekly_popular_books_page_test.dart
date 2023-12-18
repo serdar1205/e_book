@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 import '../../helper/test_helper.mocks.dart';
 
 void main() {
-  late MockWeeklyPopularBooksBloc weeklyPopularBooksBloc;
+  late MockWeeklyPopularBooksProvider weeklyPopularBooksProvider;
   const weeklyPopularBooksEntity =  WeeklyPopularBooksModel(
       bookId: 62080187,
       name: "Never Lie",
@@ -21,13 +22,13 @@ void main() {
   );
 
   setUp(() {
-    weeklyPopularBooksBloc = MockWeeklyPopularBooksBloc();
+    weeklyPopularBooksProvider = MockWeeklyPopularBooksProvider();
   });
 
   // ignore: no_leading_underscores_for_local_identifiers
   Widget _makeTestableWidget(Widget body) {
-    return BlocProvider<WeeklyPopularBooksBloc>(
-      create: (context) => weeklyPopularBooksBloc,
+    return ChangeNotifierProvider<WeeklyPopularBooksProvider>(
+      create: (context) => weeklyPopularBooksProvider,
       child: MaterialApp(
         home: body,
       ),
@@ -66,7 +67,7 @@ void main() {
   group('when state changes these widgets should render', () {
     testWidgets('LoadingWidget should render when state is WeeklyPopularBooksLoading',
             (WidgetTester tester) async {
-          when(weeklyPopularBooksBloc.state).thenReturn(WeeklyPopularBooksLoading());
+          when(weeklyPopularBooksProvider.state).thenReturn(WeeklyPopularBooksLoading());
           await tester.pumpWidget(
               _makeTestableWidget(_makeTestableWidget(const WeeklyPopularBooksPage())));
 
@@ -74,7 +75,7 @@ void main() {
         });
     testWidgets('Text should render when state is WeeklyPopularBooksEmpty',
             (WidgetTester tester) async {
-          when(weeklyPopularBooksBloc.state).thenReturn(const WeeklyPopularBooksEmpty());
+          when(weeklyPopularBooksProvider.state).thenReturn(const WeeklyPopularBooksEmpty());
           await tester.pumpWidget(
               _makeTestableWidget(_makeTestableWidget(const WeeklyPopularBooksPage())));
           expect(find.text('Empty weekly popular books'), findsOneWidget);
@@ -83,7 +84,7 @@ void main() {
     testWidgets(
         'WeeklyPopularBooksCardWidget should render when state is WeeklyPopularBooksLoaded',
             (WidgetTester tester) async {
-          when(weeklyPopularBooksBloc.state)
+          when(weeklyPopularBooksProvider.state)
               .thenReturn(const WeeklyPopularBooksLoaded([weeklyPopularBooksEntity]));
           await tester.pumpWidget(
               _makeTestableWidget(_makeTestableWidget(const WeeklyPopularBooksPage())));
@@ -93,7 +94,7 @@ void main() {
 
     testWidgets('Text should render when state is WeeklyPopularBooksError',
             (WidgetTester tester) async {
-          when(weeklyPopularBooksBloc.state)
+          when(weeklyPopularBooksProvider.state)
               .thenReturn(const WeeklyPopularBooksError('Error occurred.'));
           await tester.pumpWidget(
               _makeTestableWidget(_makeTestableWidget(const WeeklyPopularBooksPage())));

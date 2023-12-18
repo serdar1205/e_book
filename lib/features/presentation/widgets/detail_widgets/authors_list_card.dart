@@ -1,11 +1,9 @@
 import 'package:e_book/core/routers/app_router.dart';
-import 'package:e_book/core/routers/app_routes.dart';
 import 'package:e_book/core/sizes/app_text.dart';
 import 'package:e_book/features/domain/entity/most_popular_authors_entity.dart';
 import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart';
-import 'package:e_book/features/presentation/screens/screens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 import 'picture_widgets.dart';
 
@@ -20,12 +18,11 @@ class AuthorsListCard extends StatelessWidget {
       color: Theme.of(context).scaffoldBackgroundColor,
       child: InkWell(
         onTap: () {
-
           appRouter.push(AuthorsInfoRoute(authorId: authorsEntity.authorId!));
 
-          context
-              .read<AuthorInfoBloc>()
-              .add(GetAuthorInfo(authorsEntity.authorId!));
+          context.read<AuthorInfoProvider>().getAuthorInfoById(authorsEntity.authorId!);
+          // Provider.of<AuthorInfoProvider>(context)
+          //     .getAuthorInfoById(authorsEntity.authorId!);
         },
         child: SizedBox(
           height: 150.0,

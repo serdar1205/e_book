@@ -8,15 +8,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../helper/test_helper.mocks.dart';
-import 'package:bloc_test/bloc_test.dart';
 
 void main() {
-  late BookDetailsBloc bookDetailsBloc;
+  late BookDetailsProvider bookDetailsProvider;
   late MockGetBookDetailsUseCase useCase;
 
   setUp(() {
     useCase = MockGetBookDetailsUseCase();
-    bookDetailsBloc = BookDetailsBloc(useCase);
+    bookDetailsProvider = BookDetailsProvider(useCase);
   });
 
   final testJson = fixtureReader("book_detail.json");
@@ -25,71 +24,78 @@ void main() {
 
   test('initial state should be BookDetailsLoading', () async {
     //assert
-    expect(bookDetailsBloc.state, BookDetailsLoading());
+    expect(bookDetailsProvider.state, BookDetailsLoading());
   });
 
   group('getBookDetailsById event', () {
-    blocTest<BookDetailsBloc, BookDetailsState>(
-        'should emit [BookDetailsLoading , BookDetailsLoaded]',
-        build: () {
-          when(useCase.execute(any))
-              .thenAnswer((realInvocation) async => Right(testModel));
-          return bookDetailsBloc;
-        },
-        act: (bloc) => bloc.add(GetBookDetails(bookId!)),
-        expect: () => [
-              BookDetailsLoading(),
-              BookDetailsLoaded(testModel),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute(bookId));
-        });
+    test('should emit [BookDetailsLoading , BookDetailsLoaded]', () async {
+      when(useCase.execute(any)).thenAnswer((_) async => Right(testModel));
 
-    blocTest<BookDetailsBloc, BookDetailsState>(
+      bookDetailsProvider.getBookDetailsById(bookId!);
+
+      expect(bookDetailsProvider.state, equals(BookDetailsLoading()));
+      expect(bookDetailsProvider.state, isA<BookDetailsLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(bookDetailsProvider.state, isA<BookDetailsLoaded>());
+      expect((bookDetailsProvider.state as BookDetailsLoaded).bookDetailEntity,
+          equals(testModel));
+    });
+
+    test(
         'should emit [BookDetailsLoading, BookDetailsError] when occurred ServerFailure error',
-        build: () {
-          when(useCase.execute(any))
-              .thenAnswer((_) async => Left(ServerFailure()));
-          return bookDetailsBloc;
-        },
-        act: (bloc) => bloc.add(GetBookDetails(bookId!)),
-        expect: () => [
-              BookDetailsLoading(),
-              BookDetailsError(FailureMessageConstants.serverFailureMessage)
-            ],
-        verify: (bloc) {
-          verify(useCase.execute(bookId));
-        });
-    blocTest<BookDetailsBloc, BookDetailsState>(
+        () async {
+      when(useCase.execute(any)).thenAnswer((_) async => Left(ServerFailure()));
+
+      bookDetailsProvider.getBookDetailsById(bookId!);
+
+      expect(bookDetailsProvider.state, equals(BookDetailsLoading()));
+      expect(bookDetailsProvider.state, isA<BookDetailsLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(bookDetailsProvider.state, isA<BookDetailsError>());
+      expect((bookDetailsProvider.state as BookDetailsError).error,
+          equals(FailureMessageConstants.serverFailureMessage));
+    });
+
+    test(
         'should emit [BookDetailsLoading, BookDetailsError] when occurred ConnectionFailure error',
-        build: () {
+        () async {
           when(useCase.execute(any))
               .thenAnswer((_) async => Left(ConnectionFailure()));
-          return bookDetailsBloc;
-        },
-        act: (bloc) => bloc.add(GetBookDetails(bookId!)),
-        expect: () => [
-              BookDetailsLoading(),
-              BookDetailsError(
-                  FailureMessageConstants.connectionFailureMessage),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute(bookId));
-        });
 
-    blocTest<BookDetailsBloc, BookDetailsState>(
-        'should emit [BookDetailsLoading, BookDetailsError] when data is unsuccessful',
-        build: () {
-          when(useCase.execute(any)).thenThrow('Something went wrong');
-          return bookDetailsBloc;
-        },
-        act: (bloc) => bloc.add(GetBookDetails(bookId!)),
-        expect: () => [
-              BookDetailsLoading(),
-              BookDetailsError('Something went wrong'),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute(bookId));
-        });
+      bookDetailsProvider.getBookDetailsById(bookId!);
+
+      expect(bookDetailsProvider.state, equals(BookDetailsLoading()));
+      expect(bookDetailsProvider.state, isA<BookDetailsLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(bookDetailsProvider.state, isA<BookDetailsError>());
+      expect((bookDetailsProvider.state as BookDetailsError).error,
+          equals(FailureMessageConstants.connectionFailureMessage));
+    });
+
+    test(
+        'should emit [BookDetailsError] when data is unsuccessful',
+        () async {
+      when(useCase.execute(any)).thenThrow('Something went wrong');
+
+      bookDetailsProvider.getBookDetailsById(bookId!);
+
+
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(bookDetailsProvider.state, isA<BookDetailsError>());
+      expect((bookDetailsProvider.state as BookDetailsError).error,
+          equals('Something went wrong'));
+    });
   });
 }

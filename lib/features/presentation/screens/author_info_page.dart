@@ -6,7 +6,8 @@ import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.
 import 'package:e_book/features/presentation/widgets/detail_widgets/author_info_card_widget.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+
 ///
 @RoutePage()
 class AuthorsInfoPage extends StatelessWidget {
@@ -18,32 +19,34 @@ class AuthorsInfoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: true,
-        title: const Text('Authors Info'),
-      ),
-      body: BlocBuilder<AuthorInfoBloc, AuthorInfoState>(
-        builder: (context, state) {
-          if (state is AuthorInfoLoading) {
-            return const Center(
-              child: LoadingWidget(
-                key: Key('loading'),
-              ),
-            );
-          } else if (state is AuthorInfoLoaded) {
-            return _buildBody(
-              authorInfoEntity: state.authorInfoEntity,
-            );
-          } else if (state is AuthorInfoEmpty) {
-            return const Center(child: Text('Empty author info'));
-          } else if (state is AuthorInfoError) {
-            return Center(child: Text(key: const Key('Error'),state.error));
-          } else {
-            return const Center(child: Text('Something goes wrong!'));
-          }
-        },
-      ),
-    );
+          appBar: AppBar(
+            automaticallyImplyLeading: true,
+            title: const Text('Authors Info'),
+          ),
+          body: Consumer<AuthorInfoProvider>(
+            builder: (context, provider, _) {
+              final state = provider.state;
+              if (state is AuthorInfoLoading) {
+                return const Center(
+                  child: LoadingWidget(
+                    key: Key('loading'),
+                  ),
+                );
+              } else if (state is AuthorInfoLoaded) {
+                return _buildBody(
+                  authorInfoEntity: state.authorInfoEntity,
+                );
+              } else if (state is AuthorInfoEmpty) {
+                return const Center(child: Text('Empty author info'));
+              } else if (state is AuthorInfoError) {
+                return Center(
+                    child: Text(key: const Key('Error'), state.error));
+              } else {
+                return const Center(child: Text('Something goes wrong!'));
+              }
+            },
+          ),
+        );
   }
 
   _buildBody({required AuthorInfoEntity authorInfoEntity}) {

@@ -1,10 +1,8 @@
 import 'package:e_book/core/routers/app_router.dart';
-import 'package:e_book/core/routers/app_routes.dart';
 import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart';
-import 'package:e_book/features/presentation/screens/screens.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import '../../../../core/sizes/app_text.dart';
 import '../../../domain/entity/weekly_popular_books_entity.dart';
 
@@ -24,8 +22,8 @@ class WeeklyPopularBooksCardWidget extends StatelessWidget {
               .push(BookDetailsRoute(bookId: weeklyPopularBooksEntity.bookId!));
 
           context
-              .read<BookDetailsBloc>()
-              .add(GetBookDetails(weeklyPopularBooksEntity.bookId!));
+              .read<BookDetailsProvider>()
+              .getBookDetailsById(weeklyPopularBooksEntity.bookId!);
         },
         child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),

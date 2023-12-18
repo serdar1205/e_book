@@ -1,49 +1,64 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:e_book/core/constants/api.dart';
 import 'package:e_book/core/errors/failures.dart';
 import 'package:e_book/features/domain/entity/awarded_books_entity.dart';
 import 'package:e_book/features/domain/usecases/get_awarded_books_usecase.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-part 'awarded_books_event.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'awarded_books_state.dart';
 
-class AwardedBooksBloc extends Bloc<AwardedBooksEvent, AwardedBooksState> {
+class AwardedBooksProvider extends ChangeNotifier {
   GetAwardedBooksUseCase useCase;
 
-  AwardedBooksBloc(this.useCase) : super(AwardedBooksLoading()) {
-    on<AwardedBooksEvent>(getAwardedBooks);
-  }
+  AwardedBooksState _state = AwardedBooksLoading();
 
-  Future<void> getAwardedBooks(
-      AwardedBooksEvent event, Emitter<AwardedBooksState> emit) async {
-    emit(AwardedBooksLoading());
+  AwardedBooksState get state => _state;
+
+  AwardedBooksProvider(this.useCase);
+
+  Future<void> getAwardedBooks() async {
     try {
-
+      _setLoading();
       final result = await useCase.execute();
 
       result.fold((failure) {
         if (failure is ServerFailure) {
-          emit(const AwardedBooksError(
-              FailureMessageConstants.serverFailureMessage));
+          _setError(FailureMessageConstants.serverFailureMessage);
         } else if (failure is ConnectionFailure) {
-          emit(const AwardedBooksError(
-              FailureMessageConstants.connectionFailureMessage));
+          _setError(FailureMessageConstants.connectionFailureMessage);
         } else {
-          emit(AwardedBooksError(failure.toString()));
-          print(failure.toString());
+          _setError(failure.toString());
         }
       }, (data) {
-        emit(AwardedBooksLoaded(data));
-        if (data.isEmpty) {
-          emit(const AwardedBooksEmpty());
+        if (data.isNotEmpty) {
+          _setLoaded(data);
+        } else {
+          _setEmpty();
         }
       });
     } catch (e) {
-      emit(AwardedBooksError(e.toString()));
+      _setError(e.toString());
     }
+  }
+
+  void _setLoading() {
+    _state = AwardedBooksLoading();
+    notifyListeners();
+  }
+
+  void _setLoaded(List<AwardedBooksEntity> data) {
+    _state = AwardedBooksLoaded(data);
+    notifyListeners();
+  }
+
+  void _setError(String errorMessage) {
+    _state = AwardedBooksError(errorMessage);
+    notifyListeners();
+  }
+
+  void _setEmpty() {
+    _state = AwardedBooksEmpty();
+    notifyListeners();
   }
 }

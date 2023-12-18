@@ -7,11 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 
 import '../../helper/test_helper.mocks.dart';
 
 void main() {
-  late MockNominatedBooksListBloc listBloc;
+  late MockNominatedBooksListProvider listProvider;
   const nominatedBooksEntity = NominatedBooksModel(
       bookId: 52861201,
       bookName: "From Blood and Ash",
@@ -23,12 +24,12 @@ void main() {
           "https://www.goodreads.com/book/show/52861201-from-blood-and-ash?from_choice=true");
 
   setUp(() {
-    listBloc = MockNominatedBooksListBloc();
+    listProvider = MockNominatedBooksListProvider();
   });
 
   Widget _makeTestableWidget(Widget body) {
-    return BlocProvider<NominatedBooksListBloc>(
-      create: (context) => listBloc,
+    return ChangeNotifierProvider<NominatedBooksListProvider>(
+      create: (context) => listProvider,
       child: MaterialApp(
         home: body,
       ),
@@ -68,7 +69,7 @@ void main() {
     testWidgets(
         'LoadingWidget should render when state is NominatedBooksListLoadingState',
         (WidgetTester tester) async {
-      when(listBloc.state).thenReturn(const NominatedBooksListLoadingState());
+      when(listProvider.state).thenReturn(const NominatedBooksListLoadingState());
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const NominatedBooksPage())));
 
@@ -76,7 +77,7 @@ void main() {
     });
     testWidgets('Text should render when state is NominatedBooksListEmptyState',
         (WidgetTester tester) async {
-      when(listBloc.state).thenReturn(const NominatedBooksListEmptyState());
+      when(listProvider.state).thenReturn(const NominatedBooksListEmptyState());
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const NominatedBooksPage())));
       expect(find.text('Empty Nominated books'), findsOneWidget);
@@ -85,7 +86,7 @@ void main() {
     testWidgets(
         'NominatedBooksCardWidget should render when state is NominatedBooksListLoadedState',
         (WidgetTester tester) async {
-      when(listBloc.state).thenReturn(
+      when(listProvider.state).thenReturn(
           const NominatedBooksListLoadedState([nominatedBooksEntity]));
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const NominatedBooksPage())));
@@ -95,7 +96,7 @@ void main() {
 
     testWidgets('Text should render when state is NominatedBooksListErrorState',
         (WidgetTester tester) async {
-      when(listBloc.state)
+      when(listProvider.state)
           .thenReturn(const NominatedBooksListErrorState('Error occurred.'));
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const NominatedBooksPage())));

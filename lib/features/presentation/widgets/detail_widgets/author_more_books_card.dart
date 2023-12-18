@@ -42,7 +42,7 @@ class AuthorsMoreBooksCard extends StatelessWidget {
                     buildRating(authorInfoEntity.authorBooks![index].rating!),
                     const SizedBox(height: 15.0),
                     SmallText(
-                      authorInfoEntity.authorBooks![index].date!.toString(),
+                      authorInfoEntity.authorBooks![index].date.toString(),
                       context: context,
                     ),
                   ],

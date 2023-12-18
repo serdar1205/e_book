@@ -3,7 +3,7 @@ import 'package:e_book/features/presentation/blocs/most_popular_books/most_popul
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:e_book/features/presentation/widgets/page_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 
 @RoutePage()
@@ -17,8 +17,9 @@ class MostPopularBooksPage extends StatelessWidget {
           automaticallyImplyLeading: true,
           title: const Text('Most Popular books'),
         ),
-        body: BlocBuilder<MostPopularBooksBloc, MostPopularBooksState>(
-          builder: (context, state) {
+        body: Consumer<MostPopularBooksProvider>(
+          builder: (context, provider, _) {
+            final state = provider.state;
             if (state is MostPopularBooksLoading) {
               return const Center(
                 child: LoadingWidget(key: Key('loading')),

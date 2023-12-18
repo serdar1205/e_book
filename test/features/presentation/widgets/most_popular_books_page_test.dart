@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 import '../../helper/test_helper.mocks.dart';
 
 void main() {
-  late MockMostPopularBooksBloc popularBooksBloc;
+  late MockMostPopularBooksProvider popularBooksProvider;
   MostPopularBooksEntity mostPopularBooksEntity = MostPopularBooksModel(
     bookId: int.parse("58283080"),
     name: "Hook, Line, and Sinker (Bellinger Sisters, #2)",
@@ -22,13 +23,13 @@ void main() {
   );
 
   setUp(() {
-    popularBooksBloc = MockMostPopularBooksBloc();
+    popularBooksProvider = MockMostPopularBooksProvider();
   });
 
   // ignore: no_leading_underscores_for_local_identifiers
   Widget _makeTestableWidget(Widget body) {
-    return BlocProvider<MostPopularBooksBloc>(
-      create: (context) => popularBooksBloc,
+    return ChangeNotifierProvider<MostPopularBooksProvider>(
+      create: (context) => popularBooksProvider,
       child: MaterialApp(
         home: body,
       ),
@@ -69,7 +70,7 @@ void main() {
     testWidgets(
         'LoadingWidget should render when state is MostPopularBooksLoading',
         (WidgetTester tester) async {
-      when(popularBooksBloc.state).thenReturn(const MostPopularBooksLoading());
+      when(popularBooksProvider.state).thenReturn(const MostPopularBooksLoading());
       await tester.pumpWidget(_makeTestableWidget(
           _makeTestableWidget(const MostPopularBooksPage())));
 
@@ -78,7 +79,7 @@ void main() {
 
     testWidgets('Text should render when state is MostPopularBooksEmpty',
         (WidgetTester tester) async {
-      when(popularBooksBloc.state).thenReturn(const MostPopularBooksEmpty());
+      when(popularBooksProvider.state).thenReturn(const MostPopularBooksEmpty());
       await tester.pumpWidget(_makeTestableWidget(
           _makeTestableWidget(const MostPopularBooksPage())));
       expect(find.text('Empty popular books'), findsOneWidget);
@@ -87,7 +88,7 @@ void main() {
     testWidgets(
         'MostPopularBooksCardWidget should render when state is MostPopularBooksLoaded',
         (WidgetTester tester) async {
-      when(popularBooksBloc.state)
+      when(popularBooksProvider.state)
           .thenReturn(MostPopularBooksLoaded([mostPopularBooksEntity]));
       await tester.pumpWidget(_makeTestableWidget(
           _makeTestableWidget(const MostPopularBooksPage())));
@@ -98,7 +99,7 @@ void main() {
 
     testWidgets('Text should render when state is MostPopularBooksError',
         (WidgetTester tester) async {
-      when(popularBooksBloc.state)
+      when(popularBooksProvider.state)
           .thenReturn(const MostPopularBooksError('Error occurred.'));
       await tester.pumpWidget(_makeTestableWidget(
           _makeTestableWidget(const MostPopularBooksPage())));

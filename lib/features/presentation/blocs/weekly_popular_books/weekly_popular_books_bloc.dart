@@ -1,50 +1,64 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:e_book/core/constants/api.dart';
 import 'package:e_book/core/errors/failures.dart';
 import 'package:e_book/features/domain/entity/weekly_popular_books_entity.dart';
 import 'package:e_book/features/domain/usecases/get_weekly_popular_books_usecase.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-part 'weekly_popular_books_event.dart';
+import 'package:flutter/material.dart';
 
 part 'weekly_popular_books_state.dart';
 
-class WeeklyPopularBooksBloc
-    extends Bloc<WeeklyPopularBooksEvent, WeeklyPopularBooksState> {
+class WeeklyPopularBooksProvider extends ChangeNotifier {
   GetWeeklyPopularBooksUseCase useCase;
 
-  WeeklyPopularBooksBloc({required this.useCase})
-      : super(const WeeklyPopularBooksLoading()) {
-    on<GetWeeklyPopularBooksEvent>(getWeeklyPopularBooks);
-  }
+  WeeklyPopularBooksState _state = const WeeklyPopularBooksLoading();
 
-  Future<void> getWeeklyPopularBooks(GetWeeklyPopularBooksEvent event,
-      Emitter<WeeklyPopularBooksState> emit) async {
-    emit(const WeeklyPopularBooksLoading());
+  WeeklyPopularBooksState get state => _state;
+
+  WeeklyPopularBooksProvider({required this.useCase});
+
+  Future<void> getWeeklyPopularBooks() async {
     try {
-
+      _setLoading();
       final result = await useCase.execute();
 
       result.fold((failure) {
         if (failure is ServerFailure) {
-          emit(const WeeklyPopularBooksError(
-              FailureMessageConstants.serverFailureMessage));
+          _setError(FailureMessageConstants.serverFailureMessage);
         } else if (failure is ConnectionFailure) {
-          emit(const WeeklyPopularBooksError(
-              FailureMessageConstants.connectionFailureMessage));
+          _setError(FailureMessageConstants.connectionFailureMessage);
         } else {
-          emit(WeeklyPopularBooksError(failure.toString()));
+          _setError(failure.toString());
         }
       }, (data) {
-        emit(WeeklyPopularBooksLoaded(data));
-        if (data.isEmpty) {
-          emit(const WeeklyPopularBooksEmpty());
+        if (data.isNotEmpty) {
+          _setLoaded(data);
+        } else {
+          _setEmpty();
         }
       });
     } catch (e) {
-      emit(WeeklyPopularBooksError(e.toString()));
+      _setError(e.toString());
     }
+  }
+
+  void _setLoading() {
+    _state = const WeeklyPopularBooksLoading();
+    notifyListeners();
+  }
+
+  void _setLoaded(List<WeeklyPopularBooksEntity> data) {
+    _state = WeeklyPopularBooksLoaded(data);
+    notifyListeners();
+  }
+
+  void _setError(String errorMessage) {
+    _state = WeeklyPopularBooksError(errorMessage);
+    notifyListeners();
+  }
+
+  void _setEmpty() {
+    _state = const WeeklyPopularBooksEmpty();
+    notifyListeners();
   }
 }

@@ -3,10 +3,9 @@ import 'package:e_book/features/presentation/blocs/weekly_popular_books/weekly_p
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:e_book/features/presentation/widgets/page_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 @RoutePage()
-
 class WeeklyPopularBooksPage extends StatelessWidget {
   const WeeklyPopularBooksPage({Key? key}) : super(key: key);
 
@@ -17,8 +16,9 @@ class WeeklyPopularBooksPage extends StatelessWidget {
           automaticallyImplyLeading: true,
           title: const Text('Weekly popular books'),
         ),
-        body: BlocBuilder<WeeklyPopularBooksBloc, WeeklyPopularBooksState>(
-          builder: (context, state) {
+        body: Consumer<WeeklyPopularBooksProvider>(
+          builder: (context, provider, _) {
+            final state = provider.state;
             if (state is WeeklyPopularBooksLoading) {
               return const Center(
                 child: LoadingWidget(key: Key('loading')),
@@ -41,7 +41,7 @@ class WeeklyPopularBooksPage extends StatelessWidget {
               return const Center(child: Text('Empty weekly popular books'));
             } else if (state is WeeklyPopularBooksError) {
               print(state.error);
-              return Center(child: Text(key:const Key('Error'),state.error));
+              return Center(child: Text(key: const Key('Error'), state.error));
             } else {
               return const Center(child: Text(''));
             }

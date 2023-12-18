@@ -1,46 +1,59 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:e_book/core/constants/api.dart';
 import 'package:e_book/core/errors/failures.dart';
 import 'package:e_book/features/domain/entity/book_detail_entity.dart';
 import 'package:e_book/features/domain/usecases/get_book_detail_usecase.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 
-part 'book_details_event.dart';
 
 part 'book_details_state.dart';
 
-class BookDetailsBloc extends Bloc<BookDetailsEvent, BookDetailsState> {
+class BookDetailsProvider extends ChangeNotifier {
   GetBookDetailsUseCase useCase;
 
-  BookDetailsBloc(this.useCase) : super(BookDetailsLoading()) {
-    on<GetBookDetails>(getBookDetailsById);
-  }
+  BookDetailsState _state = BookDetailsLoading();
 
-  Future<void> getBookDetailsById(
-      GetBookDetails event, Emitter<BookDetailsState> emit) async {
-    emit(BookDetailsLoading());
+  BookDetailsState get state => _state;
+
+  BookDetailsProvider(this.useCase);
+
+  Future<void> getBookDetailsById(int bookId) async {
     try {
-      final int bookId = event.bookId;
+      _setLoading();
       final result = await useCase.execute(bookId);
 
       result.fold((failure) {
         if (failure is ServerFailure) {
-          emit(BookDetailsError(FailureMessageConstants.serverFailureMessage));
+          _setError(FailureMessageConstants.serverFailureMessage);
         } else if (failure is ConnectionFailure) {
-          emit(BookDetailsError(
-              FailureMessageConstants.connectionFailureMessage));
+          _setError(FailureMessageConstants.connectionFailureMessage);
         } else {
-          emit(BookDetailsError(failure.toString()));
+          _setError(failure.toString());
         }
       }, (data) {
-        emit(BookDetailsLoaded(data));
-      //  add(GetBookDetails(bookId));
+        _setLoaded(data);
+        //  add(GetBookDetails(bookId));
       });
     } catch (e) {
-      emit(BookDetailsError(e.toString()));
+      _setError(e.toString());
     }
+  }
+
+  void _setLoading() {
+    _state = BookDetailsLoading();
+    notifyListeners();
+  }
+
+  void _setLoaded(BookDetailEntity data) {
+    _state = BookDetailsLoaded(data);
+    notifyListeners();
+  }
+
+  void _setError(String errorMessage) {
+    _state = BookDetailsError(errorMessage);
+    notifyListeners();
   }
 }

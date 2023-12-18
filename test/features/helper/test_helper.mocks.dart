@@ -6,8 +6,8 @@
 import 'dart:async' as _i4;
 import 'dart:convert' as _i35;
 import 'dart:typed_data' as _i37;
+import 'dart:ui' as _i54;
 
-import 'package:bloc/bloc.dart' as _i54;
 import 'package:dartz/dartz.dart' as _i13;
 import 'package:e_book/core/errors/errors.dart' as _i53;
 import 'package:e_book/core/networks/network_info.dart' as _i38;
@@ -2505,10 +2505,11 @@ class MockGetWeeklyPopularBooksUseCase extends _i1.Mock
           _i13.Either<_i53.Failure, List<_i12.WeeklyPopularBooksEntity>>>);
 }
 
-/// A class which mocks [AuthorInfoBloc].
+/// A class which mocks [AuthorInfoProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthorInfoBloc extends _i1.Mock implements _i22.AuthorInfoBloc {
+class MockAuthorInfoProvider extends _i1.Mock
+    implements _i22.AuthorInfoProvider {
   @override
   _i21.GetAuthorInfoUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
@@ -2545,146 +2546,64 @@ class MockAuthorInfoBloc extends _i1.Mock implements _i22.AuthorInfoBloc {
       ) as _i22.AuthorInfoState);
 
   @override
-  _i4.Stream<_i22.AuthorInfoState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i22.AuthorInfoState>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i22.AuthorInfoState>.empty(),
-      ) as _i4.Stream<_i22.AuthorInfoState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  _i4.Future<void> getAuthorInfoById(
-    _i22.GetAuthorInfo? event,
-    _i54.Emitter<_i22.AuthorInfoState>? emit,
-  ) =>
-      (super.noSuchMethod(
+  _i4.Future<void> getAuthorInfoById(int? authorId) => (super.noSuchMethod(
         Invocation.method(
           #getAuthorInfoById,
-          [
-            event,
-            emit,
-          ],
+          [authorId],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
 
   @override
-  void add(_i22.AuthorInfoEvent? event) => super.noSuchMethod(
+  void addListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #add,
-          [event],
+          #addListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void onEvent(_i22.AuthorInfoEvent? event) => super.noSuchMethod(
+  void removeListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #onEvent,
-          [event],
+          #removeListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void emit(_i22.AuthorInfoState? state) => super.noSuchMethod(
+  void dispose() => super.noSuchMethod(
         Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void on<E extends _i22.AuthorInfoEvent>(
-    _i54.EventHandler<E, _i22.AuthorInfoState>? handler, {
-    _i54.EventTransformer<E>? transformer,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #on,
-          [handler],
-          {#transformer: transformer},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onTransition(
-          _i54.Transition<_i22.AuthorInfoEvent, _i22.AuthorInfoState>?
-              transition) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onTransition,
-          [transition],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i4.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
+          #dispose,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
-  void onChange(_i54.Change<_i22.AuthorInfoState>? change) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onChange,
-          [change],
-        ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
+  void notifyListeners() => super.noSuchMethod(
         Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
+          #notifyListeners,
+          [],
         ),
         returnValueForMissingStub: null,
       );
 }
 
-/// A class which mocks [AwardedBooksBloc].
+/// A class which mocks [AwardedBooksProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAwardedBooksBloc extends _i1.Mock implements _i24.AwardedBooksBloc {
+class MockAwardedBooksProvider extends _i1.Mock
+    implements _i24.AwardedBooksProvider {
   @override
   _i23.GetAwardedBooksUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
@@ -2721,93 +2640,16 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i24.AwardedBooksBloc {
       ) as _i24.AwardedBooksState);
 
   @override
-  _i4.Stream<_i24.AwardedBooksState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i24.AwardedBooksState>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i24.AwardedBooksState>.empty(),
-      ) as _i4.Stream<_i24.AwardedBooksState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  _i4.Future<void> getAwardedBooks(
-    _i24.AwardedBooksEvent? event,
-    _i54.Emitter<_i24.AwardedBooksState>? emit,
-  ) =>
-      (super.noSuchMethod(
+  _i4.Future<void> getAwardedBooks() => (super.noSuchMethod(
         Invocation.method(
           #getAwardedBooks,
-          [
-            event,
-            emit,
-          ],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
-  void add(_i24.AwardedBooksEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #add,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onEvent(_i24.AwardedBooksEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #onEvent,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void emit(_i24.AwardedBooksState? state) => super.noSuchMethod(
-        Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void on<E extends _i24.AwardedBooksEvent>(
-    _i54.EventHandler<E, _i24.AwardedBooksState>? handler, {
-    _i54.EventTransformer<E>? transformer,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #on,
-          [handler],
-          {#transformer: transformer},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onTransition(
-          _i54.Transition<_i24.AwardedBooksEvent, _i24.AwardedBooksState>?
-              transition) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onTransition,
-          [transition],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i4.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
           [],
         ),
         returnValue: _i4.Future<void>.value(),
@@ -2815,52 +2657,47 @@ class MockAwardedBooksBloc extends _i1.Mock implements _i24.AwardedBooksBloc {
       ) as _i4.Future<void>);
 
   @override
-  void onChange(_i54.Change<_i24.AwardedBooksState>? change) =>
-      super.noSuchMethod(
+  void addListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #onChange,
-          [change],
+          #addListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
+  void removeListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
+          #removeListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
+  void dispose() => super.noSuchMethod(
         Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
         ),
         returnValueForMissingStub: null,
       );
 }
 
-/// A class which mocks [BookDetailsBloc].
+/// A class which mocks [BookDetailsProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockBookDetailsBloc extends _i1.Mock implements _i26.BookDetailsBloc {
+class MockBookDetailsProvider extends _i1.Mock
+    implements _i26.BookDetailsProvider {
   @override
   _i25.GetBookDetailsUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
@@ -2897,147 +2734,64 @@ class MockBookDetailsBloc extends _i1.Mock implements _i26.BookDetailsBloc {
       ) as _i26.BookDetailsState);
 
   @override
-  _i4.Stream<_i26.BookDetailsState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i26.BookDetailsState>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i26.BookDetailsState>.empty(),
-      ) as _i4.Stream<_i26.BookDetailsState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  _i4.Future<void> getBookDetailsById(
-    _i26.GetBookDetails? event,
-    _i54.Emitter<_i26.BookDetailsState>? emit,
-  ) =>
-      (super.noSuchMethod(
+  _i4.Future<void> getBookDetailsById(int? bookId) => (super.noSuchMethod(
         Invocation.method(
           #getBookDetailsById,
-          [
-            event,
-            emit,
-          ],
+          [bookId],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
 
   @override
-  void add(_i26.BookDetailsEvent? event) => super.noSuchMethod(
+  void addListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #add,
-          [event],
+          #addListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void onEvent(_i26.BookDetailsEvent? event) => super.noSuchMethod(
+  void removeListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #onEvent,
-          [event],
+          #removeListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void emit(_i26.BookDetailsState? state) => super.noSuchMethod(
+  void dispose() => super.noSuchMethod(
         Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void on<E extends _i26.BookDetailsEvent>(
-    _i54.EventHandler<E, _i26.BookDetailsState>? handler, {
-    _i54.EventTransformer<E>? transformer,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #on,
-          [handler],
-          {#transformer: transformer},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onTransition(
-          _i54.Transition<_i26.BookDetailsEvent, _i26.BookDetailsState>?
-              transition) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onTransition,
-          [transition],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i4.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
+          #dispose,
           [],
         ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
-  void onChange(_i54.Change<_i26.BookDetailsState>? change) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onChange,
-          [change],
-        ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
+  void notifyListeners() => super.noSuchMethod(
         Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
+          #notifyListeners,
+          [],
         ),
         returnValueForMissingStub: null,
       );
 }
 
-/// A class which mocks [MostPopularAuthorsListBloc].
+/// A class which mocks [MostPopularAuthorsProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMostPopularAuthorsListBloc extends _i1.Mock
-    implements _i28.MostPopularAuthorsListBloc {
+class MockMostPopularAuthorsProvider extends _i1.Mock
+    implements _i28.MostPopularAuthorsProvider {
   @override
   _i27.GetMostPopularAuthorsUseCase get allAuthorsUsecase =>
       (super.noSuchMethod(
@@ -3077,96 +2831,16 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
       ) as _i28.MostPopularAuthorsListState);
 
   @override
-  _i4.Stream<_i28.MostPopularAuthorsListState> get stream =>
-      (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i28.MostPopularAuthorsListState>.empty(),
-        returnValueForMissingStub:
-            _i4.Stream<_i28.MostPopularAuthorsListState>.empty(),
-      ) as _i4.Stream<_i28.MostPopularAuthorsListState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  _i4.Future<void> getAllAuthorsEvent(
-    _i28.GetMostPopularAuthorsEvent? event,
-    _i54.Emitter<_i28.MostPopularAuthorsListState>? emit,
-  ) =>
-      (super.noSuchMethod(
+  _i4.Future<void> getAllAuthorsEvent() => (super.noSuchMethod(
         Invocation.method(
           #getAllAuthorsEvent,
-          [
-            event,
-            emit,
-          ],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
-  void add(_i28.MostPopularAuthorsListEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #add,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onEvent(_i28.MostPopularAuthorsListEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #onEvent,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void emit(_i28.MostPopularAuthorsListState? state) => super.noSuchMethod(
-        Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void on<E extends _i28.MostPopularAuthorsListEvent>(
-    _i54.EventHandler<E, _i28.MostPopularAuthorsListState>? handler, {
-    _i54.EventTransformer<E>? transformer,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #on,
-          [handler],
-          {#transformer: transformer},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onTransition(
-          _i54.Transition<_i28.MostPopularAuthorsListEvent,
-                  _i28.MostPopularAuthorsListState>?
-              transition) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onTransition,
-          [transition],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i4.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
           [],
         ),
         returnValue: _i4.Future<void>.value(),
@@ -3174,53 +2848,47 @@ class MockMostPopularAuthorsListBloc extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  void onChange(_i54.Change<_i28.MostPopularAuthorsListState>? change) =>
-      super.noSuchMethod(
+  void addListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #onChange,
-          [change],
+          #addListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
+  void removeListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
+          #removeListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
+  void dispose() => super.noSuchMethod(
         Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
         ),
         returnValueForMissingStub: null,
       );
 }
 
-/// A class which mocks [MostPopularBooksBloc].
+/// A class which mocks [MostPopularBooksProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMostPopularBooksBloc extends _i1.Mock
-    implements _i30.MostPopularBooksBloc {
+class MockMostPopularBooksProvider extends _i1.Mock
+    implements _i30.MostPopularBooksProvider {
   @override
   _i29.GetMostPopularBooksUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
@@ -3257,95 +2925,16 @@ class MockMostPopularBooksBloc extends _i1.Mock
       ) as _i30.MostPopularBooksState);
 
   @override
-  _i4.Stream<_i30.MostPopularBooksState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i30.MostPopularBooksState>.empty(),
-        returnValueForMissingStub:
-            _i4.Stream<_i30.MostPopularBooksState>.empty(),
-      ) as _i4.Stream<_i30.MostPopularBooksState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  _i4.Future<void> getMostPopularBooks(
-    _i30.GetMostPopularBooks? event,
-    _i54.Emitter<_i30.MostPopularBooksState>? emit,
-  ) =>
-      (super.noSuchMethod(
+  _i4.Future<void> getMostPopularBooks() => (super.noSuchMethod(
         Invocation.method(
           #getMostPopularBooks,
-          [
-            event,
-            emit,
-          ],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
-  void add(_i30.MostPopularBooksEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #add,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onEvent(_i30.MostPopularBooksEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #onEvent,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void emit(_i30.MostPopularBooksState? state) => super.noSuchMethod(
-        Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void on<E extends _i30.MostPopularBooksEvent>(
-    _i54.EventHandler<E, _i30.MostPopularBooksState>? handler, {
-    _i54.EventTransformer<E>? transformer,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #on,
-          [handler],
-          {#transformer: transformer},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onTransition(
-          _i54.Transition<_i30.MostPopularBooksEvent,
-                  _i30.MostPopularBooksState>?
-              transition) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onTransition,
-          [transition],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i4.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
           [],
         ),
         returnValue: _i4.Future<void>.value(),
@@ -3353,53 +2942,47 @@ class MockMostPopularBooksBloc extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  void onChange(_i54.Change<_i30.MostPopularBooksState>? change) =>
-      super.noSuchMethod(
+  void addListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #onChange,
-          [change],
+          #addListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
+  void removeListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
+          #removeListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
+  void dispose() => super.noSuchMethod(
         Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
         ),
         returnValueForMissingStub: null,
       );
 }
 
-/// A class which mocks [NominatedBooksListBloc].
+/// A class which mocks [NominatedBooksListProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNominatedBooksListBloc extends _i1.Mock
-    implements _i32.NominatedBooksListBloc {
+class MockNominatedBooksListProvider extends _i1.Mock
+    implements _i32.NominatedBooksListProvider {
   @override
   _i31.GetNominatedBooksUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
@@ -3436,95 +3019,16 @@ class MockNominatedBooksListBloc extends _i1.Mock
       ) as _i32.NominatedBooksListState);
 
   @override
-  _i4.Stream<_i32.NominatedBooksListState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i32.NominatedBooksListState>.empty(),
-        returnValueForMissingStub:
-            _i4.Stream<_i32.NominatedBooksListState>.empty(),
-      ) as _i4.Stream<_i32.NominatedBooksListState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  _i4.Future<void> getNominatedBooksListEvent(
-    _i32.GetNominatedBooksListEvent? event,
-    _i54.Emitter<_i32.NominatedBooksListState>? emit,
-  ) =>
-      (super.noSuchMethod(
+  _i4.Future<void> getNominatedBooksListEvent() => (super.noSuchMethod(
         Invocation.method(
           #getNominatedBooksListEvent,
-          [
-            event,
-            emit,
-          ],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
-  void add(_i32.NominatedBooksListEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #add,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onEvent(_i32.NominatedBooksListEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #onEvent,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void emit(_i32.NominatedBooksListState? state) => super.noSuchMethod(
-        Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void on<E extends _i32.NominatedBooksListEvent>(
-    _i54.EventHandler<E, _i32.NominatedBooksListState>? handler, {
-    _i54.EventTransformer<E>? transformer,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #on,
-          [handler],
-          {#transformer: transformer},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onTransition(
-          _i54.Transition<_i32.NominatedBooksListEvent,
-                  _i32.NominatedBooksListState>?
-              transition) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onTransition,
-          [transition],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i4.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
           [],
         ),
         returnValue: _i4.Future<void>.value(),
@@ -3532,53 +3036,47 @@ class MockNominatedBooksListBloc extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  void onChange(_i54.Change<_i32.NominatedBooksListState>? change) =>
-      super.noSuchMethod(
+  void addListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #onChange,
-          [change],
+          #addListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
+  void removeListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
+          #removeListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
+  void dispose() => super.noSuchMethod(
         Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
         ),
         returnValueForMissingStub: null,
       );
 }
 
-/// A class which mocks [WeeklyPopularBooksBloc].
+/// A class which mocks [WeeklyPopularBooksProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockWeeklyPopularBooksBloc extends _i1.Mock
-    implements _i34.WeeklyPopularBooksBloc {
+class MockWeeklyPopularBooksProvider extends _i1.Mock
+    implements _i34.WeeklyPopularBooksProvider {
   @override
   _i33.GetWeeklyPopularBooksUseCase get useCase => (super.noSuchMethod(
         Invocation.getter(#useCase),
@@ -3616,95 +3114,16 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
       ) as _i34.WeeklyPopularBooksState);
 
   @override
-  _i4.Stream<_i34.WeeklyPopularBooksState> get stream => (super.noSuchMethod(
-        Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i34.WeeklyPopularBooksState>.empty(),
-        returnValueForMissingStub:
-            _i4.Stream<_i34.WeeklyPopularBooksState>.empty(),
-      ) as _i4.Stream<_i34.WeeklyPopularBooksState>);
-
-  @override
-  bool get isClosed => (super.noSuchMethod(
-        Invocation.getter(#isClosed),
+  bool get hasListeners => (super.noSuchMethod(
+        Invocation.getter(#hasListeners),
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
 
   @override
-  _i4.Future<void> getWeeklyPopularBooks(
-    _i34.GetWeeklyPopularBooksEvent? event,
-    _i54.Emitter<_i34.WeeklyPopularBooksState>? emit,
-  ) =>
-      (super.noSuchMethod(
+  _i4.Future<void> getWeeklyPopularBooks() => (super.noSuchMethod(
         Invocation.method(
           #getWeeklyPopularBooks,
-          [
-            event,
-            emit,
-          ],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-
-  @override
-  void add(_i34.WeeklyPopularBooksEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #add,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onEvent(_i34.WeeklyPopularBooksEvent? event) => super.noSuchMethod(
-        Invocation.method(
-          #onEvent,
-          [event],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void emit(_i34.WeeklyPopularBooksState? state) => super.noSuchMethod(
-        Invocation.method(
-          #emit,
-          [state],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void on<E extends _i34.WeeklyPopularBooksEvent>(
-    _i54.EventHandler<E, _i34.WeeklyPopularBooksState>? handler, {
-    _i54.EventTransformer<E>? transformer,
-  }) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #on,
-          [handler],
-          {#transformer: transformer},
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  void onTransition(
-          _i54.Transition<_i34.WeeklyPopularBooksEvent,
-                  _i34.WeeklyPopularBooksState>?
-              transition) =>
-      super.noSuchMethod(
-        Invocation.method(
-          #onTransition,
-          [transition],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i4.Future<void> close() => (super.noSuchMethod(
-        Invocation.method(
-          #close,
           [],
         ),
         returnValue: _i4.Future<void>.value(),
@@ -3712,43 +3131,37 @@ class MockWeeklyPopularBooksBloc extends _i1.Mock
       ) as _i4.Future<void>);
 
   @override
-  void onChange(_i54.Change<_i34.WeeklyPopularBooksState>? change) =>
-      super.noSuchMethod(
+  void addListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #onChange,
-          [change],
+          #addListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void addError(
-    Object? error, [
-    StackTrace? stackTrace,
-  ]) =>
-      super.noSuchMethod(
+  void removeListener(_i54.VoidCallback? listener) => super.noSuchMethod(
         Invocation.method(
-          #addError,
-          [
-            error,
-            stackTrace,
-          ],
+          #removeListener,
+          [listener],
         ),
         returnValueForMissingStub: null,
       );
 
   @override
-  void onError(
-    Object? error,
-    StackTrace? stackTrace,
-  ) =>
-      super.noSuchMethod(
+  void dispose() => super.noSuchMethod(
         Invocation.method(
-          #onError,
-          [
-            error,
-            stackTrace,
-          ],
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
         ),
         returnValueForMissingStub: null,
       );

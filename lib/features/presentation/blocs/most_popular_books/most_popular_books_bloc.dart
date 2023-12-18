@@ -1,48 +1,63 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:e_book/core/constants/api.dart';
 import 'package:e_book/core/errors/failures.dart';
 import 'package:e_book/features/domain/entity/most_popular_books_entity.dart';
 import 'package:e_book/features/domain/usecases/get_most_popular_books_usecase.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-part 'most_popular_books_event.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'most_popular_books_state.dart';
 
-class MostPopularBooksBloc extends Bloc<MostPopularBooksEvent, MostPopularBooksState> {
+class MostPopularBooksProvider extends ChangeNotifier {
   GetMostPopularBooksUseCase useCase;
+  MostPopularBooksState _state = const MostPopularBooksLoading();
 
-  MostPopularBooksBloc(this.useCase) : super(const MostPopularBooksLoading()) {
-    on<GetMostPopularBooks>(getMostPopularBooks);
-  }
+  MostPopularBooksState get state => _state;
 
-  Future<void> getMostPopularBooks(
-      GetMostPopularBooks event, Emitter<MostPopularBooksState> emit) async {
-    emit(const MostPopularBooksLoading());
+  MostPopularBooksProvider(this.useCase);
+
+  Future<void> getMostPopularBooks() async {
     try {
-
+      _setLoading();
       final result = await useCase.execute();
 
       result.fold((failure) {
         if (failure is ServerFailure) {
-          emit(const MostPopularBooksError(
-              FailureMessageConstants.serverFailureMessage));
+          _setError(FailureMessageConstants.serverFailureMessage);
         } else if (failure is ConnectionFailure) {
-          emit(const MostPopularBooksError(
-              FailureMessageConstants.connectionFailureMessage));
+          _setError(FailureMessageConstants.connectionFailureMessage);
         } else {
-          emit(MostPopularBooksError(failure.toString()));
+          _setError(failure.toString());
         }
       }, (data) {
-        emit(MostPopularBooksLoaded(data));
-        if (data.isEmpty) {
-          emit(const MostPopularBooksEmpty());
+        if (data.isNotEmpty) {
+          _setLoaded(data);
+        } else {
+          _setEmpty();
         }
       });
     } catch (e) {
-      emit(MostPopularBooksError(e.toString()));
+      _setError(e.toString());
     }
+  }
+
+  void _setLoading() {
+    _state = const MostPopularBooksLoading();
+    notifyListeners();
+  }
+
+  void _setLoaded(List<MostPopularBooksEntity> data) {
+    _state = MostPopularBooksLoaded(data);
+    notifyListeners();
+  }
+
+  void _setError(String errorMessage) {
+    _state = MostPopularBooksError(errorMessage);
+    notifyListeners();
+  }
+
+  void _setEmpty() {
+    _state = const MostPopularBooksEmpty();
+    notifyListeners();
   }
 }

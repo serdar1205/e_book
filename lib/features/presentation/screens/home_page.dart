@@ -5,7 +5,6 @@ import 'package:e_book/features/presentation/widgets/detail_widgets/search.dart'
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:e_book/injection_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import '../../../core/sizes/app_text.dart';
 import '../../../core/themes/app_theme.dart';
@@ -107,8 +106,9 @@ class HomePage extends StatelessWidget {
   }
 
   _authorsList() {
-    return BlocBuilder<MostPopularAuthorsListBloc, MostPopularAuthorsListState>(
-      builder: (context, state) {
+    return Consumer<MostPopularAuthorsProvider>(
+      builder: (context, provider, _) {
+        final state = provider.state;
         if (state is MostPopularAuthorsListLoading) {
           return const Center(
             child: LoadingWidget(key: Key('loading'),),

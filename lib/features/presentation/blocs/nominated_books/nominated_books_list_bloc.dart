@@ -1,51 +1,63 @@
 import 'dart:async';
-import 'package:dartz/dartz.dart';
-import 'package:bloc/bloc.dart';
 import 'package:e_book/core/constants/constants.dart';
 import 'package:e_book/core/errors/failures.dart';
 import 'package:e_book/features/domain/entity/nominated_books_entity.dart';
 import 'package:e_book/features/domain/usecases/get_nominated_books_usecase.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-part 'nominated_books_list_event.dart';
-
+import 'package:flutter/cupertino.dart';
 part 'nominated_books_list_state.dart';
 
-class NominatedBooksListBloc
-    extends Bloc<NominatedBooksListEvent, NominatedBooksListState> {
+class NominatedBooksListProvider extends ChangeNotifier {
   GetNominatedBooksUseCase useCase;
 
-  NominatedBooksListBloc({required this.useCase})
-      : super(const NominatedBooksListLoadingState()) {
-    on<GetNominatedBooksListEvent>(getNominatedBooksListEvent);
-  }
+  NominatedBooksListState _state = const NominatedBooksListLoadingState();
 
-  Future<void> getNominatedBooksListEvent(GetNominatedBooksListEvent event,
-      Emitter<NominatedBooksListState> emit) async {
-    emit(const NominatedBooksListLoadingState());
+  NominatedBooksListState get state => _state;
+
+  NominatedBooksListProvider({required this.useCase});
+
+  Future<void> getNominatedBooksListEvent() async {
     try {
-
+      _setLoading();
       final result = await useCase.execute();
 
       result.fold((failure) {
         if (failure is ServerFailure) {
-          emit(const NominatedBooksListErrorState(
-              FailureMessageConstants.serverFailureMessage));
+          _setError(FailureMessageConstants.serverFailureMessage);
         } else if (failure is ConnectionFailure) {
-          emit(const NominatedBooksListErrorState(
-              FailureMessageConstants.connectionFailureMessage));
+          _setError(FailureMessageConstants.connectionFailureMessage);
         } else {
-          emit(NominatedBooksListErrorState(failure.toString()));
+          _setError(failure.toString());
         }
       }, (data) {
-        emit(NominatedBooksListLoadedState(data));
-        if (data.isEmpty) {
-          emit(const NominatedBooksListEmptyState());
+        if (data.isNotEmpty) {
+          _setLoaded(data);
+        } else {
+          _setEmpty();
         }
       });
     } catch (e) {
-      emit(NominatedBooksListErrorState(e.toString()));
+      _setError(e.toString());
     }
+  }
+
+  void _setLoading() {
+    _state = const NominatedBooksListLoadingState();
+    notifyListeners();
+  }
+
+  void _setLoaded(List<NominatedBooksEntity> data) {
+    _state = NominatedBooksListLoadedState(data);
+    notifyListeners();
+  }
+
+  void _setError(String errorMessage) {
+    _state = NominatedBooksListErrorState(errorMessage);
+    notifyListeners();
+  }
+
+  void _setEmpty() {
+    _state = const NominatedBooksListEmptyState();
+    notifyListeners();
   }
 }

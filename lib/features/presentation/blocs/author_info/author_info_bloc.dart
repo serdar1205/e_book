@@ -1,45 +1,66 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:e_book/core/constants/api.dart';
 import 'package:e_book/core/errors/failures.dart';
 import 'package:e_book/features/domain/entity/author_info_entity.dart';
 import 'package:e_book/features/domain/usecases/get_author_info_usecasae.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-
-part 'author_info_event.dart';
+import 'package:flutter/cupertino.dart';
 
 part 'author_info_state.dart';
 
-class AuthorInfoBloc extends Bloc<AuthorInfoEvent, AuthorInfoState> {
+class AuthorInfoProvider extends ChangeNotifier {
   GetAuthorInfoUseCase useCase;
+  AuthorInfoState _state = AuthorInfoLoading();
 
-  AuthorInfoBloc(this.useCase) : super(const AuthorInfoLoading()) {
-    on<GetAuthorInfo>(getAuthorInfoById);
-  }
+  AuthorInfoState get state => _state;
 
-  Future<void> getAuthorInfoById(
-      GetAuthorInfo event, Emitter<AuthorInfoState> emit) async {
-    emit(const AuthorInfoLoading());
+  AuthorInfoProvider(this.useCase);
+
+  Future<void> getAuthorInfoById(int authorId) async {
     try {
-      final int authorId = event.authorId;
+      _setLoading();
+
       final result = await useCase.execute(authorId);
 
       result.fold((failure) {
         if (failure is ServerFailure) {
-          emit(const AuthorInfoError(
-              FailureMessageConstants.serverFailureMessage));
+          _setError(FailureMessageConstants.serverFailureMessage);
         } else if (failure is ConnectionFailure) {
-          emit(const AuthorInfoError(
-              FailureMessageConstants.connectionFailureMessage));
+          _setError(FailureMessageConstants.connectionFailureMessage);
         } else {
-          emit(AuthorInfoError(failure.toString()));
+          _setError(failure.toString());
         }
       }, (data) {
-        emit(AuthorInfoLoaded(data));
+        if (data.isNotEmpty) {
+          _setLoaded(data);
+        } else {
+          _setEmpty();
+        }
       });
     } catch (e) {
-      emit(AuthorInfoError(e.toString()));
+      _setError(e.toString());
     }
+  }
+
+  void _setLoading() {
+    _state = AuthorInfoLoading();
+    notifyListeners();
+  }
+
+
+
+  void _setLoaded(AuthorInfoEntity data) {
+    _state = AuthorInfoLoaded(data);
+    notifyListeners();
+  }
+
+  void _setError(String errorMessage) {
+    _state = AuthorInfoError(errorMessage);
+    notifyListeners();
+  }
+
+  void _setEmpty() {
+    _state = AuthorInfoEmpty();
+    notifyListeners();
   }
 }

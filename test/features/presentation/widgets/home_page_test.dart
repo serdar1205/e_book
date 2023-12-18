@@ -8,13 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 import '../../helper/test_helper.mocks.dart';
 
 void main() {
-  late MockMostPopularAuthorsListBloc authorsListBloc;
+  late MockMostPopularAuthorsProvider authorsListProvider;
 
   setUp(() {
-    authorsListBloc = MockMostPopularAuthorsListBloc();
+    authorsListProvider = MockMostPopularAuthorsProvider();
     HttpOverrides.global = null;
   });
   const authorEntity = MostPopularAuthorModel(
@@ -28,8 +29,8 @@ void main() {
       numberPublishedBooks: 2567);
   // ignore: no_leading_underscores_for_local_identifiers
   Widget _makeTestableWidget(Widget body) {
-    return BlocProvider<MostPopularAuthorsListBloc>(
-      create: (context) => authorsListBloc,
+    return ChangeNotifierProvider<MostPopularAuthorsProvider>(
+      create: (context) => authorsListProvider,
       child: MaterialApp(
         home: body,
       ),
@@ -96,7 +97,7 @@ void main() {
     testWidgets(
         'LoadingWidget should render when state is MostPopularAuthorsListLoading',
         (WidgetTester tester) async {
-      when(authorsListBloc.state).thenReturn(MostPopularAuthorsListLoading());
+      when(authorsListProvider.state).thenReturn(MostPopularAuthorsListLoading());
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const HomePage())));
 
@@ -104,7 +105,7 @@ void main() {
     });
     testWidgets('Text should render when state is MostPopularAuthorsListEmpty',
         (WidgetTester tester) async {
-      when(authorsListBloc.state).thenReturn(MostPopularAuthorsListEmpty());
+      when(authorsListProvider.state).thenReturn(MostPopularAuthorsListEmpty());
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const HomePage())));
       expect(find.text('Empty Author'), findsOneWidget);
@@ -113,7 +114,7 @@ void main() {
     testWidgets(
         'AuthorsListCard should render when state is MostPopularAuthorsListLoaded',
         (WidgetTester tester) async {
-      when(authorsListBloc.state)
+      when(authorsListProvider.state)
           .thenReturn(const MostPopularAuthorsListLoaded([authorEntity]));
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const HomePage())));
@@ -123,7 +124,7 @@ void main() {
 
     testWidgets('Text should render when state is NominatedBooksListErrorState',
             (WidgetTester tester) async {
-          when(authorsListBloc.state).thenReturn(const MostPopularAuthorsListError('Error occurred.'));
+          when(authorsListProvider.state).thenReturn(const MostPopularAuthorsListError('Error occurred.'));
           await tester.pumpWidget(
               _makeTestableWidget(_makeTestableWidget(const HomePage())));
           expect(find.byKey( const Key('Error')), findsOneWidget);

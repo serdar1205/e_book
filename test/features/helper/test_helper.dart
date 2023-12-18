@@ -77,12 +77,12 @@ import 'package:mockito/annotations.dart';
   MockSpec<GetWeeklyPopularBooksUseCase>(),
 
   ///bloc
-  MockSpec<AuthorInfoBloc>(),
-  MockSpec<AwardedBooksBloc>(),
-  MockSpec<BookDetailsBloc>(),
-  MockSpec<MostPopularAuthorsListBloc>(),
-  MockSpec<MostPopularBooksBloc>(),
-  MockSpec<NominatedBooksListBloc>(),
-  MockSpec<WeeklyPopularBooksBloc>(),
+  MockSpec<AuthorInfoProvider>(),
+  MockSpec<AwardedBooksProvider>(),
+  MockSpec<BookDetailsProvider>(),
+  MockSpec<MostPopularAuthorsProvider>(),
+  MockSpec<MostPopularBooksProvider>(),
+  MockSpec<NominatedBooksListProvider>(),
+  MockSpec<WeeklyPopularBooksProvider>(),
 ])
 void main() {}

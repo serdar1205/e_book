@@ -8,15 +8,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../helper/test_helper.mocks.dart';
-import 'package:bloc_test/bloc_test.dart';
 
 void main() {
-  late AuthorInfoBloc authorInfoBloc;
+  late AuthorInfoProvider authorInfoProvider;
   late MockGetAuthorInfoUseCase useCase;
 
   setUp(() {
     useCase = MockGetAuthorInfoUseCase();
-    authorInfoBloc = AuthorInfoBloc(useCase);
+    authorInfoProvider = AuthorInfoProvider(useCase);
   });
 
   final testJson = fixtureReader("author_info.json");
@@ -25,72 +24,92 @@ void main() {
 
   test('initial state should be AuthorInfoLoading', () async {
     //assert
-    expect(authorInfoBloc.state, const AuthorInfoLoading());
+    expect(authorInfoProvider.state, AuthorInfoLoading());
   });
 
   group('getAuthorInfoById event', () {
-    blocTest<AuthorInfoBloc, AuthorInfoState>(
-        'should emit [AuthorInfoLoading , AuthorInfoLoaded]',
-        build: () {
-          when(useCase.execute(any))
-              .thenAnswer((realInvocation) async => Right(testModel));
-          return authorInfoBloc;
-        },
-        act: (bloc) => bloc.add(GetAuthorInfo(authorId!)),
-        expect: () => [
-              const AuthorInfoLoading(),
-              AuthorInfoLoaded(testModel),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute(authorId));
-        });
+    test('should emit [AuthorInfoLoading , AuthorInfoLoaded]', () async {
+      // Arrange
+      when(useCase.execute(any)).thenAnswer((_) async => Right(testModel));
 
-    blocTest(
+      // Act
+      authorInfoProvider
+          .getAuthorInfoById(authorId!); // Assuming 123 is the authorId
+
+      // Assert
+      expect(authorInfoProvider.state, equals(AuthorInfoLoading()));
+      expect(authorInfoProvider.state, isA<AuthorInfoLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(authorInfoProvider.state, isA<AuthorInfoLoaded>());
+      expect((authorInfoProvider.state as AuthorInfoLoaded).authorInfoEntity,
+          equals(testModel));
+    });
+
+    test(
         'should emit [AuthorInfoLoading, AuthorInfoError] when occurred ServerFailure error',
-        build: () {
-          when(useCase.execute(any))
-              .thenAnswer((_) async => Left(ServerFailure()));
-          return authorInfoBloc;
-        },
-        act: (bloc) => bloc.add(GetAuthorInfo(authorId!)),
-        expect: () => [
-              const AuthorInfoLoading(),
-              const AuthorInfoError(
-                  FailureMessageConstants.serverFailureMessage)
-            ],
-        verify: (bloc) {
-          verify(useCase.execute(authorId));
-        });
-    blocTest(
-        'should emit [AuthorInfoLoading, AuthorInfoError] when occurred ConnectionFailure error',
-        build: () {
-          when(useCase.execute(any))
-              .thenAnswer((_) async => Left(ConnectionFailure()));
-          return authorInfoBloc;
-        },
-        act: (bloc) => bloc.add(GetAuthorInfo(authorId!)),
-        expect: () => [
-              const AuthorInfoLoading(),
-              const AuthorInfoError(
-                  FailureMessageConstants.connectionFailureMessage),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute(authorId));
-        });
+        () async {
+      // Arrange
+      when(useCase.execute(any)).thenAnswer((_) async => Left(ServerFailure()));
 
-    blocTest(
-        'should emit [AuthorInfoLoading, AuthorInfoError] when data is unsuccessful',
-        build: () {
-          when(useCase.execute(any)).thenThrow('Something went wrong');
-          return authorInfoBloc;
-        },
-        act: (bloc) => bloc.add(GetAuthorInfo(authorId!)),
-        expect: () => [
-              const AuthorInfoLoading(),
-              const AuthorInfoError('Something went wrong'),
-            ],
-        verify: (bloc) {
-          verify(useCase.execute(authorId));
-        });
+      // Act
+      authorInfoProvider
+          .getAuthorInfoById(authorId!); // Assuming 123 is the authorId
+
+      // Assert
+      expect(authorInfoProvider.state, equals(AuthorInfoLoading()));
+      expect(authorInfoProvider.state, isA<AuthorInfoLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(authorInfoProvider.state, isA<AuthorInfoError>());
+      expect((authorInfoProvider.state as AuthorInfoError).error,
+          equals(FailureMessageConstants.serverFailureMessage));
+    });
+
+    test(
+        'should emit [AuthorInfoLoading, AuthorInfoError] when occurred ConnectionFailure error',
+        () async {
+      // Arrange
+      when(useCase.execute(any))
+          .thenAnswer((_) async => Left(ConnectionFailure()));
+
+      // Act
+      authorInfoProvider
+          .getAuthorInfoById(authorId!); // Assuming 123 is the authorId
+
+      // Assert
+      expect(authorInfoProvider.state, equals(AuthorInfoLoading()));
+      expect(authorInfoProvider.state, isA<AuthorInfoLoading>());
+      // Wait for the async operation to complete
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(authorInfoProvider.state, isA<AuthorInfoError>());
+      expect((authorInfoProvider.state as AuthorInfoError).error,
+          equals(FailureMessageConstants.connectionFailureMessage));
+    });
+
+    test(
+        'should emit [AuthorInfoError] when data is unsuccessful',
+        () async {
+      // Arrange
+      when(useCase.execute(any)).thenThrow('Something went wrong');
+
+      // Act
+      authorInfoProvider
+          .getAuthorInfoById(authorId!); // Assuming 123 is the authorId
+
+      await Future.delayed(Duration.zero);
+
+      // Assert again after the async operation
+      expect(authorInfoProvider.state, isA<AuthorInfoError>());
+      expect((authorInfoProvider.state as AuthorInfoError).error,
+          equals('Something went wrong'));
+    });
+
   });
 }

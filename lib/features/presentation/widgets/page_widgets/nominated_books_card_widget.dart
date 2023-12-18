@@ -1,12 +1,10 @@
 import 'package:e_book/core/routers/app_router.dart';
-import 'package:e_book/core/routers/app_routes.dart';
 import 'package:e_book/core/sizes/app_text.dart';
 import 'package:e_book/features/domain/entity/nominated_books_entity.dart';
 import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart';
-import 'package:e_book/features/presentation/screens/book_details_page.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/picture_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 
 class NominatedBooksCardWidget extends StatelessWidget {
@@ -24,7 +22,7 @@ class NominatedBooksCardWidget extends StatelessWidget {
 
           appRouter.push(BookDetailsRoute(bookId: nominatedBooksEntity.bookId!));
 
-          context.read<BookDetailsBloc>().add(GetBookDetails(nominatedBooksEntity.bookId!));
+          context.read<BookDetailsProvider>().getBookDetailsById(nominatedBooksEntity.bookId!);
         },
         child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),

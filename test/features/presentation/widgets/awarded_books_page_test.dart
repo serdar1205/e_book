@@ -1,16 +1,15 @@
 import 'package:e_book/features/data/model/model.dart';
 import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart';
 import 'package:e_book/features/presentation/screens/screens.dart';
-import 'package:e_book/features/presentation/widgets/detail_widgets/loading_widget.dart';
 import 'package:e_book/features/presentation/widgets/page_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
 import '../../helper/test_helper.mocks.dart';
 
 void main() {
-  late MockAwardedBooksBloc awardedBooksBloc;
+  late MockAwardedBooksProvider awardedBooksProvider;
   const awardedBooksEntity = AwardedBooksModel(
     bookId: 56597885,
     name: 'Beautiful World, Where Are You',
@@ -21,13 +20,13 @@ void main() {
   );
 
   setUp(() {
-    awardedBooksBloc = MockAwardedBooksBloc();
+    awardedBooksProvider = MockAwardedBooksProvider();
   });
 
   // ignore: no_leading_underscores_for_local_identifiers
   Widget _makeTestableWidget(Widget body) {
-    return BlocProvider<AwardedBooksBloc>(
-      create: (context) => awardedBooksBloc,
+    return ChangeNotifierProvider<AwardedBooksProvider>(
+      create: (context) => awardedBooksProvider,
       child: MaterialApp(
         home: body,
       ),
@@ -66,7 +65,7 @@ void main() {
   group('when state changes these widgets should render', () {
     testWidgets('LoadingWidget should render when state is AwardedBooksLoading',
         (WidgetTester tester) async {
-      when(awardedBooksBloc.state).thenReturn(AwardedBooksLoading());
+      when(awardedBooksProvider.state).thenReturn(AwardedBooksLoading());
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const AwardedBooksPage())));
 
@@ -74,7 +73,7 @@ void main() {
     });
     testWidgets('Text should render when state is AwardedBooksEmpty',
         (WidgetTester tester) async {
-      when(awardedBooksBloc.state).thenReturn(const AwardedBooksEmpty());
+      when(awardedBooksProvider.state).thenReturn(const AwardedBooksEmpty());
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const AwardedBooksPage())));
       expect(find.text('Empty Awarded books'), findsOneWidget);
@@ -83,7 +82,7 @@ void main() {
     testWidgets(
         'AwardedBooksCardWidget should render when state is AwardedBooksLoaded',
         (WidgetTester tester) async {
-      when(awardedBooksBloc.state)
+      when(awardedBooksProvider.state)
           .thenReturn(const AwardedBooksLoaded([awardedBooksEntity]));
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const AwardedBooksPage())));
@@ -93,7 +92,7 @@ void main() {
 
     testWidgets('Text should render when state is AwardedBooksError',
         (WidgetTester tester) async {
-      when(awardedBooksBloc.state)
+      when(awardedBooksProvider.state)
           .thenReturn(const AwardedBooksError('Error occurred.'));
       await tester.pumpWidget(
           _makeTestableWidget(_makeTestableWidget(const AwardedBooksPage())));
