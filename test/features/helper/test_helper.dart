@@ -16,13 +16,14 @@ import 'package:e_book/features/data/datasource/local/weekly_popular_books_cache
 import 'package:e_book/features/data/datasource/remote/remote_datasources.dart';
 import 'package:e_book/features/domain/repositories/repositories.dart';
 import 'package:e_book/features/domain/usecases/usecase.dart';
-import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart';
-import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart';
-import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart';
-import 'package:e_book/features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart';
-import 'package:e_book/features/presentation/blocs/most_popular_books/most_popular_books_bloc.dart';
-import 'package:e_book/features/presentation/blocs/nominated_books/nominated_books_list_bloc.dart';
-import 'package:e_book/features/presentation/blocs/weekly_popular_books/weekly_popular_books_bloc.dart';
+import 'package:e_book/features/presentation/providers/author_info/author_info_provider.dart';
+import 'package:e_book/features/presentation/providers/awarded_books/awarded_books_provider.dart';
+import 'package:e_book/features/presentation/providers/book_details/book_details_provider.dart';
+import 'package:e_book/features/presentation/providers/most_popular_authors_list/most_popular_authors_provider.dart';
+import 'package:e_book/features/presentation/providers/most_popular_books/most_popular_books_provider.dart';
+import 'package:e_book/features/presentation/providers/nominated_books/nominated_books_list_provider.dart';
+import 'package:e_book/features/presentation/providers/weekly_popular_books/weekly_popular_books_provider.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 

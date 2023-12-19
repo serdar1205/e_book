@@ -1,6 +1,6 @@
 import 'package:e_book/features/data/model/model.dart';
 import 'package:e_book/features/domain/entity/entity.dart';
-import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart';
+import 'package:e_book/features/presentation/providers/author_info/author_info_provider.dart';
 import 'package:e_book/features/presentation/screens/screens.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/author_info_card_widget.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';

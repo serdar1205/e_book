@@ -1,4 +1,4 @@
-part of 'book_details_bloc.dart';
+part of 'book_details_provider.dart';
 
 @immutable
 abstract class BookDetailsState extends Equatable {}

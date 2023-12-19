@@ -2,7 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:e_book/core/colors/app_colors.dart';
 import 'package:e_book/core/sizes/app_text.dart';
 import 'package:e_book/features/domain/entity/author_info_entity.dart';
-import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart';
+import 'package:e_book/features/presentation/providers/author_info/author_info_provider.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/author_info_card_widget.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:flutter/material.dart';

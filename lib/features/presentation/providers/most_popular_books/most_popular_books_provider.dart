@@ -32,6 +32,7 @@ class MostPopularBooksProvider extends ChangeNotifier {
       }, (data) {
         if (data.isNotEmpty) {
           _setLoaded(data);
+          print(data);
         } else {
           _setEmpty();
         }

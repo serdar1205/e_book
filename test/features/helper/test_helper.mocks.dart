@@ -82,19 +82,19 @@ import 'package:e_book/features/domain/usecases/get_nominated_books_usecase.dart
     as _i31;
 import 'package:e_book/features/domain/usecases/get_weekly_popular_books_usecase.dart'
     as _i33;
-import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart'
+import 'package:e_book/features/presentation/providers/author_info/author_info_provider.dart'
     as _i22;
-import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart'
+import 'package:e_book/features/presentation/providers/awarded_books/awarded_books_provider.dart'
     as _i24;
-import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart'
+import 'package:e_book/features/presentation/providers/book_details/book_details_provider.dart'
     as _i26;
-import 'package:e_book/features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart'
+import 'package:e_book/features/presentation/providers/most_popular_authors_list/most_popular_authors_provider.dart'
     as _i28;
-import 'package:e_book/features/presentation/blocs/most_popular_books/most_popular_books_bloc.dart'
+import 'package:e_book/features/presentation/providers/most_popular_books/most_popular_books_provider.dart'
     as _i30;
-import 'package:e_book/features/presentation/blocs/nominated_books/nominated_books_list_bloc.dart'
+import 'package:e_book/features/presentation/providers/nominated_books/nominated_books_list_provider.dart'
     as _i32;
-import 'package:e_book/features/presentation/blocs/weekly_popular_books/weekly_popular_books_bloc.dart'
+import 'package:e_book/features/presentation/providers/weekly_popular_books/weekly_popular_books_provider.dart'
     as _i34;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;

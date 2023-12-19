@@ -1,4 +1,4 @@
-part of 'author_info_bloc.dart';
+part of 'author_info_provider.dart';
 
 abstract class AuthorInfoState extends Equatable with ChangeNotifier {
   AuthorInfoState();

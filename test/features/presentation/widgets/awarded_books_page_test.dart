@@ -1,5 +1,5 @@
 import 'package:e_book/features/data/model/model.dart';
-import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart';
+import 'package:e_book/features/presentation/providers/awarded_books/awarded_books_provider.dart';
 import 'package:e_book/features/presentation/screens/screens.dart';
 import 'package:e_book/features/presentation/widgets/page_widgets/widgets.dart';
 import 'package:flutter/material.dart';

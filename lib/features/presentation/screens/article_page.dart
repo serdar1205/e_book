@@ -1,7 +1,7 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 //
-// import '../blocs/most_popular_authors_list/most_popular_authors_bloc.dart';
+// import '../blocs/most_popular_authors_list/most_popular_authors_provider.dart';
 //
 //
 // class AuthorPage extends StatelessWidget {

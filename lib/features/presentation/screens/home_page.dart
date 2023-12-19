@@ -1,6 +1,5 @@
 import 'package:auto_route/annotations.dart';
 import 'package:e_book/core/constants/constants.dart';
-import 'package:e_book/features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/search.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:e_book/injection_container.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/sizes/app_text.dart';
 import '../../../core/themes/app_theme.dart';
+import '../providers/most_popular_authors_list/most_popular_authors_provider.dart';
 
 @RoutePage()
 class HomePage extends StatelessWidget {

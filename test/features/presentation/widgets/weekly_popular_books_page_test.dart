@@ -1,11 +1,9 @@
 import 'package:e_book/features/data/model/model.dart';
-import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart';
-import 'package:e_book/features/presentation/blocs/weekly_popular_books/weekly_popular_books_bloc.dart';
+import 'package:e_book/features/presentation/providers/weekly_popular_books/weekly_popular_books_provider.dart';
 import 'package:e_book/features/presentation/screens/screens.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/loading_widget.dart';
 import 'package:e_book/features/presentation/widgets/page_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';

@@ -1,4 +1,4 @@
-part of 'most_popular_books_bloc.dart';
+part of 'most_popular_books_provider.dart';
 
 @immutable
 abstract class MostPopularBooksState extends Equatable {

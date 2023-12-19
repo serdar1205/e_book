@@ -1,4 +1,4 @@
-part of 'most_popular_authors_bloc.dart';
+part of 'most_popular_authors_provider.dart';
 
 abstract class MostPopularAuthorsListState extends Equatable {
   const MostPopularAuthorsListState();

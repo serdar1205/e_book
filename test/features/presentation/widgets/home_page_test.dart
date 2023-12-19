@@ -1,11 +1,10 @@
 import 'dart:io';
 import 'package:e_book/core/constants/strings.dart';
 import 'package:e_book/features/data/model/model.dart';
-import 'package:e_book/features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart';
+import 'package:e_book/features/presentation/providers/most_popular_authors_list/most_popular_authors_provider.dart';
 import 'package:e_book/features/presentation/screens/screens.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';

@@ -1,10 +1,10 @@
 import 'package:e_book/core/routers/app_router.dart';
 import 'package:e_book/core/sizes/app_text.dart';
 import 'package:e_book/features/domain/entity/most_popular_authors_entity.dart';
-import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/author_info/author_info_provider.dart';
 import 'picture_widgets.dart';
 
 class AuthorsListCard extends StatelessWidget {

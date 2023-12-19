@@ -1,4 +1,4 @@
-part of 'nominated_books_list_bloc.dart';
+part of 'nominated_books_list_provider.dart';
 
 @immutable
 abstract class NominatedBooksListState extends Equatable {

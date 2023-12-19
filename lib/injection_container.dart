@@ -14,13 +14,13 @@ import 'features/data/datasource/remote/remote_datasources.dart';
 import 'features/data/repository/repositories_impl.dart';
 import 'features/domain/repositories/repositories.dart';
 import 'features/domain/usecases/usecase.dart';
-import 'features/presentation/blocs/author_info/author_info_bloc.dart';
-import 'features/presentation/blocs/awarded_books/awarded_books_bloc.dart';
-import 'features/presentation/blocs/book_details/book_details_bloc.dart';
-import 'features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart';
-import 'features/presentation/blocs/most_popular_books/most_popular_books_bloc.dart';
-import 'features/presentation/blocs/nominated_books/nominated_books_list_bloc.dart';
-import 'features/presentation/blocs/weekly_popular_books/weekly_popular_books_bloc.dart';
+import 'features/presentation/providers/author_info/author_info_provider.dart';
+import 'features/presentation/providers/awarded_books/awarded_books_provider.dart';
+import 'features/presentation/providers/book_details/book_details_provider.dart';
+import 'features/presentation/providers/most_popular_authors_list/most_popular_authors_provider.dart';
+import 'features/presentation/providers/most_popular_books/most_popular_books_provider.dart';
+import 'features/presentation/providers/nominated_books/nominated_books_list_provider.dart';
+import 'features/presentation/providers/weekly_popular_books/weekly_popular_books_provider.dart';
 
 final locator = GetIt.instance;
 

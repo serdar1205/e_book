@@ -1,9 +1,10 @@
 import 'package:auto_route/annotations.dart';
-import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:e_book/features/presentation/widgets/page_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/awarded_books/awarded_books_provider.dart';
 
 @RoutePage()
 class AwardedBooksPage extends StatelessWidget {

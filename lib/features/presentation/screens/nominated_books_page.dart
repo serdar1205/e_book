@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
-import 'package:e_book/features/presentation/blocs/nominated_books/nominated_books_list_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../providers/nominated_books/nominated_books_list_provider.dart';
 import '../widgets/detail_widgets/loading_widget.dart';
 import '../widgets/page_widgets/nominated_books_card_widget.dart';
 

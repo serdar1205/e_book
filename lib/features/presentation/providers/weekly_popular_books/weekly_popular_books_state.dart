@@ -1,4 +1,4 @@
-part of 'weekly_popular_books_bloc.dart';
+part of 'weekly_popular_books_provider.dart';
 
 @immutable
 abstract class WeeklyPopularBooksState extends Equatable {

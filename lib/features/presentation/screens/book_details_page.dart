@@ -1,12 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:e_book/core/sizes/app_text.dart';
 import 'package:e_book/features/domain/entity/book_detail_entity.dart';
-import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/book_detail_card_widget.dart';
 import 'package:e_book/features/presentation/widgets/detail_widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/colors/app_colors.dart';
+import '../providers/book_details/book_details_provider.dart';
 
 @RoutePage()
 class BookDetailsPage extends StatelessWidget {

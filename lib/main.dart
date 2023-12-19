@@ -1,15 +1,15 @@
 import 'package:e_book/core/routers/app_router.dart';
-import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart';
-import 'package:e_book/features/presentation/blocs/awarded_books/awarded_books_bloc.dart';
-import 'package:e_book/features/presentation/blocs/book_details/book_details_bloc.dart';
-import 'package:e_book/features/presentation/blocs/most_popular_books/most_popular_books_bloc.dart';
-import 'package:e_book/features/presentation/blocs/nominated_books/nominated_books_list_bloc.dart';
-import 'package:e_book/features/presentation/blocs/weekly_popular_books/weekly_popular_books_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'core/themes/app_theme.dart';
-import 'features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart';
+import 'features/presentation/providers/author_info/author_info_provider.dart';
+import 'features/presentation/providers/awarded_books/awarded_books_provider.dart';
+import 'features/presentation/providers/book_details/book_details_provider.dart';
+import 'features/presentation/providers/most_popular_authors_list/most_popular_authors_provider.dart';
+import 'features/presentation/providers/most_popular_books/most_popular_books_provider.dart';
+import 'features/presentation/providers/nominated_books/nominated_books_list_provider.dart';
+import 'features/presentation/providers/weekly_popular_books/weekly_popular_books_provider.dart';
 import 'injection_container.dart';
 
 void main() async {

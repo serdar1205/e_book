@@ -3,7 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:e_book/core/constants/api.dart';
 import 'package:e_book/core/errors/errors.dart';
 import 'package:e_book/features/data/model/author_info_model.dart';
-import 'package:e_book/features/presentation/blocs/author_info/author_info_bloc.dart';
+import 'package:e_book/features/presentation/providers/author_info/author_info_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../fixtures/fixture_reader.dart';

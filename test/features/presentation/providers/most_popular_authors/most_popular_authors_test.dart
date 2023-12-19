@@ -3,12 +3,11 @@ import 'package:dartz/dartz.dart';
 import 'package:e_book/core/constants/api.dart';
 import 'package:e_book/core/errors/errors.dart';
 import 'package:e_book/features/data/model/model.dart';
-import 'package:e_book/features/presentation/blocs/most_popular_authors_list/most_popular_authors_bloc.dart';
+import 'package:e_book/features/presentation/providers/most_popular_authors_list/most_popular_authors_provider.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../../../../fixtures/fixture_reader.dart';
 import '../../../helper/test_helper.mocks.dart';
-import 'package:bloc_test/bloc_test.dart';
 
 void main() {
   late MostPopularAuthorsProvider authorsListProvider;
